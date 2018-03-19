@@ -34,8 +34,11 @@ Si con lo anterior no te he convencido, añádele el reto personal de crear algo
 
 ### Equipo
 
- - [Jorgeural @jorgeural](https://github.com/Jorgeural/) (Co-leader Backend/Frontend Developer)
+ - [Jorge Urosa Alonso @jorgeural](https://github.com/Jorgeural/) (Co-leader Backend/Frontend Developer)
  - [Pablo Carmona Gonzalez](https://github.com/PabloCarmona) (Co-leader  Backend/Frontend Developer)
+ - [Jorge Baumann @baumannzone](https://github.com/baumannzone) (Co-leader  Backend/Frontend Developer)
+ - [Jonathan Martin @jonasync ](https://github.com/jonasync) (Co-leader  Backend/Frontend Developer)
+ - [Santiago Trigo Porres @trigoporres ](https://github.com/trigoporres) (Co-leader  Backend/Frontend Developer)
 
 
 ##### Agradecimientos
