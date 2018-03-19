@@ -3,14 +3,14 @@
 
 
 
-![travis](https://img.shields.io/travis/OSWeekends/recursos.osweekends.svg)
-![issues abiertos](https://img.shields.io/github/issues/OSWeekends/recursos.osweekends.svg)
-![issues promedio](https://img.shields.io/issuestats/i/github/OSWeekends/recursos.osweekends.svg)
-![PR Abiertos](https://img.shields.io/github/issues-pr/OSWeekends/recursos.osweekends.svg)
-![PR Promedio](https://img.shields.io/issuestats/p/github/OSWeekends/recursos.osweekends.svg)
-![último commit](https://img.shields.io/github/last-commit/OSWeekends/recursos.osweekends/master.svg)
-![TOP Lang](https://img.shields.io/github/languages/top/OSWeekends/recursos.osweekends.svg)
-![total lang](https://img.shields.io/github/languages/count/OSWeekends/recursos.osweekends.svg)
+![travis](https://img.shields.io/travis/OSWeekends/recursos.osweekends.com.svg)
+![issues abiertos](https://img.shields.io/github/issues/OSWeekends/recursos.osweekends.com.svg)
+![issues promedio](https://img.shields.io/issuestats/i/github/OSWeekends/recursos.osweekends.com.svg)
+![PR Abiertos](https://img.shields.io/github/issues-pr/OSWeekends/recursos.osweekends.com.svg)
+![PR Promedio](https://img.shields.io/issuestats/p/github/OSWeekends/recursos.osweekends.com.svg)
+![último commit](https://img.shields.io/github/last-commit/OSWeekends/recursos.osweekends.com/master.svg)
+![TOP Lang](https://img.shields.io/github/languages/top/OSWeekends/recursos.osweekends.com.svg)
+![total lang](https://img.shields.io/github/languages/count/OSWeekends/recursos.osweekends.com.svg)
 
 # Recursos OSWeekends
 
