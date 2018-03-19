@@ -18,7 +18,7 @@
 
  - [ ] TODO: ![Logo de {{proyecto}}]({{LOGO URL}})
 
-Proyecto deidcado a la gestión de los recursos que encontramos por internet.
+Proyecto dedicado a la gestión de los recursos que encontramos por internet.
 
 La idea es centralizar en una web todos esos recursos que encontramos interesantes (charlas, cursos, blogs, documentación, videos, etc etc), y que poco a poco vaya creciendo ofreciendo funcionalidad a los usuarios para que puedan aportar recursos, votarlos, comentarlos, guardarlos en favoritos etc etc
 
@@ -30,7 +30,7 @@ Centralizarlo en una web nos ayudará a que persistan en el tiempo, además, med
 
 Si con lo anterior no te he convencido, añádele el reto personal de crear algo desde 0 enfrentandote a nuevas tecnologías, con el fin de aportar un granito de arena al mundo del opensource,y haciéndolo en compañía de un grupo de personas que comparten filosofía y ambición, donde aprender, enseñar y, por supuesto, donde no falta la cerveza.
 
-**[JOIN US!](CONTRIBUTING.md)**
+**[JOIN US!](CONTRIBUTING.md)** 
 
 ### Equipo
 
@@ -66,6 +66,10 @@ Próximamente
 - [ ] TODO: Cerrar tecnologías a utilizar y cumplimentar dependencias / instalación / tl:DR
 #### Dependencias
 - **{{Nombre libreria/framework}}**: {{Explicación de su uso}}
+
+### Cómo contribuir en el proyecto
+
+Si has leido hasta aquí, y ahora mismo lo que estás pensando es, "cómo he podido vivir sin este proyecto!!, necesito formar parte de él." **[aquí](CONTRIBUTING.md)** tienes toda la información para hacer realidad tu sueño.
 
 
 ### ¿Cómo usarlo?.

@@ -17,16 +17,18 @@ Aquí se definen todas las funcionalidades que componen nuestro producto final.
 Aquí se definen todas las funcionaldiades de caracter tecnico que necsitamos desarrollar/integrar en nuestro producto
 
 - [ ] **Definir stack tecnológico:** Definir el stack con el que se empezará a trabajar en el proyecto.
-- [ ] **Scaffolding proyecto** Crear la arquitectura básica de trabajo.
+- [ ] **Scaffolding proyecto:** Crear la arquitectura básica de trabajo.
+- [ ] **Workflow github:** Crear las ramas necesarias para la gestión del proyecto en github.
 
 
 #### Otros elementos
 
 Aquí se definen todos los elemntos que no forman parte de del desarrollo del prodcuto tecnológico pero sí de su ciclo de vida como por ejemplo campañas promocionales en redes sociales, branding, etc...
 
-- [ ] **Completar README.md:** Completar readme con los datos del equipo
-- [ ] **Definición de rokes:** Asignación de roles entre los integrantes del equipo
-- [ ] **Logo:** Crear logo para el proyecto
+- [ ] **Completar README.md:** Completar readme con los datos del equipo.
+- [ ] **Definición de roles:** Asignación de roles entre los integrantes del equipo.
+- [ ] **Comprobación de permisos:** Asegurarnos que tenemos los permisos necesarios en los repos para poder trabajar sin problema. 
+- [ ] **Logo:** Crear logo para el proyecto.
 
 
 #### Roadmap
