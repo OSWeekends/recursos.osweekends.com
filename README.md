@@ -66,9 +66,24 @@ Próximamente
 
 ### Tecnología utilizada
 
-- [ ] TODO: Cerrar tecnologías a utilizar y cumplimentar dependencias / instalación / tl:DR
+**Backend**
+- Node
+- Express
+- MongoDb
+
+**Frontend**
+- Vue
+
 #### Dependencias
-- **{{Nombre libreria/framework}}**: {{Explicación de su uso}}
+**Backend**
+- **[mongojs](https://www.npmjs.com/package/mongojs)**
+- **[body-parser](https://www.npmjs.com/package/body-parser)**
+- **[ejs](https://www.npmjs.com/package/ejs)**
+- **[express](https://www.npmjs.com/package/express)**
+
+**Frontend**
+- **Vue**: Framework para front
+
 
 ### Cómo contribuir en el proyecto
 
@@ -81,11 +96,23 @@ Si has leido hasta aquí, y ahora mismo lo que estás pensando es, "cómo he pod
 - [ ] TODO
 
 #### Instalación
-- [ ] TODO
+- Instalar [Node](https://nodejs.org/es/)
+- Clona este repositorio
+
+**Backend**
+Dentro de la carpeta **server**
+- Ejecuta `npm install`
+- `npm start` o `nodemon` para iniciar el servidor `http://localhost:8081/`
+
+**Frontend**
+Dentro de la carpeta **client**
+- Ejecuta `npm install`
+- `npm run dev` para inciar front `http://localhost:8080/`
+- `npm run build` para hacer build de producción
 
 ### Estado del proyecto.
 
-Super early stage. Aún definiendo core del equipo. Tecnologías y primer MVP.
+**[Sprint 0](/milestone/1)**
 
 
 ### Releases anteriores
