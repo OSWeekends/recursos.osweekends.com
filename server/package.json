@@ -4,7 +4,8 @@
   "description": "Recursos",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,7 +13,9 @@
     "body-parser": "^1.18.2",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
-    "mongojs": "^2.5.0",
+    "mongojs": "^2.5.0"
+  },
+  "devDependencies": {
     "nodemon": "^1.17.2"
   }
 }
