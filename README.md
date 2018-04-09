@@ -34,11 +34,12 @@ Si con lo anterior no te he convencido, añádele el reto personal de crear algo
 
 ### Equipo
 
- - [Jorge Urosa Alonso @jorgeural](https://github.com/Jorgeural/) (Co-leader Backend/Frontend Developer)
- - [Pablo Carmona Gonzalez](https://github.com/PabloCarmona) (Co-leader  Backend/Frontend Developer)
- - [Jorge Baumann @baumannzone](https://github.com/baumannzone) (Co-leader  Backend/Frontend Developer)
- - [Jonathan Martin @jonasync ](https://github.com/jonasync) (Co-leader  Backend/Frontend Developer)
+ - [Jorge Urosa Alonso @jorgeural](https://github.com/Jorgeural/) (Leader Backend/Frontend Developer)
  - [Santiago Trigo Porres @trigoporres ](https://github.com/trigoporres) (Co-leader  Backend/Frontend Developer)
+ - [Jorge Baumann @baumannzone](https://github.com/baumannzone) (Co-leader  Backend/Frontend Developer)
+ - [Jonathan Martin @jonasync ](https://github.com/jonasync) (Contributor  Backend/Frontend Developer)
+ - [Pablo Carmona Gonzalez](https://github.com/PabloCarmona) (Contributor  Backend/Frontend Developer)
+
 
 
 ##### Agradecimientos
@@ -67,19 +68,12 @@ Próximamente
 ### Tecnología utilizada
 
 **Backend**
-- Node
-- Express
-- MongoDb
+- Firebase
 
 **Frontend**
 - Vue
 
 #### Dependencias
-**Backend**
-- **[mongojs](https://www.npmjs.com/package/mongojs)**
-- **[body-parser](https://www.npmjs.com/package/body-parser)**
-- **[ejs](https://www.npmjs.com/package/ejs)**
-- **[express](https://www.npmjs.com/package/express)**
 
 **Frontend**
 - **Vue**: Framework para front
@@ -100,9 +94,6 @@ Si has leido hasta aquí, y ahora mismo lo que estás pensando es, "cómo he pod
 - Clona este repositorio
 
 **Backend**
-Dentro de la carpeta **server**
-- Ejecuta `npm install`
-- `npm start` o `nodemon` para iniciar el servidor `http://localhost:8081/`
 
 **Frontend**
 Dentro de la carpeta **client**
@@ -112,7 +103,7 @@ Dentro de la carpeta **client**
 
 ### Estado del proyecto.
 
-**[Sprint 0](/milestone/1)**
+**[Sprint 1](/milestone/2)**
 
 
 ### Releases anteriores
