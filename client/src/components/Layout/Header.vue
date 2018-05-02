@@ -54,15 +54,16 @@ ul{
     margin: 0;
 }
 li{
+    color: rgba(255,255,255,0.75);
     display: inline-block;
     margin: 0 10px;
 }
 a{
-    cursor: pointer;
     color: rgba(255,255,255,0.75);
     text-decoration: none;
     font-size: 18px;
     padding: 6px 8px;
+    cursor: pointer;
 }
 nav{
     background: #24292e;
