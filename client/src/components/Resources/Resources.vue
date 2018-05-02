@@ -1,18 +1,15 @@
 <template>
-  <div>
-    <h3>RECURSOS</h3>
+  <div class="container">
     <ul v-for="resource in resource" :key="resource.id">
       <img :src="resource.img">
-      <h3>{{resource.title}}</h3>
+      <a :href="resource.url" target="_blank"><h3>{{resource.title}}</h3></a>
       <p>{{resource.description}}</p>
-      <a :href="resource.url" target="_blank">visitame</a>
     </ul>
-</div>
+  </div>
 </template>
 
 <script>
 import firebase from 'firebase'
-import axios from 'axios'
 
 export default {
   name: 'resources',
@@ -31,16 +28,12 @@ export default {
     resources (resource) {
       this.resource = []
       for (let key in resource) {
-        axios.get('https://api.microlink.io/?url=https%3A%2F%2F' + resource[key].url + '&screenshot&filter=screenshot')
-          .then((response) => {
-            console.log(response.data.data.screenshot.url)
-            this.resource.push({
-              title: resource[key].title,
-              description: resource[key].description,
-              url: 'https://' + resource[key].url,
-              img: response.data.data.screenshot.url
-            })
-          })
+        this.resource.push({
+          title: resource[key].title,
+          description: resource[key].description,
+          url: 'https://' + resource[key].url,
+          img: resource[key].img
+        })
       }
     }
   }
@@ -48,7 +41,29 @@ export default {
 </script>
 
 <style scoped>
+  .container{
+    display: grid;
+    height: 100vh;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  ul{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 30px;
+  }
+  a{
+    display: block;
+  }
+
   img{
-    width: 60%;
+    width: 85%;
   }
 </style>

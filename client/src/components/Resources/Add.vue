@@ -18,6 +18,7 @@
 
 <script>
 import firebase from 'firebase'
+import axios from 'axios'
 
 export default {
   name: 'resources',
@@ -31,16 +32,20 @@ export default {
   },
   methods: {
     addResource () {
-      firebase.database().ref('Recursos')
-        .push({
-          title: this.title,
-          description: this.description,
-          url: this.url
-        })
-        .then(() => {
-          this.title = ''
-          this.description = ''
-          this.url = ''
+      axios.get('https://api.microlink.io/?url=https%3A%2F%2F' + this.url + '&screenshot&filter=screenshot')
+        .then((response) => {
+          firebase.database().ref('Recursos')
+            .push({
+              title: this.title,
+              description: this.description,
+              url: this.url,
+              img: response.data.data.screenshot.url
+            })
+            .then(() => {
+              this.title = ''
+              this.description = ''
+              this.url = ''
+            })
         })
     }
   }
