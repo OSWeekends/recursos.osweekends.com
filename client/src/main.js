@@ -3,6 +3,17 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import firebase from 'firebase'
+
+var config = {
+  apiKey: 'AIzaSyCV1oei0T8oUoYEy3Uv__wQwLvev5pJ_Jc',
+  authDomain: 'recursos-osw.firebaseapp.com',
+  databaseURL: 'https://recursos-osw.firebaseio.com',
+  projectId: 'recursos-osw',
+  storageBucket: 'recursos-osw.appspot.com',
+  messagingSenderId: '566044748794'
+}
+firebase.initializeApp(config)
 
 Vue.config.productionTip = false
 
