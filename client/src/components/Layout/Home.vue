@@ -1,6 +1,11 @@
 <template>
   <div>
     <h3>HOME</h3>
+    <div>
+      <p>Recursos OSW es una </p>
+      <b-button>This is a button</b-button>
+      <b-button href="#">This is a link</b-button>
+    </div>
   </div>
 </template>
 
