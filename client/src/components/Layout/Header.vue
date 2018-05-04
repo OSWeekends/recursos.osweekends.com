@@ -1,7 +1,7 @@
 <template>
   <nav>
     <ul>
-        <li><router-link to="/" exact><img class="logo" src="../../assets/osw.svg"></router-link>  </li>
+        <li><router-link to="/" exact><img class="logo" src="../../assets/osw.svg"></router-link> </li>
         <li><router-link to="/resources" exact>Recursos</router-link>  </li>
         <li><a v-on:click="login"> Login</a></li>
         <li><a v-on:click="logout"> Logout</a></li>
