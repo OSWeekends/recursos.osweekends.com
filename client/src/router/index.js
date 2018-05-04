@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/LAyout/Home'
-import Resources from '@/components/Resources/Resources'
-import Add from '@/components/Resources/Add'
+import ListResources from '@/components/Resources/ListResources'
+import AddResources from '@/components/Resources/AddResources'
 
 Vue.use(Router)
 
@@ -15,13 +15,13 @@ export default new Router({
     },
     {
       path: '/resources',
-      name: 'Resources',
-      component: Resources
+      name: 'ListResources',
+      component: ListResources
     },
     {
       path: '/resources/new',
-      name: 'addResources',
-      component: Add
+      name: 'AddResources',
+      component: AddResources
     }
   ]
 })
