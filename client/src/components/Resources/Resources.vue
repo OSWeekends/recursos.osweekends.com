@@ -15,9 +15,7 @@ export default {
   name: 'resources',
   data () {
     return {
-      msg: 'hola',
-      resource: [],
-      img: ''
+      resource: []
     }
   },
   created () {
@@ -26,7 +24,6 @@ export default {
   },
   methods: {
     resources (resource) {
-      this.resource = []
       for (let key in resource) {
         this.resource.push({
           title: resource[key].title,
