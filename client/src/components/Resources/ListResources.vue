@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div class="fixed-action-btn">
+    <div v-if="isLoggedIn" class="fixed-action-btn">
       <router-link to="/resources/new" class="btn-floating btn-large red">
         <i class="material-icons">add</i>
       </router-link>
@@ -29,12 +29,18 @@ export default {
   name: 'resources',
   data () {
     return {
-      resources: []
+      resources: [],
+      isLoggedIn: false
     }
   },
   created () {
+    // Get the list of resources
     firebase.database().ref('Recursos')
       .on('value', snapshot => this.getResources(snapshot.val()))
+    // check if user is logged
+    if (firebase.auth().currentUser) {
+      this.isLoggedIn = true
+    }
   },
   methods: {
     getResources (resources) {
