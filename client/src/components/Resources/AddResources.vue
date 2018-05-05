@@ -1,25 +1,48 @@
 <template>
-  <div>
-    <form @submit.prevent='addResource'>
-      <label>Titulo</label>
-      <input type='text' v-model='resource.title' placeholder='Titulo'><br><br><br>
-
-      <label>Descripción</label>
-      <textarea v-model='resource.description' col='30' row='10' placeholder='Descripcion'></textarea><br><br><br>
-
-      <label>Url</label>
-      <input type='text' v-model='resource.url' placeholder='Url'>
-
-      <select v-model="resource.type">
-        <option disabled value="">Please select one</option>
-        <option v-for="tipo in types" :key="tipo.id">{{tipo}}</option>
-      </select>
-      <span>Selected: {{ resource.type }}</span>
-
-      <input type='submit' value='guardar'>
-      <pre>{{ resource }}</pre>
-
-    </form>
+  <div class="container">
+    <div class="row">
+      <div class="card-panel center">
+        <h3 class="header center grey-text text-darken-3"> Nuevo recurso</h3>
+        <form @submit.prevent='addResource'>
+          <div class="row">
+            <div class="input-field col s12">
+              <input type='text' v-model='resource.title'>
+              <label>Titulo</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input type='text' v-model='resource.description'>
+              <label>Descripcion</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input type='text' v-model='resource.url'>
+              <label>Url</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+                <md-field>
+                  <label for="category">Categoria</label>
+                  <md-select v-model="resource.type" name="category" id="movie">
+                    <md-option :value="key" v-for="(key, tipo) in types" :key="tipo.id">{{tipo}}</md-option>
+                  </md-select>
+                </md-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="center">
+              <button class="btn waves-effect waves-light" type="submit" name="guardar">Guardar
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+          <pre>{{ resource }}</pre>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 

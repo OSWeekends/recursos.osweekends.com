@@ -1,11 +1,15 @@
 <template>
   <nav>
-    <ul>
-        <li><router-link to="/" exact><img class="logo" src="../../assets/osw.svg"></router-link> </li>
-        <li><router-link to="/resources" exact>Recursos</router-link>  </li>
-        <li><a v-on:click="login"> Login</a></li>
-        <li><a v-on:click="logout"> Logout</a></li>
-    </ul>
+    <div class="nav-wrapper blue lighten-1">
+      <div class="container">
+        <router-link to="/" exact class="brand-logo"><img class="logo" src="../../assets/osw.svg"></router-link>
+        <ul class="right hide-on-med-and-down">
+          <li><router-link to="/resources" exact>Recursos</router-link></li>
+          <li><a v-on:click="login"> Login</a></li>
+          <li><a v-on:click="logout"> Logout</a></li>
+        </ul>
+      </div>
+    </div>
   </nav>
 </template>
 
@@ -45,32 +49,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .logo{
-    width: 50px;
+    width: 75px;
 }
-
-ul{
-    list-style-type: none;
-    text-align: center;
-    margin: 0;
-}
-li{
-    color: rgba(255,255,255,0.75);
-    display: inline-block;
-    margin: 0 10px;
-}
-a{
-    color: rgba(255,255,255,0.75);
-    text-decoration: none;
-    font-size: 18px;
-    padding: 6px 8px;
-    cursor: pointer;
-}
-nav{
-    background: #24292e;
-    padding: 14px 0;
-    margin-bottom: 40px;
-}
-.router-link-active{
-     color: #fff;
-    }
 </style>
