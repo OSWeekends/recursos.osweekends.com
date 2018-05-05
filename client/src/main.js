@@ -4,12 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import firebase from 'firebase'
+import VueMaterial from 'vue-material'
 import 'materialize-css/dist/js/materialize.min.js'
 import 'materialize-css/dist/css/materialize.min.css'
+import 'vue-material/dist/vue-material.min.css'
 
-// import BootstrapVue from 'bootstrap-vue'
-// import 'bootstrap/dist/css/bootstrap.min.css'
-// import 'bootstrap-vue/dist/bootstrap-vue.css'
+Vue.use(VueMaterial)
 
 var config = {
   apiKey: 'AIzaSyCV1oei0T8oUoYEy3Uv__wQwLvev5pJ_Jc',
@@ -22,7 +22,7 @@ var config = {
 firebase.initializeApp(config)
 
 Vue.config.productionTip = false
-// Vue.use(BootstrapVue)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
