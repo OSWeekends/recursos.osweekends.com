@@ -1,25 +1,45 @@
 <template>
-  <div>
-    <form @submit.prevent='addResource'>
-      <label>Titulo</label>
-      <input type='text' v-model='resource.title' placeholder='Titulo'><br><br><br>
-
-      <label>Descripción</label>
-      <textarea v-model='resource.description' col='30' row='10' placeholder='Descripcion'></textarea><br><br><br>
-
-      <label>Url</label>
-      <input type='text' v-model='resource.url' placeholder='Url'>
-
-      <select v-model="resource.type">
-        <option disabled value="">Please select one</option>
-        <option v-for="tipo in types" :key="tipo.id">{{tipo}}</option>
-      </select>
-      <span>Selected: {{ resource.type }}</span>
-
-      <input type='submit' value='guardar'>
-      <pre>{{ resource }}</pre>
-
-    </form>
+  <div class="container">
+    <div class="center">
+      <h3>Nuevo Recurso</h3>
+    </div>
+    <div class="row">
+      <form @submit.prevent='addResource'>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type='text' v-model='resource.title'>
+            <label>Titulo</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea v-model='resource.description' col='30' row='10'></textarea>
+            <label>Descripción</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type='text' v-model='resource.url'>
+            <label>Url</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <select v-model="resource.type">
+              <option disabled value="">Please select one</option>
+              <option v-for="tipo in types" :key="tipo.id">{{tipo}}</option>
+            </select>
+            <label>Materialize Select</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="center">
+            <input type='submit' value='guardar'>
+          </div>
+        </div>
+        <pre>{{ resource }}</pre>
+      </form>
+    </div>
   </div>
 </template>
 

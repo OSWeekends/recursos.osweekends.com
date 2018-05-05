@@ -50,7 +50,7 @@
         <div class="col l12 s12">
           <h5 class="grey-text text-lighten-4">Open Source Weekends</h5>
           <p class="grey-text text-lighten-3">Open Source Weekends es una comunidad de gente apasionada por la tecnología.
-          Nos reunimos un sábado al mes en Campus Madrid, donde organizamos talleres y workshops, y colaboramos en proyectos de código abierto a través de nuestos <a href="http://osweekends.com/guilds.osweekends.com/">Guilds</a>
+          Nos reunimos un sábado al mes en Campus Madrid, donde organizamos talleres y workshops, y colaboramos en proyectos de código abierto a través de nuestos <a href="http://osweekends.com/guilds.osweekends.com/" target="_blank">Guilds</a>
           Tanto si tienes años de experiencia desarrollando como si acabas de empezar, en OSWeekends hay un sitio para ti</p>
         </div>
       </div>

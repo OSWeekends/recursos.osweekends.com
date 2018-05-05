@@ -1,10 +1,24 @@
 <template>
-  <div class="container">
-    <ul v-for="resource in resource" :key="resource.id">
-      <img :src="resource.img">
-      <a :href="resource.url" target="_blank"><h3>{{resource.title}}</h3></a>
-      <p>{{resource.description}}</p>
-    </ul>
+  <div>
+    <div class="container">
+      <div class="card hoverable grey lighten-4" v-for="resource in resources" :key="resource.id">
+        <div class="card-image">
+          <img :src="resource.img">
+        </div>
+        <div class="card-content">
+        <span class="card-title blue-text  text-lighten-1"><strong>{{resource.title}}</strong></span>
+          <p>{{resource.description}}</p>
+        </div>
+        <div class="card-action grey darken-3">
+          <a :href="resource.url" target="_blank" class="white-text">Link</a>
+        </div>
+      </div>
+    </div>
+    <div class="fixed-action-btn">
+      <router-link to="/resources/new" class="btn-floating btn-large red">
+        <i class="material-icons">add</i>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -15,21 +29,21 @@ export default {
   name: 'resources',
   data () {
     return {
-      resource: []
+      resources: []
     }
   },
   created () {
     firebase.database().ref('Recursos')
-      .on('value', snapshot => this.resources(snapshot.val()))
+      .on('value', snapshot => this.getResources(snapshot.val()))
   },
   methods: {
-    resources (resource) {
-      for (let key in resource) {
-        this.resource.push({
-          title: resource[key].title,
-          description: resource[key].description,
-          url: 'https://' + resource[key].url,
-          img: resource[key].img
+    getResources (resources) {
+      for (let key in resources) {
+        this.resources.push({
+          title: resources[key].title,
+          description: resources[key].description,
+          url: 'https://' + resources[key].url,
+          img: resources[key].img
         })
       }
     }
@@ -38,29 +52,16 @@ export default {
 </script>
 
 <style scoped>
-  .container{
+.container{
     display: grid;
     height: 100vh;
     grid-gap: 10px;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
+    padding: 10px;
   }
 
-  ul{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-    border: 1px solid black;
-    padding: 20px;
-    border-radius: 30px;
-  }
-  a{
-    display: block;
-  }
-
-  img{
-    width: 85%;
+  a:hover{
+    text-decoration: underline;
   }
 </style>
