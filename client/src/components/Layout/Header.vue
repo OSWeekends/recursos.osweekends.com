@@ -3,7 +3,7 @@
     <div class="nav-wrapper blue lighten-1">
       <div class="container">
         <router-link to="/" exact class="brand-logo"><img class="logo" src="../../assets/osw.svg"></router-link>
-        <ul id="nav-mobile" class="right">
+        <ul class="right hide-on-med-and-down">
           <li><router-link to="/resources" exact>Recursos</router-link></li>
           <li><a v-on:click="login"> Login</a></li>
           <li><a v-on:click="logout"> Logout</a></li>
