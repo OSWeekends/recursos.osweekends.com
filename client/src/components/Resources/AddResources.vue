@@ -27,7 +27,9 @@
           <div class="input-field col s12">
             <select v-model="resource.type">
               <option disabled value="">Please select one</option>
-              <option v-for="tipo in types" :key="tipo.id">{{tipo}}</option>
+              <option value="asd">dfe</option>
+
+              <option disabled v-for="tipo in types" :key="tipo.id">{{tipo}}</option>
             </select>
             <label>Materialize Select</label>
           </div>
@@ -38,6 +40,9 @@
           </div>
         </div>
         <pre>{{ resource }}</pre>
+        <ul>
+          <li v-for="tipo in types" :key="tipo.id">{{tipo}}</li>
+        </ul>
       </form>
     </div>
   </div>
@@ -46,6 +51,7 @@
 <script>
 import firebase from 'firebase'
 import axios from 'axios'
+import $ from 'jquery'
 
 export default {
   name: 'resources',
@@ -63,6 +69,9 @@ export default {
   created () {
     firebase.database().ref('type')
       .once('value', snapshot => { this.types = snapshot.val() })
+  },
+  mounted () {
+    $('select').material_select()
   },
   methods: {
     addResource () {
