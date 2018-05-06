@@ -25,11 +25,27 @@
           <div class="row">
             <div class="input-field col s12">
                 <md-field>
-                  <label for="category">Categoria</label>
-                  <md-select v-model="resource.type" name="category" id="movie">
+                  <label for="type">Tipo</label>
+                  <md-select v-model="resource.type" name="type" id="movie">
                     <md-option :value="key" v-for="(key, tipo) in types" :key="tipo.id">{{tipo}}</md-option>
                   </md-select>
                 </md-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+                <md-field>
+                  <label for="category">Category</label>
+                  <md-select v-model="cate" name="category" id="category">
+                    <md-option :value="key" v-for="(key, cate) in cate" :key="cate.id">{{cate}}</md-option>
+                  </md-select>
+                </md-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="left">
+              <button class="btn waves-effect waves-light" type="button" v-on:click="add(cate)" name="guardar">Añadir categoria
+              </button>
             </div>
           </div>
           <div class="row">
@@ -55,19 +71,28 @@ export default {
   data () {
     return {
       types: [],
+      cate: [],
       resource: {
         title: '',
         description: '',
         url: '',
-        type: ''
+        type: '',
+        category: ['']
       }
     }
   },
   created () {
     firebase.database().ref('type')
       .once('value', snapshot => { this.types = snapshot.val() })
+    firebase.database().ref('category')
+      .once('value', snapshot => { this.cate = snapshot.val() })
   },
   methods: {
+    add: function (event) {
+      this.resource.category.push(event)
+      firebase.database().ref('category')
+        .once('value', snapshot => { this.cate = snapshot.val() })
+    },
     addResource () {
       axios.get('https://api.microlink.io/?url=https%3A%2F%2F' + this.resource.url + '&screenshot&filter=screenshot')
         .then((response) => {
@@ -77,13 +102,15 @@ export default {
               description: this.resource.description,
               url: this.resource.url,
               img: response.data.data.screenshot.url,
-              type: this.resource.type
+              type: this.resource.type,
+              category: this.resource.category
             })
             .then(() => {
               this.resource.title = ''
               this.resource.description = ''
               this.resource.url = ''
               this.resource.type = ''
+              this.resource.category = ['']
             })
         })
     }

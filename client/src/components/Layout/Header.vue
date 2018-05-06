@@ -5,6 +5,7 @@
         <router-link to="/" exact class="brand-logo"><img class="logo" src="../../assets/osw.svg"></router-link>
         <ul class="right hide-on-med-and-down">
           <li><router-link to="/resources" exact>Recursos</router-link></li>
+          <li>{{user}}</li>
           <li><a v-on:click="login"> Login</a></li>
           <li><a v-on:click="logout"> Logout</a></li>
         </ul>
@@ -20,6 +21,7 @@ var provider = new firebase.auth.GithubAuthProvider()
 export default {
   data () {
     return {
+      user: ''
     }
   },
   methods: {
