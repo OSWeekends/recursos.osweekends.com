@@ -33,7 +33,7 @@ export default {
   data () {
     return {
       resources: [],
-      search: ''
+      search: '',
       isLoggedIn: false
     }
   },

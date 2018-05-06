@@ -24,7 +24,7 @@ var provider = new firebase.auth.GithubAuthProvider()
 export default {
   data () {
     return {
-      user: ''
+      user: '',
       isLoggedIn: false,
       currentUser: false
     }
