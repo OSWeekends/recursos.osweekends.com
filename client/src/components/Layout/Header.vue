@@ -8,6 +8,9 @@
           <li>{{user}}</li>
           <li><a v-on:click="login"> Login</a></li>
           <li><a v-on:click="logout"> Logout</a></li>
+          <li v-if="!isLoggedIn"><a class="black waves-effect waves-light btn" v-on:click="login"><i class="fab fa-github"></i> Login</a></li>
+          <li v-if="isLoggedIn"><a class="red waves-effect waves-light btn" v-on:click="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+          <li v-if="isLoggedIn"><router-link to=""><img class="userImg" :src="currentUser.photoURL"></router-link></li>
         </ul>
       </div>
     </div>
@@ -22,26 +25,41 @@ export default {
   data () {
     return {
       user: ''
+      isLoggedIn: false,
+      currentUser: false
+    }
+  },
+  created () {
+    if (firebase.auth().currentUser) {
+      this.isLoggedIn = true
+      this.currentUser = firebase.auth().currentUser
     }
   },
   methods: {
+    // Sing up/Login functionality using popup and GitHub Auth
     login () {
-      firebase.auth().signInWithPopup(provider).then(function (result) {
-        console.log('User signed in! UID:', result.user.uid)
-        // -- HACK --
+      firebase.auth().signInWithPopup(provider).then((result) => {
+        // retrieve the user info and store it in firebase db for custom properties of the user
         var userData = JSON.stringify(result.user)
         userData = JSON.parse(userData)
-        // Alamacenando el usuario en /user/{{uid}}/datos...
+        // Store the user in /user/{{uid}}/datos...
         firebase.database().ref('users').child(userData.uid).set(userData)
-      }).catch(function (error) {
-        console.log('User OUT!' + error)
+
+        // Reload the page to get changes in Header component
+        this.$router.go({path: this.$router.path})
+      }).catch((error) => {
+        console.log('Unable to Log in!' + error)
       })
     },
+    // Log out
     logout () {
-      firebase.auth().signOut().then(function () {
-        console.log('Logout con exito!')
-      }).catch(function (error) {
-        console.log('Error en Logout' + error)
+      firebase.auth().signOut().then(() => {
+        console.log('Logout success!')
+        // Redirect to home & Reload the page to get changes in Header component
+        this.$router.push('/')
+        this.$router.go({path: this.$router.path})
+      }).catch((error) => {
+        console.log('Unable to Logout' + error)
       })
     }
   }
@@ -52,5 +70,14 @@ export default {
 <style scoped>
 .logo{
     width: 75px;
+}
+
+.userImg{
+    width: 50px;
+    border-radius: 50%;
+}
+
+nav .nav-wrapper i{
+  line-height: inherit;
 }
 </style>
