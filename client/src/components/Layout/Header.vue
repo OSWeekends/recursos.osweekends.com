@@ -5,6 +5,9 @@
         <router-link to="/" exact class="brand-logo"><img class="logo" src="../../assets/osw.svg"></router-link>
         <ul class="right hide-on-med-and-down">
           <li><router-link to="/resources" exact>Recursos</router-link></li>
+          <li>{{user}}</li>
+          <li><a v-on:click="login"> Login</a></li>
+          <li><a v-on:click="logout"> Logout</a></li>
           <li v-if="!isLoggedIn"><a class="black waves-effect waves-light btn" v-on:click="login"><i class="fab fa-github"></i> Login</a></li>
           <li v-if="isLoggedIn"><a class="red waves-effect waves-light btn" v-on:click="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
           <li v-if="isLoggedIn"><router-link to=""><img class="userImg" :src="currentUser.photoURL"></router-link></li>
@@ -21,6 +24,7 @@ var provider = new firebase.auth.GithubAuthProvider()
 export default {
   data () {
     return {
+      user: '',
       isLoggedIn: false,
       currentUser: false
     }
