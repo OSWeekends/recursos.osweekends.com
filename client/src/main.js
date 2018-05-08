@@ -4,12 +4,18 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import firebase from 'firebase'
-import VueMaterial from 'vue-material'
-import 'materialize-css/dist/js/materialize.min.js'
-import 'materialize-css/dist/css/materialize.min.css'
-import 'vue-material/dist/vue-material.min.css'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 
-Vue.use(VueMaterial)
+// QUITAR!
+// import VueMaterial from 'vue-material'
+// import 'materialize-css/dist/js/materialize.min.js'
+// import 'materialize-css/dist/css/materialize.min.css'
+// import 'vue-material/dist/vue-material.min.css'
+
+// Vue.use(VueMaterial)
+
+Vue.use(Vuetify)
 
 var config = {
   apiKey: 'AIzaSyCV1oei0T8oUoYEy3Uv__wQwLvev5pJ_Jc',

@@ -1,26 +1,46 @@
 <template>
   <div>
-    <div class="container">
-      <input type="search" v-model='search' placeholder="Buscar recurso">
-      <div class="card hoverable grey lighten-4" v-for="resource in serchDo" :key="resource.id">
-        <div class="card-image">
-          <img :src="resource.img">
-        </div>
-        <div class="card-content">
-        <span class="card-title blue-text  text-lighten-1"><strong>{{resource.title}}</strong></span>
-          <p>{{resource.description}}</p>
-          <p>{{resource.type}}</p>
-          <div v-for="cate in resource.category" :key="cate.id" :class="cate">{{cate}}</div>
-        </div>
-        <div class="card-action grey darken-3">
-          <a :href="resource.url" target="_blank" class="white-text">Link</a>
-        </div>
-      </div>
-    </div>
-    <div v-if="isLoggedIn" class="fixed-action-btn">
-      <router-link to="/resources/new" class="btn-floating btn-large red">
-        <i class="material-icons">add</i>
-      </router-link>
+    <v-container class="pb-0 pt-0">
+      <v-layout row>
+        <v-flex md10 offset-md1>
+          <v-form>
+            <v-text-field prepend-icon="search" v-model="search" label="Buscar"></v-text-field>
+          </v-form>
+        </v-flex>
+      </v-layout>
+    </v-container>
+    <v-container>
+     <v-layout row wrap v-for="resource in serchDo" :key="resource.id">
+      <v-flex xs12 md10 offset-md1>
+        <v-card class="info mb-3 blue lighten-1">
+          <v-container fluid wrap>
+            <v-layout row>
+              <v-flex xs5 md4>
+                <v-card-media :src="resource.img" height="100%"></v-card-media>
+              </v-flex>
+              <v-flex xs7 md8>
+                <v-card-title class="pt-0">
+                  <div>
+                    <h3 block class="headline mb-0">{{ resource.title }}</h3>
+                    <p>{{resource.description}}</p>
+                    <p>Tipo: {{resource.type}}</p>
+                    <div v-for="cate in resource.category" :key="cate.id" :class="cate">{{cate}}</div>
+                  </div>
+                </v-card-title>
+                <v-card-actions>
+                   <v-btn block color="grey darken-3" class="white--text" :href="resource.url" target="_blank">Link</v-btn>
+                </v-card-actions>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card>
+      </v-flex>
+    </v-layout>
+    </v-container>
+    <div v-if="isLoggedIn" class="text-xs-center">
+       <v-btn to="/resources/new" fab fixed bottom right class="white--text red">
+      <v-icon>add</v-icon>
+      </v-btn>
     </div>
   </div>
 </template>
@@ -69,28 +89,5 @@ export default {
 </script>
 
 <style scoped>
-  .container{
-    display: grid;
-    height: 100vh;
-    grid-gap: 10px;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    padding: 10px;
-  }
-  input{
-    grid-column-start: 1;
-    grid-column-end: 4;
-  }
-  a:hover{
-    text-decoration: underline;
-  }
-  .css{
-    background-color: blue;
-    color: white;
-    padding: 10px;
-    width: 30%;
-  }
-  .html{
-    background-color: yellow
-  }
+
 </style>
