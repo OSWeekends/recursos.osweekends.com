@@ -12,18 +12,18 @@
     </v-container>
     <v-container fluid>
       <v-container>
-        <v-layout row>
-          <v-flex s12 md4 class="text-xs-center">
+        <v-layout row wrap>
+          <v-flex xs12 md4 class="text-xs-center">
             <v-icon size="80px">swap_horiz</v-icon>
             <h3>Comparte</h3>
             <p>Comparte con la comunidad aquellos recursos que te hayan sido de utilidad en el pasado. </p>
           </v-flex>
-          <v-flex s12 md4 class="text-xs-center">
+          <v-flex xs12 md4 class="text-xs-center">
             <v-icon size="80px">thumb_up</v-icon>
             <h3>Vota</h3>
             <p>Si un recurso te ha sido de ayuda, votalo! para que los mejores recursos tengan mayor visibilidad. </p>
           </v-flex>
-          <v-flex s12 md4 class="text-xs-center">
+          <v-flex xs12 md4 class="text-xs-center">
             <v-icon size="80px">subject</v-icon>
             <h3>Comenta</h3>
             <p>Comparte tus impresiones y experiencias respecto al recurso, o tema tratado. </p>
