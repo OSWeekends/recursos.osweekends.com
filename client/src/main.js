@@ -8,7 +8,9 @@ import VueMaterial from 'vue-material'
 import 'materialize-css/dist/js/materialize.min.js'
 import 'materialize-css/dist/css/materialize.min.css'
 import 'vue-material/dist/vue-material.min.css'
+import Notifications from 'vue-notification'
 
+Vue.use(Notifications)
 Vue.use(VueMaterial)
 
 var config = {

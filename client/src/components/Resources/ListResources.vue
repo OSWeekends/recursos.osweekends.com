@@ -12,6 +12,7 @@
           <p>{{resource.type}}</p>
           <div v-for="cate in resource.category" :key="cate.id" :class="cate">{{cate}}</div>
         </div>
+        <button type="button" v-on:click="add(resource.title)">Click Me!</button>
         <div class="card-action grey darken-3">
           <a :href="resource.url" target="_blank" class="white-text">Link</a>
         </div>
@@ -34,7 +35,8 @@ export default {
     return {
       resources: [],
       search: '',
-      isLoggedIn: false
+      isLoggedIn: false,
+      user: ''
     }
   },
   created () {
@@ -43,6 +45,7 @@ export default {
       .on('value', snapshot => this.getResources(snapshot.val()))
     // check if user is logged
     if (firebase.auth().currentUser) {
+      this.user = firebase.auth().currentUser.uid
       this.isLoggedIn = true
     }
   },
@@ -55,9 +58,16 @@ export default {
           url: 'https://' + resources[key].url,
           img: resources[key].img,
           type: resources[key].type,
-          category: resources[key].category
+          category: resources[key].category,
+          like: resources[key].like
         })
       }
+    },
+    add (title) {
+      var ref = firebase.database().ref('Recursos')
+      ref.equalTo(title).on('child_added', function (snapshot) {
+        console.log(snapshot.key + ' was' + snapshot.val().title + ' meters tall')
+      })
     }
   },
   computed: {

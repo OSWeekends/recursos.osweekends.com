@@ -72,6 +72,7 @@ export default {
     return {
       types: [],
       cate: [],
+      recur: [],
       resource: {
         title: '',
         description: '',
@@ -112,6 +113,26 @@ export default {
               this.resource.type = ''
               this.resource.category = ['']
             })
+        })
+        .then(() => {
+          this.$notify({
+            group: 'foo',
+            text: 'Añadido nuevo recurso',
+            type: 'success',
+            duration: 3000,
+            speed: 300,
+            title: this.resource.title
+          })
+        })
+        .catch(() => {
+          this.$notify({
+            group: 'foo',
+            text: 'hubo un error al guardar el recurso',
+            type: 'error',
+            duration: 3000,
+            speed: 300,
+            title: this.resource.title
+          })
         })
     }
   }
