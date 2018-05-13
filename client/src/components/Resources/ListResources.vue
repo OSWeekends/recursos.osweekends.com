@@ -9,10 +9,11 @@
         <div class="card-content">
         <span class="card-title blue-text  text-lighten-1"><strong>{{resource.title}}</strong></span>
           <p>{{resource.description}}</p>
+          <p>{{resource.creator}}</p>
           <p>{{resource.type}}</p>
           <div v-for="cate in resource.category" :key="cate.id" :class="cate">{{cate}}</div>
         </div>
-        <button type="button" v-on:click="add(resource.title)">Click Me!</button>
+        <button type="button" @click="likes(resource)">Like</button>
         <div class="card-action grey darken-3">
           <a :href="resource.url" target="_blank" class="white-text">Link</a>
         </div>
@@ -33,6 +34,7 @@ export default {
   name: 'resources',
   data () {
     return {
+      like: 0,
       resources: [],
       search: '',
       isLoggedIn: false,
@@ -52,22 +54,27 @@ export default {
   methods: {
     getResources (resources) {
       for (let key in resources) {
+        console.log(key)
         this.resources.push({
+          key: key,
           title: resources[key].title,
           description: resources[key].description,
           url: 'https://' + resources[key].url,
           img: resources[key].img,
           type: resources[key].type,
           category: resources[key].category,
-          like: resources[key].like
+          creator: resources[key].creator,
+          me: resources[key].like
         })
       }
     },
-    add (title) {
-      var ref = firebase.database().ref('Recursos')
-      ref.equalTo(title).on('child_added', function (snapshot) {
-        console.log(snapshot.key + ' was' + snapshot.val().title + ' meters tall')
-      })
+    likes (resource) {
+      console.log(resource)
+      const likes = resource.me + 1
+      firebase.database().ref(`Recursos/` + resource.key + `/like`).set(likes)
+        .then((res) => {
+          console.debug(res)
+        })
     }
   },
   computed: {

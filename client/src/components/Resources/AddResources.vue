@@ -3,6 +3,7 @@
     <div class="row">
       <div class="card-panel center">
         <h3 class="header center grey-text text-darken-3"> Nuevo recurso</h3>
+        {{user}}
         <form @submit.prevent='addResource'>
           <div class="row">
             <div class="input-field col s12">
@@ -72,13 +73,14 @@ export default {
     return {
       types: [],
       cate: [],
-      recur: [],
+      user: '',
       resource: {
         title: '',
         description: '',
         url: '',
         type: '',
-        category: ['']
+        category: [''],
+        like: 0
       }
     }
   },
@@ -87,6 +89,10 @@ export default {
       .once('value', snapshot => { this.types = snapshot.val() })
     firebase.database().ref('category')
       .once('value', snapshot => { this.cate = snapshot.val() })
+    if (firebase.auth().currentUser) {
+      this.user = firebase.auth().currentUser.displayName
+      this.isLoggedIn = true
+    }
   },
   methods: {
     add: function (event) {
@@ -97,14 +103,16 @@ export default {
     addResource () {
       axios.get('https://api.microlink.io/?url=https%3A%2F%2F' + this.resource.url + '&screenshot&filter=screenshot')
         .then((response) => {
-          firebase.database().ref('Recursos')
+          firebase.database().ref('Recursos/')
             .push({
               title: this.resource.title,
               description: this.resource.description,
               url: this.resource.url,
               img: response.data.data.screenshot.url,
               type: this.resource.type,
-              category: this.resource.category
+              category: this.resource.category,
+              creator: this.user,
+              like: this.resource.like
             })
             .then(() => {
               this.resource.title = ''
