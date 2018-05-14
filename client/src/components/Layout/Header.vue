@@ -1,20 +1,40 @@
 <template>
-  <nav>
-    <div class="nav-wrapper blue lighten-1">
-      <div class="container">
-        <router-link to="/" exact class="brand-logo"><img class="logo" src="../../assets/osw.svg"></router-link>
-        <ul class="right hide-on-med-and-down">
-          <li><router-link to="/resources" exact>Recursos</router-link></li>
-          <li>{{user}}</li>
-          <li><a v-on:click="login"> Login</a></li>
-          <li><a v-on:click="logout"> Logout</a></li>
-          <li v-if="!isLoggedIn"><a class="black waves-effect waves-light btn" v-on:click="login"><i class="fab fa-github"></i> Login</a></li>
-          <li v-if="isLoggedIn"><a class="red waves-effect waves-light btn" v-on:click="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-          <li v-if="isLoggedIn"><router-link to=""><img class="userImg" :src="currentUser.photoURL"></router-link></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <div>
+      <v-toolbar class="blue lighten-1">
+      <!--Responsive menu -->
+         <v-menu bottom transition="slide-x-transition" class="hidden-sm-and-up" left>
+          <v-btn slot="activator" icon class="white--text">
+            <v-icon class="text--white">menu</v-icon>
+          </v-btn>
+            <v-list class="">
+              <v-list-tile>
+                <v-list-tile-title> Item 1</v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+         </v-menu>
+          <!--Logo -->
+        <v-toolbar-title><router-link to="/" exact><img class="logo" src="../../assets/osw.svg"></router-link></v-toolbar-title>
+         <!--Tollbar rutas -->
+         <v-toolbar-items class="hidden-xs-only">
+          <v-btn flat to="/resources" exact class="white--text ml-5">
+            Recursos
+          </v-btn>
+        </v-toolbar-items>
+        <v-spacer></v-spacer>
+         <!--Toolbar user -->
+        <v-toolbar-items class="hidden-xs-only">
+          <v-btn small v-on:click="login" v-if="!isLoggedIn" class="mr-2">
+            <v-icon left>fab fa-github</v-icon> Login
+          </v-btn>
+          <v-btn small flat v-on:click="logout" v-if="isLoggedIn" class="mr-2">
+            <v-icon left>fas fa-sign-out-alt</v-icon> Logout
+          </v-btn>
+          <v-avatar v-if="isLoggedIn">
+            <img class="userImg" :src="currentUser.photoURL">
+          </v-avatar>
+        </v-toolbar-items>
+      </v-toolbar>
+  </div>
 </template>
 
 <script>
@@ -24,7 +44,6 @@ var provider = new firebase.auth.GithubAuthProvider()
 export default {
   data () {
     return {
-      user: '',
       isLoggedIn: false,
       currentUser: false
     }
@@ -43,7 +62,8 @@ export default {
         var userData = JSON.stringify(result.user)
         userData = JSON.parse(userData)
         // Store the user in /user/{{uid}}/datos...
-        firebase.database().ref('users').child(userData.uid).set(userData)
+        console.log(userData)
+        firebase.firestore().collection('users').doc(userData.uid).set(userData)
 
         // Reload the page to get changes in Header component
         this.$router.go({path: this.$router.path})

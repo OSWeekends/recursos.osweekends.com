@@ -1,66 +1,40 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="card-panel center">
-        <h3 class="header center grey-text text-darken-3"> Nuevo recurso</h3>
-        {{user}}
-        <form @submit.prevent='addResource'>
-          <div class="row">
-            <div class="input-field col s12">
-              <input type='text' v-model='resource.title'>
-              <label>Titulo</label>
+  <v-container>
+    <v-layout row>
+      <v-flex md10 offset-md1>
+        <v-form ref="form" @submit.prevent='addResource'>
+          <v-layout row>
+            <v-text-field v-model="resource.title" label="Titulo" required :rules="titleRules"></v-text-field>
+          </v-layout>
+          <v-layout row>
+            <v-text-field v-model="resource.description" label="Descripcion" required :rules="descriptionRules"></v-text-field>
+          </v-layout>
+          <v-layout row>
+            <v-text-field v-model="resource.url" label="Url" required :rules="descriptionRules"></v-text-field>
+          </v-layout >
+          <v-layout row>
+            <v-select :items="types" v-model="resource.type" label="Tipo" single-line autocomplete :filter="customFilter" required :rules="typeRules"></v-select>
+          </v-layout>
+          <v-layout row>
+            <v-select :items="categories" v-model="resource.category" label="Categorías" single-line autocomplete :filter="customFilter" multiple></v-select>
+          </v-layout>
+          <v-layout row>
+            <div class="mx-auto">
+              <v-btn @click="submit" title="Guardar" class="blue lighten-1">
+                <v-icon left class="white--text">send</v-icon> <span class="white--text"> Guardar</span>
+                </v-btn>
+                <v-btn @click="clear" title="Limpiar" class="red">
+                <v-icon left class="white--text">clear</v-icon><span class="white--text">Limpiar</span>
+              </v-btn>
             </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input type='text' v-model='resource.description'>
-              <label>Descripcion</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input type='text' v-model='resource.url'>
-              <label>Url</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-                <md-field>
-                  <label for="type">Tipo</label>
-                  <md-select v-model="resource.type" name="type" id="movie">
-                    <md-option :value="key" v-for="(key, tipo) in types" :key="tipo.id">{{tipo}}</md-option>
-                  </md-select>
-                </md-field>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-                <md-field>
-                  <label for="category">Category</label>
-                  <md-select v-model="cate" name="category" id="category">
-                    <md-option :value="key" v-for="(key, cate) in cate" :key="cate.id">{{cate}}</md-option>
-                  </md-select>
-                </md-field>
-            </div>
-          </div>
-          <div class="row">
-            <div class="left">
-              <button class="btn waves-effect waves-light" type="button" v-on:click="add(cate)" name="guardar">Añadir categoria
-              </button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="center">
-              <button class="btn waves-effect waves-light" type="submit" name="guardar">Guardar
-                <i class="material-icons right">send</i>
-              </button>
-            </div>
-          </div>
-          <pre>{{ resource }}</pre>
-        </form>
-      </div>
-    </div>
-  </div>
+            </v-layout>
+        </v-form>
+      </v-flex>
+    </v-layout>
+    <pre>{{ resource }}</pre>
+    <pre>{{ types }}</pre>
+    <pre>{{ categories }}</pre>
+  </v-container>
 </template>
 
 <script>
@@ -72,54 +46,63 @@ export default {
   data () {
     return {
       types: [],
-      cate: [],
-      user: '',
+      categories: [],
       resource: {
         title: '',
         description: '',
         url: '',
         type: '',
-        category: [''],
-        like: 0
-      }
+        category: []
+      },
+      titleRules: [
+        v => !!v || 'Title is required'
+      ],
+      descriptionRules: [
+        v => !!v || 'Description is required'
+      ],
+      urlRules: [
+        v => !!v || 'Url is required',
+        // TODO Find regexp that match protocols
+        v => /(^\w+:|^)\/\//.test(v) || 'Insert Urls without protocol'
+      ],
+      typeRules: [
+        v => !!v || 'Type is required'
+      ]
     }
   },
   created () {
-    firebase.database().ref('type')
-      .once('value', snapshot => { this.types = snapshot.val() })
-    firebase.database().ref('category')
-      .once('value', snapshot => { this.cate = snapshot.val() })
-    if (firebase.auth().currentUser) {
-      this.user = firebase.auth().currentUser.displayName
-      this.isLoggedIn = true
-    }
+    // Get Types, call to the Firebase bd, get the response object, iterate the keys, and push the result values into types array
+    firebase.firestore().collection('Type').doc('type')
+      .onSnapshot((doc) => {
+        let obj = doc.data()
+        Object.keys(obj).map((key, index) => {
+          this.types.push(obj[key])
+        })
+      })
+    // Get Categories, call to the Firebase bd, get the response object, iterate the keys, and push the result values into categories array
+    firebase.firestore().collection('Category').doc('category')
+      .onSnapshot((doc) => {
+        let obj = doc.data()
+        Object.keys(obj).map((key, index) => {
+          this.categories.push(obj[key])
+        })
+      })
   },
   methods: {
-    add: function (event) {
-      this.resource.category.push(event)
-      firebase.database().ref('category')
-        .once('value', snapshot => { this.cate = snapshot.val() })
-    },
     addResource () {
       axios.get('https://api.microlink.io/?url=https%3A%2F%2F' + this.resource.url + '&screenshot&filter=screenshot')
         .then((response) => {
-          firebase.database().ref('Recursos/')
-            .push({
+          firebase.firestore().collection('Recursos')
+            .add({
               title: this.resource.title,
               description: this.resource.description,
               url: this.resource.url,
               img: response.data.data.screenshot.url,
               type: this.resource.type,
-              category: this.resource.category,
-              creator: this.user,
-              like: this.resource.like
+              category: this.resource.category
             })
             .then(() => {
-              this.resource.title = ''
-              this.resource.description = ''
-              this.resource.url = ''
-              this.resource.type = ''
-              this.resource.category = ['']
+              this.$refs.form.reset()
             })
         })
         .then(() => {
@@ -142,6 +125,16 @@ export default {
             title: this.resource.title
           })
         })
+    },
+    submit () {
+      if (this.$refs.form.validate()) {
+        // check if the form is valid and add the resource
+        this.addResource()
+      }
+    },
+    clear () {
+      // Clears the form and reset validations
+      this.$refs.form.reset()
     }
   }
 }

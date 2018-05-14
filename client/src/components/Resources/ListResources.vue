@@ -1,28 +1,46 @@
 <template>
   <div>
-    <div class="container">
-      <input type="search" v-model='search' placeholder="Buscar recurso">
-      <div class="card hoverable grey lighten-4" v-for="resource in serchDo" :key="resource.id">
-        <div class="card-image">
-          <img :src="resource.img">
-        </div>
-        <div class="card-content">
-        <span class="card-title blue-text  text-lighten-1"><strong>{{resource.title}}</strong></span>
-          <p>{{resource.description}}</p>
-          <p>{{resource.creator}}</p>
-          <p>{{resource.type}}</p>
-          <div v-for="cate in resource.category" :key="cate.id" :class="cate">{{cate}}</div>
-        </div>
-        <button type="button" @click="likes(resource)">Like</button>
-        <div class="card-action grey darken-3">
-          <a :href="resource.url" target="_blank" class="white-text">Link</a>
-        </div>
-      </div>
-    </div>
-    <div v-if="isLoggedIn" class="fixed-action-btn">
-      <router-link to="/resources/new" class="btn-floating btn-large red">
-        <i class="material-icons">add</i>
-      </router-link>
+    <v-container class="pb-0 pt-0">
+      <v-layout row>
+        <v-flex md10 offset-md1>
+          <v-form>
+            <v-text-field prepend-icon="search" v-model="search" label="Buscar"></v-text-field>
+          </v-form>
+        </v-flex>
+      </v-layout>
+    </v-container>
+    <v-container>
+      <v-layout row wrap v-for="resource in filteredList" :key="resource.id">
+      <v-flex xs12 md10 offset-md1>
+        <v-card class="info mb-3 blue lighten-1">
+          <v-container fluid wrap>
+            <v-layout row>
+              <v-flex xs5 md4>
+                <v-card-media :src="resource.img" height="100%"></v-card-media>
+              </v-flex>
+              <v-flex xs7 md8>
+                <v-card-title class="pt-0">
+                  <div>
+                    <h3 block class="headline mb-0">{{ resource.title }}</h3>
+                    <p>{{resource.description}}</p>
+                    <p>Tipo: {{resource.type}}</p>
+                    <div v-for="cate in resource.category" :key="cate.id" :class="cate">{{cate}}</div>
+                  </div>
+                </v-card-title>
+                <v-card-actions>
+                  <v-btn block color="grey darken-3" class="white--text" :href="resource.url" target="_blank">Link</v-btn>
+                </v-card-actions>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card>
+      </v-flex>
+    </v-layout>
+    </v-container>
+    <div v-if="isLoggedIn" class="text-xs-center">
+      <v-btn to="/resources/new" fab fixed bottom right class="white--text red">
+        <v-icon>add</v-icon>
+      </v-btn>
     </div>
   </div>
 </template>
@@ -34,7 +52,6 @@ export default {
   name: 'resources',
   data () {
     return {
-      like: 0,
       resources: [],
       search: '',
       isLoggedIn: false,
@@ -43,8 +60,9 @@ export default {
   },
   created () {
     // Get the list of resources
-    firebase.database().ref('Recursos')
-      .on('value', snapshot => this.getResources(snapshot.val()))
+    firebase.firestore().collection('Recursos').get().then((querySnapshot) => querySnapshot.forEach((doc) =>
+      this.getResources(doc.data())
+    ))
     // check if user is logged
     if (firebase.auth().currentUser) {
       this.user = firebase.auth().currentUser.uid
@@ -53,61 +71,26 @@ export default {
   },
   methods: {
     getResources (resources) {
-      for (let key in resources) {
-        console.log(key)
-        this.resources.push({
-          key: key,
-          title: resources[key].title,
-          description: resources[key].description,
-          url: 'https://' + resources[key].url,
-          img: resources[key].img,
-          type: resources[key].type,
-          category: resources[key].category,
-          creator: resources[key].creator,
-          me: resources[key].like
-        })
-      }
-    },
-    likes (resource) {
-      console.log(resource)
-      const likes = resource.me + 1
-      firebase.database().ref(`Recursos/` + resource.key + `/like`).set(likes)
-        .then((res) => {
-          console.debug(res)
-        })
+      this.resources.push({
+        title: resources.title,
+        description: resources.description,
+        url: 'https://' + resources.url,
+        img: resources.img,
+        type: resources.type,
+        category: resources.category
+      })
     }
   },
   computed: {
-    serchDo () {
-      return this.resources.filter((resource) => resource.category[0].includes(this.search))
+    filteredList () {
+      return this.resources.filter(resources => {
+        return resources.category[0].toLowerCase().includes(this.search.toLowerCase())
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-  .container{
-    display: grid;
-    height: 100vh;
-    grid-gap: 10px;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    padding: 10px;
-  }
-  input{
-    grid-column-start: 1;
-    grid-column-end: 4;
-  }
-  a:hover{
-    text-decoration: underline;
-  }
-  .css{
-    background-color: blue;
-    color: white;
-    padding: 10px;
-    width: 30%;
-  }
-  .html{
-    background-color: yellow
-  }
+
 </style>
