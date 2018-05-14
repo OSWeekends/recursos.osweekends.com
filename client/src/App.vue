@@ -2,6 +2,7 @@
   <v-app id="app">
     <app-header></app-header>
     <router-view/>
+    <notifications style="width: 40%" position="top bottom" group="foo" />
   </v-app>
 </template>
 
