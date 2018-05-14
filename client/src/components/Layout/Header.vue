@@ -62,10 +62,9 @@ export default {
         var userData = JSON.stringify(result.user)
         userData = JSON.parse(userData)
         // Store the user in /user/{{uid}}/datos...
-        firebase.database().ref('users').child(userData.uid).set(userData)
-
+        firebase.firestore().collection('User').doc(userData.uid).set({userData})
+          .then(() => this.$router.go({path: this.$router.path}))
         // Reload the page to get changes in Header component
-        this.$router.go({path: this.$router.path})
       }).catch((error) => {
         console.log('Unable to Log in!' + error)
       })

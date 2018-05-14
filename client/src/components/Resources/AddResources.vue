@@ -21,11 +21,11 @@
           <v-layout row>
             <div class="mx-auto">
               <v-btn @click="submit" title="Guardar" class="blue lighten-1">
-                 <v-icon left class="white--text">send</v-icon> <span class="white--text"> Guardar</span>
-               </v-btn>
-               <v-btn @click="clear" title="Limpiar" class="red">
+                <v-icon left class="white--text">send</v-icon> <span class="white--text"> Guardar</span>
+                </v-btn>
+                <v-btn @click="clear" title="Limpiar" class="red">
                 <v-icon left class="white--text">clear</v-icon><span class="white--text">Limpiar</span>
-               </v-btn>
+              </v-btn>
             </div>
             </v-layout>
         </v-form>
@@ -72,17 +72,17 @@ export default {
   },
   created () {
     // Get Types, call to the Firebase bd, get the response object, iterate the keys, and push the result values into types array
-    firebase.database().ref('type')
-      .once('value', snapshot => {
-        var obj = snapshot.val()
+    firebase.firestore().collection('Type').doc('type')
+      .onSnapshot((doc) => {
+        let obj = doc.data()
         Object.keys(obj).map((key, index) => {
           this.types.push(obj[key])
         })
       })
     // Get Categories, call to the Firebase bd, get the response object, iterate the keys, and push the result values into categories array
-    firebase.database().ref('category')
-      .once('value', snapshot => {
-        var obj = snapshot.val()
+    firebase.firestore().collection('Category').doc('category')
+      .onSnapshot((doc) => {
+        let obj = doc.data()
         Object.keys(obj).map((key, index) => {
           this.categories.push(obj[key])
         })
@@ -92,8 +92,8 @@ export default {
     addResource () {
       axios.get('https://api.microlink.io/?url=https%3A%2F%2F' + this.resource.url + '&screenshot&filter=screenshot')
         .then((response) => {
-          firebase.database().ref('Recursos')
-            .push({
+          firebase.firestore().collection('Recursos')
+            .add({
               title: this.resource.title,
               description: this.resource.description,
               url: this.resource.url,
@@ -104,6 +104,26 @@ export default {
             .then(() => {
               this.$refs.form.reset()
             })
+        })
+        .then(() => {
+          this.$notify({
+            group: 'foo',
+            text: 'Añadido nuevo recurso',
+            type: 'success',
+            duration: 3000,
+            speed: 300,
+            title: this.resource.title
+          })
+        })
+        .catch(() => {
+          this.$notify({
+            group: 'foo',
+            text: 'hubo un error al guardar el recurso',
+            type: 'error',
+            duration: 3000,
+            speed: 300,
+            title: this.resource.title
+          })
         })
     },
     submit () {

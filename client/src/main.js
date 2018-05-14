@@ -4,17 +4,13 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import firebase from 'firebase'
+import Notifications from 'vue-notification'
+
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import 'firebase/firestore'
 
-// QUITAR!
-// import VueMaterial from 'vue-material'
-// import 'materialize-css/dist/js/materialize.min.js'
-// import 'materialize-css/dist/css/materialize.min.css'
-// import 'vue-material/dist/vue-material.min.css'
-
-// Vue.use(VueMaterial)
-
+Vue.use(Notifications)
 Vue.use(Vuetify)
 
 var config = {
