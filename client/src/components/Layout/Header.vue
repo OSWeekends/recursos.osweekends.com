@@ -8,7 +8,7 @@
           </v-btn>
             <v-list class="">
               <v-list-tile>
-                <v-list-tile-title> Item 1</v-list-tile-title>
+                <v-list-tile-title> <router-link to="/resources" exact class="black--text ml-5">Recursos</router-link></v-list-tile-title>
               </v-list-tile>
             </v-list>
          </v-menu>

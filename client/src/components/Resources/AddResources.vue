@@ -108,9 +108,9 @@ export default {
               .then((response) => {
                 firebase.firestore().collection('Recursos')
                   .add({
-                    title: this.resource.title,
-                    description: this.resource.description,
-                    url: this.resource.url,
+                    title: this.resource.title.toLowerCase(),
+                    description: this.resource.description.toLowerCase(),
+                    url: this.resource.url.toLowerCase(),
                     img: response.data.data.screenshot.url,
                     type: this.resource.type,
                     category: this.resource.category,
@@ -127,7 +127,7 @@ export default {
                   type: 'success',
                   duration: 3000,
                   speed: 300,
-                  title: this.resource.title
+                  title: 'El recurso: ' + this.resource.title + 'se ha añadido correctamente'
                 })
               })
               .catch(() => {
@@ -136,14 +136,13 @@ export default {
                   text: 'hubo un error al guardar el recurso',
                   type: 'error',
                   duration: 3000,
-                  speed: 300,
-                  title: this.resource.title
+                  speed: 300
                 })
               })
           } else {
             this.$notify({
               group: 'foo',
-              text: 'url duplicada',
+              text: 'La url que deseas guardar esta duplicada',
               type: 'error',
               duration: 3000,
               speed: 300
