@@ -5,7 +5,7 @@
         <v-layout row>
           <v-flex class="text-xs-center">
             <h2 class="header center grey-text text-darken-3">Proyecto Recursos</h2>
-            <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+            <p class="left-align light">Open Source Weekends somos un grupo de personas que nos gustan hablar de hacer cosas y hacerlas. Por ello en nuestro canal de Slack, al cabo del día, se comparten muchos recursos muy interesantes. Pero Slack los borra y no todo el puedo puede acceder en cualquier momento a ellos. Por eso nace este proyecto, queremos que esos recursos queden guardados y que cualquier persona que desee pueda acceder a ellos. Ademas conoceras quien lo ha compartido, una de las partes que consideramos fundamentales es compartir y aprender unos de otros</p>
           </v-flex>
         </v-layout>
       </v-container>

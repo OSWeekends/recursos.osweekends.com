@@ -21,4 +21,7 @@ export default {
 body{
   margin: 0px;
 }
+v-app{
+  height: 100vh;
+}
 </style>

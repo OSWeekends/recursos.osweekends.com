@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 import firebase from 'firebase'
 import Notifications from 'vue-notification'
+import VueAxios from 'vue-axios'
+import axios from 'axios'
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
@@ -12,6 +14,7 @@ import 'firebase/firestore'
 
 Vue.use(Notifications)
 Vue.use(Vuetify)
+Vue.use(VueAxios, axios)
 
 var config = {
   apiKey: 'AIzaSyCV1oei0T8oUoYEy3Uv__wQwLvev5pJ_Jc',
@@ -21,6 +24,7 @@ var config = {
   storageBucket: 'recursos-osw.appspot.com',
   messagingSenderId: '566044748794'
 }
+
 firebase.initializeApp(config)
 
 Vue.config.productionTip = false
