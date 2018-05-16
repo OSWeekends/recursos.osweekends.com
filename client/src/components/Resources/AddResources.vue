@@ -39,12 +39,13 @@
 
 <script>
 import firebase from 'firebase'
-import axios from 'axios'
 
 export default {
   name: 'resources',
   data () {
     return {
+      exist: 0,
+      user: '',
       types: [],
       categories: [],
       resource: {
@@ -52,7 +53,8 @@ export default {
         description: '',
         url: '',
         type: '',
-        category: []
+        category: [],
+        creator: ''
       },
       titleRules: [
         v => !!v || 'Title is required'
@@ -87,44 +89,67 @@ export default {
           this.categories.push(obj[key])
         })
       })
+    if (firebase.auth().currentUser) {
+      this.isLoggedIn = true
+      this.currentUser = firebase.auth().currentUser
+      this.user = this.currentUser.displayName
+    }
   },
   methods: {
     addResource () {
-      axios.get('https://api.microlink.io/?url=https%3A%2F%2F' + this.resource.url + '&screenshot&filter=screenshot')
-        .then((response) => {
-          firebase.firestore().collection('Recursos')
-            .add({
-              title: this.resource.title,
-              description: this.resource.description,
-              url: this.resource.url,
-              img: response.data.data.screenshot.url,
-              type: this.resource.type,
-              category: this.resource.category
-            })
-            .then(() => {
-              this.$refs.form.reset()
-            })
-        })
+      firebase.firestore().collection('Recursos').get().then((querySnapshot) => querySnapshot.forEach((doc) => {
+        if (doc.data().url === this.resource.url) {
+          this.exist = 1
+        }
+      }))
         .then(() => {
-          this.$notify({
-            group: 'foo',
-            text: 'Añadido nuevo recurso',
-            type: 'success',
-            duration: 3000,
-            speed: 300,
-            title: this.resource.title
-          })
+          if (this.exist === 0) {
+            this.axios.get('https://api.microlink.io/?url=https%3A%2F%2F' + this.resource.url + '&screenshot&filter=screenshot')
+              .then((response) => {
+                firebase.firestore().collection('Recursos')
+                  .add({
+                    title: this.resource.title.toLowerCase(),
+                    description: this.resource.description.toLowerCase(),
+                    url: this.resource.url.toLowerCase(),
+                    img: response.data.data.screenshot.url,
+                    type: this.resource.type,
+                    category: this.resource.category,
+                    creator: this.user
+                  })
+                  .then(() => {
+                    this.$refs.form.reset()
+                  })
+              })
+              .then(() => {
+                this.$notify({
+                  group: 'foo',
+                  text: 'Añadido nuevo recurso',
+                  type: 'success',
+                  duration: 3000,
+                  speed: 300,
+                  title: 'El recurso: ' + this.resource.title + 'se ha añadido correctamente'
+                })
+              })
+              .catch(() => {
+                this.$notify({
+                  group: 'foo',
+                  text: 'hubo un error al guardar el recurso',
+                  type: 'error',
+                  duration: 3000,
+                  speed: 300
+                })
+              })
+          } else {
+            this.$notify({
+              group: 'foo',
+              text: 'La url que deseas guardar esta duplicada',
+              type: 'error',
+              duration: 3000,
+              speed: 300
+            })
+          }
         })
-        .catch(() => {
-          this.$notify({
-            group: 'foo',
-            text: 'hubo un error al guardar el recurso',
-            type: 'error',
-            duration: 3000,
-            speed: 300,
-            title: this.resource.title
-          })
-        })
+        // .then(() => this.axios.post('http://localhost:3000/', this.resource))
     },
     submit () {
       if (this.$refs.form.validate()) {

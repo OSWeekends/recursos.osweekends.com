@@ -24,6 +24,7 @@
                     <h3 block class="headline mb-0">{{ resource.title }}</h3>
                     <p>{{resource.description}}</p>
                     <p>Tipo: {{resource.type}}</p>
+                    <p>Creador: {{resource.creator}}</p>
                     <div v-for="cate in resource.category" :key="cate.id" :class="cate">{{cate}}</div>
                   </div>
                 </v-card-title>
@@ -77,7 +78,8 @@ export default {
         url: 'https://' + resources.url,
         img: resources.img,
         type: resources.type,
-        category: resources.category
+        category: resources.category,
+        creator: resources.creator
       })
     }
   },

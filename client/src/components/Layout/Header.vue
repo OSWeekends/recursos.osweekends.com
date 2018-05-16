@@ -1,14 +1,14 @@
 <template>
   <div>
-      <v-toolbar class="blue lighten-1">
-      <!--Responsive menu -->
+      <v-toolbar class="colorOsw">
+      <!--Responsive menu fondo color logo de osw #003da -->
          <v-menu bottom transition="slide-x-transition" class="hidden-sm-and-up" left>
           <v-btn slot="activator" icon class="white--text">
             <v-icon class="text--white">menu</v-icon>
           </v-btn>
             <v-list class="">
               <v-list-tile>
-                <v-list-tile-title> Item 1</v-list-tile-title>
+                <v-list-tile-title> <router-link to="/resources" exact class="black--text ml-5">Recursos</router-link></v-list-tile-title>
               </v-list-tile>
             </v-list>
          </v-menu>
@@ -23,7 +23,7 @@
         <v-spacer></v-spacer>
          <!--Toolbar user -->
         <v-toolbar-items class="hidden-xs-only">
-          <v-btn small v-on:click="login" v-if="!isLoggedIn" class="mr-2">
+          <v-btn small v-on:click="login" v-if="!isLoggedIn" class="mr-2 login">
             <v-icon left>fab fa-github</v-icon> Login
           </v-btn>
           <v-btn small flat v-on:click="logout" v-if="isLoggedIn" class="mr-2">
@@ -97,5 +97,9 @@ export default {
 
 nav .nav-wrapper i{
   line-height: inherit;
+}
+
+.colorOsw{
+  background-color: #003da5;
 }
 </style>
