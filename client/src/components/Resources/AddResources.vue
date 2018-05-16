@@ -39,7 +39,6 @@
 
 <script>
 import firebase from 'firebase'
-import axios from 'axios'
 
 export default {
   name: 'resources',
@@ -105,7 +104,7 @@ export default {
       }))
         .then(() => {
           if (this.exist === 0) {
-            axios.get('https://api.microlink.io/?url=https%3A%2F%2F' + this.resource.url + '&screenshot&filter=screenshot')
+            this.axios.get('https://api.microlink.io/?url=https%3A%2F%2F' + this.resource.url + '&screenshot&filter=screenshot')
               .then((response) => {
                 firebase.firestore().collection('Recursos')
                   .add({
@@ -151,6 +150,7 @@ export default {
             })
           }
         })
+        // .then(() => this.axios.post('http://localhost:3000/', this.resource))
     },
     submit () {
       if (this.$refs.form.validate()) {
