@@ -51,6 +51,15 @@ router.beforeEach((to, from, next) => {
     // proceed to the route
     next()
   }
+
+  // Check for undefinded route 404
+  // TODO create a nice 404 component, and redirect there, until that redirect to home ;)
+
+  if (!to.matched.length) {
+    next('/')
+  } else {
+    next()
+  }
 })
 
 export default router
