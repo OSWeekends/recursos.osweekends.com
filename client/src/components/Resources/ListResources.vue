@@ -12,7 +12,7 @@
     <v-container>
       <v-layout row wrap v-for="resource in filteredList" :key="resource.id">
       <v-flex xs12 md10 offset-md1>
-        <v-card class="info mb-3 blue lighten-1">
+        <v-card class="info mb-3 grey lighten-3">
           <v-container fluid wrap>
             <v-layout row>
               <v-flex xs5 md4>
@@ -25,11 +25,11 @@
                     <p>{{resource.description}}</p>
                     <p>Tipo: {{resource.type}}</p>
                     <p>Creador: {{resource.creator}}</p>
-                    <div v-for="cate in resource.category" :key="cate.id" :class="cate">{{cate}}</div>
+                    <div v-for="cate in resource.category" :key="cate.id" class="category">{{cate}}</div>
                   </div>
                 </v-card-title>
                 <v-card-actions>
-                  <v-btn block color="grey darken-3" class="white--text" :href="resource.url" target="_blank">Link</v-btn>
+                  <v-btn block color="light-blue accent-4" round class="white--text" :href="resource.url" target="_blank">Link</v-btn>
                 </v-card-actions>
               </v-flex>
             </v-layout>
@@ -84,9 +84,10 @@ export default {
     }
   },
   computed: {
+    // no aparecen los resultados al inicio
     filteredList () {
       return this.resources.filter(resources => {
-        return resources.category[0].toLowerCase().includes(this.search.toLowerCase())
+        return resources.category[0].includes(this.search.toLowerCase())
       })
     }
   }
@@ -94,5 +95,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

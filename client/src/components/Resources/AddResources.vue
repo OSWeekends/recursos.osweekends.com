@@ -54,7 +54,8 @@ export default {
         url: '',
         type: '',
         category: [],
-        creator: ''
+        creator: '',
+        img: ''
       },
       titleRules: [
         v => !!v || 'Title is required'
@@ -118,27 +119,26 @@ export default {
                   })
                   .then(() => {
                     this.$refs.form.reset()
+                    this.$notify({
+                      group: 'foo',
+                      text: 'Añadido nuevo recurso',
+                      type: 'success',
+                      duration: 5000,
+                      speed: 100,
+                      title: 'El recurso: ' + this.resource.title + 'se ha añadido correctamente'
+                    })
+                  })
+                  .catch(() => {
+                    this.$notify({
+                      group: 'foo',
+                      text: 'hubo un error al guardar el recurso',
+                      type: 'error',
+                      duration: 5000,
+                      speed: 100
+                    })
                   })
               })
-              .then(() => {
-                this.$notify({
-                  group: 'foo',
-                  text: 'Añadido nuevo recurso',
-                  type: 'success',
-                  duration: 3000,
-                  speed: 300,
-                  title: 'El recurso: ' + this.resource.title + 'se ha añadido correctamente'
-                })
-              })
-              .catch(() => {
-                this.$notify({
-                  group: 'foo',
-                  text: 'hubo un error al guardar el recurso',
-                  type: 'error',
-                  duration: 3000,
-                  speed: 300
-                })
-              })
+              .catch((error) => console.log(error))
           } else {
             this.$notify({
               group: 'foo',
