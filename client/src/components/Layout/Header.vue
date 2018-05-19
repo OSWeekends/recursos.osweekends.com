@@ -6,14 +6,17 @@
           <v-btn slot="activator" icon class="white--text">
             <v-icon class="text--white">menu</v-icon>
           </v-btn>
-            <v-list class="">
+            <v-list>
               <v-list-tile>
-                <v-list-tile-title> <router-link to="/resources" exact class="black--text ml-5">Recursos</router-link></v-list-tile-title>
+                <v-list-tile-title> <router-link to="/" exact class="black--text">Home</router-link></v-list-tile-title>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-title> <router-link to="/resources" exact class="black--text">Recursos</router-link></v-list-tile-title>
               </v-list-tile>
             </v-list>
          </v-menu>
           <!--Logo -->
-        <v-toolbar-title><router-link to="/" exact><img class="logo" src="../../assets/osw.svg"></router-link></v-toolbar-title>
+        <v-toolbar-title class="text-xs-center"><router-link to="/" exact><img class="logo" src="../../assets/osw.svg"></router-link></v-toolbar-title>
          <!--Tollbar rutas -->
          <v-toolbar-items class="hidden-xs-only">
           <v-btn flat to="/resources" exact class="white--text ml-5">
@@ -23,10 +26,10 @@
         <v-spacer></v-spacer>
          <!--Toolbar user -->
         <v-toolbar-items class="hidden-xs-only">
-          <v-btn small v-on:click="login" v-if="!isLoggedIn" class="white--text mr-2 login">
+          <v-btn small flat v-on:click="login" v-if="!isLoggedIn" class="white--text mr-2 login">
             <v-icon left>fab fa-github</v-icon> Login
           </v-btn>
-          <v-btn small flat v-on:click="logout" v-if="isLoggedIn" class=" white--text mr-2">
+          <v-btn small flat v-on:click="logout" v-if="isLoggedIn" class="white--text mr-2">
             <v-icon left>fas fa-sign-out-alt</v-icon> Logout
           </v-btn>
           <v-avatar v-if="isLoggedIn">
