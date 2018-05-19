@@ -23,10 +23,10 @@
         <v-spacer></v-spacer>
          <!--Toolbar user -->
         <v-toolbar-items class="hidden-xs-only">
-          <v-btn small v-on:click="login" v-if="!isLoggedIn" class="mr-2 login">
+          <v-btn small v-on:click="login" v-if="!isLoggedIn" class="white--text mr-2 login">
             <v-icon left>fab fa-github</v-icon> Login
           </v-btn>
-          <v-btn small flat v-on:click="logout" v-if="isLoggedIn" class="mr-2">
+          <v-btn small flat v-on:click="logout" v-if="isLoggedIn" class=" white--text mr-2">
             <v-icon left>fas fa-sign-out-alt</v-icon> Logout
           </v-btn>
           <v-avatar v-if="isLoggedIn">
@@ -93,6 +93,7 @@ export default {
 .userImg{
     width: 50px;
     border-radius: 50%;
+    margin-top: 15px;
 }
 
 nav .nav-wrapper i{
