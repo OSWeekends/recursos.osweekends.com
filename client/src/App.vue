@@ -1,23 +1,27 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
+  <v-app id="app">
+    <app-header></app-header>
     <router-view/>
-  </div>
+    <notifications style="width: 40%" position="top bottom" group="foo" />
+  </v-app>
 </template>
 
 <script>
+import header from './components/Layout/header.vue'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    'app-header': header
+  }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body{
+  margin: 0px;
+}
+v-app{
+  height: 100vh;
 }
 </style>
