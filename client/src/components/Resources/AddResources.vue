@@ -39,7 +39,7 @@
 
 <script>
 import firebase from 'firebase'
-import usersService from '../Services/users.service.js'
+import authService from '../Services/auth.service.js'
 
 export default {
   name: 'resources',
@@ -91,7 +91,7 @@ export default {
         })
       })
     // Get UserInfo
-    this.currentUser = usersService.getCurrentUser()
+    this.currentUser = authService.getCurrentUser()
   },
   methods: {
     addResource () {

@@ -24,64 +24,20 @@
           </v-btn>
         </v-toolbar-items>
         <v-spacer></v-spacer>
-         <!--Toolbar user -->
-        <v-toolbar-items class="hidden-xs-only">
-          <v-btn small flat v-on:click="login" v-if="!isLoggedIn" class="white--text mr-2 login">
-            <v-icon left>fab fa-github</v-icon> Login
-          </v-btn>
-          <v-btn small flat v-on:click="logout" v-if="isLoggedIn" class="white--text mr-2">
-            <v-icon left>fas fa-sign-out-alt</v-icon> Logout
-          </v-btn>
-          <v-avatar v-if="isLoggedIn">
-            <img class="userImg" :src="currentUser.photoURL">
-          </v-avatar>
-        </v-toolbar-items>
+        <app-login></app-login>
       </v-toolbar>
   </div>
 </template>
 
 <script>
-import firebase from 'firebase'
+import login from './login.vue'
 
-var provider = new firebase.auth.GithubAuthProvider()
 export default {
+  components: {
+    'app-login': login
+  },
   data () {
     return {
-      isLoggedIn: false,
-      currentUser: false
-    }
-  },
-  created () {
-    if (firebase.auth().currentUser) {
-      this.isLoggedIn = true
-      this.currentUser = firebase.auth().currentUser
-    }
-  },
-  methods: {
-    // Sing up/Login functionality using popup and GitHub Auth
-    login () {
-      firebase.auth().signInWithPopup(provider).then((result) => {
-        // retrieve the user info and store it in firebase db for custom properties of the user
-        var userData = JSON.stringify(result.user)
-        userData = JSON.parse(userData)
-        // Store the user in /user/{{uid}}/datos...
-        firebase.firestore().collection('User').doc(userData.uid).set({userData})
-          .then(() => this.$router.go({path: this.$router.path}))
-        // Reload the page to get changes in Header component
-      }).catch((error) => {
-        console.log('Unable to Log in!' + error)
-      })
-    },
-    // Log out
-    logout () {
-      firebase.auth().signOut().then(() => {
-        console.log('Logout success!')
-        // Redirect to home & Reload the page to get changes in Header component
-        this.$router.push('/')
-        this.$router.go({path: this.$router.path})
-      }).catch((error) => {
-        console.log('Unable to Logout' + error)
-      })
     }
   }
 }
@@ -91,12 +47,6 @@ export default {
 <style scoped>
 .logo{
     width: 75px;
-}
-
-.userImg{
-    width: 50px;
-    border-radius: 50%;
-    margin-top: 15px;
 }
 
 nav .nav-wrapper i{

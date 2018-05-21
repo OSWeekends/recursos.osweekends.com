@@ -50,7 +50,7 @@
 
 <script>
 import firebase from 'firebase'
-import usersService from '../Services/users.service.js'
+import authService from '../Services/auth.service.js'
 
 export default {
   name: 'resources',
@@ -69,7 +69,7 @@ export default {
     ))
 
     // Get UserInfo and check if user is logged
-    this.currentUser = usersService.getCurrentUser()
+    this.currentUser = authService.getCurrentUser()
     if (this.currentUser) {
       this.isLoggedIn = true
     }
