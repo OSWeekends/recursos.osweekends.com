@@ -34,13 +34,13 @@
 <script>
 import firebase from 'firebase'
 import service from '@/services/formResources.js'
+import authService from '../../Services/auth.service.js'
 
 export default {
   name: 'resources',
   data () {
     return {
       exist: 0,
-      user: '',
       types: [],
       categories: [],
       resource: {
@@ -80,11 +80,8 @@ export default {
           this.categories.push(obj[key])
         })
       })
-    if (firebase.auth().currentUser) {
-      this.isLoggedIn = true
-      this.currentUser = firebase.auth().currentUser
-      this.user = this.currentUser.displayName
-    }
+    // Get UserInfo
+    this.currentUser = authService.getCurrentUser()
   },
   methods: {
     addResource () {
@@ -103,7 +100,7 @@ export default {
                 this.resource.img = response.data.data.image.url
                 this.resource.type = this.resource.type
                 this.resource.category = this.resource.category
-                this.resource.creator = this.user
+                this.resource.creator = this.currentUser.displayName
                 this.resource.lang = response.data.data.lang
                 service.form(this.resource)
                 this.$router.push({ name: 'AddResources2' })

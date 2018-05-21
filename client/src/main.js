@@ -7,7 +7,6 @@ import firebase from 'firebase'
 import Notifications from 'vue-notification'
 import VueAxios from 'vue-axios'
 import axios from 'axios'
-
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import 'firebase/firestore'
