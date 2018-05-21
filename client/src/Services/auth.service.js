@@ -1,5 +1,5 @@
 import firebase from 'firebase'
-import Router from '../../router/index.js'
+import Router from '../router/index.js'
 
 var provider = new firebase.auth.GithubAuthProvider()
 export default {

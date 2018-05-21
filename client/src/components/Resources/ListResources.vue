@@ -50,7 +50,7 @@
 
 <script>
 import firebase from 'firebase'
-import authService from '../Services/auth.service.js'
+import authService from '../../Services/auth.service.js'
 
 export default {
   name: 'resources',
