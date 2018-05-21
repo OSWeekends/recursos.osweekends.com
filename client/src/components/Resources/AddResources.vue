@@ -39,13 +39,13 @@
 
 <script>
 import firebase from 'firebase'
+import usersService from '../Services/users.service.js'
 
 export default {
   name: 'resources',
   data () {
     return {
       exist: 0,
-      user: '',
       types: [],
       categories: [],
       resource: {
@@ -90,11 +90,8 @@ export default {
           this.categories.push(obj[key])
         })
       })
-    if (firebase.auth().currentUser) {
-      this.isLoggedIn = true
-      this.currentUser = firebase.auth().currentUser
-      this.user = this.currentUser.displayName
-    }
+    // Get UserInfo
+    this.currentUser = usersService.getCurrentUser()
   },
   methods: {
     addResource () {
@@ -115,7 +112,7 @@ export default {
                     img: response.data.data.screenshot.url,
                     type: this.resource.type,
                     category: this.resource.category,
-                    creator: this.user
+                    creator: this.currentUser.displayName
                   })
                   .then(() => {
                     this.$refs.form.reset()

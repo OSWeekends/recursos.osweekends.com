@@ -50,6 +50,7 @@
 
 <script>
 import firebase from 'firebase'
+import usersService from '../Services/users.service.js'
 
 export default {
   name: 'resources',
@@ -58,7 +59,7 @@ export default {
       resources: [],
       search: '',
       isLoggedIn: false,
-      user: ''
+      currentUser: ''
     }
   },
   created () {
@@ -66,9 +67,10 @@ export default {
     firebase.firestore().collection('Recursos').get().then((querySnapshot) => querySnapshot.forEach((doc) =>
       this.getResources(doc.data())
     ))
-    // check if user is logged
-    if (firebase.auth().currentUser) {
-      this.user = firebase.auth().currentUser.uid
+
+    // Get UserInfo and check if user is logged
+    this.currentUser = usersService.getCurrentUser()
+    if (this.currentUser) {
       this.isLoggedIn = true
     }
   },
