@@ -4,19 +4,13 @@
       <v-flex md10 offset-md1>
         <v-form ref="form" @submit.prevent='addResource'>
           <v-layout row>
-            <v-text-field v-model="resource.title" label="Titulo" required :rules="titleRules"></v-text-field>
-          </v-layout>
-          <v-layout row>
-            <v-text-field v-model="resource.description" label="Descripcion" required :rules="descriptionRules"></v-text-field>
-          </v-layout>
-          <v-layout row>
-            <v-text-field v-model="resource.url" label="Url" required :rules="descriptionRules"></v-text-field>
+            <v-text-field v-model="resource.url" label="Url" required :rules="urlRules"></v-text-field>
           </v-layout >
           <v-layout row>
-            <v-select :items="types" v-model="resource.type" label="Tipo" single-line autocomplete :filter="customFilter" required :rules="typeRules"></v-select>
+            <v-select :items="types" v-model="resource.type" label="Tipo" single-line autocomplete :rules="typeRules"></v-select>
           </v-layout>
           <v-layout row>
-            <v-select :items="categories" v-model="resource.category" label="Categorías" single-line autocomplete :filter="customFilter" multiple></v-select>
+            <v-select :items="categories" v-model="resource.category" label="Categorías" single-line autocomplete multiple></v-select>
           </v-layout>
           <v-layout row>
             <div class="mx-auto">
@@ -39,6 +33,7 @@
 
 <script>
 import firebase from 'firebase'
+import service from '@/services/formResources.js'
 
 export default {
   name: 'resources',
@@ -52,17 +47,12 @@ export default {
         title: '',
         description: '',
         url: '',
-        type: '',
-        category: [],
+        img: '',
         creator: '',
-        img: ''
+        lang: '',
+        type: '',
+        category: []
       },
-      titleRules: [
-        v => !!v || 'Title is required'
-      ],
-      descriptionRules: [
-        v => !!v || 'Description is required'
-      ],
       urlRules: [
         v => !!v || 'Url is required',
         // TODO Find regexp that match protocols
@@ -105,38 +95,18 @@ export default {
       }))
         .then(() => {
           if (this.exist === 0) {
-            this.axios.get('https://api.microlink.io/?url=https%3A%2F%2F' + this.resource.url + '&screenshot&filter=screenshot')
+            this.axios.get('https://api.microlink.io?url=' + this.resource.url)
               .then((response) => {
-                firebase.firestore().collection('Recursos')
-                  .add({
-                    title: this.resource.title.toLowerCase(),
-                    description: this.resource.description.toLowerCase(),
-                    url: this.resource.url.toLowerCase(),
-                    img: response.data.data.screenshot.url,
-                    type: this.resource.type,
-                    category: this.resource.category,
-                    creator: this.user
-                  })
-                  .then(() => {
-                    this.$refs.form.reset()
-                    this.$notify({
-                      group: 'foo',
-                      text: 'Añadido nuevo recurso',
-                      type: 'success',
-                      duration: 5000,
-                      speed: 100,
-                      title: 'El recurso: ' + this.resource.title + 'se ha añadido correctamente'
-                    })
-                  })
-                  .catch(() => {
-                    this.$notify({
-                      group: 'foo',
-                      text: 'hubo un error al guardar el recurso',
-                      type: 'error',
-                      duration: 5000,
-                      speed: 100
-                    })
-                  })
+                this.resource.title = response.data.data.title
+                this.resource.description = response.data.data.description
+                this.resource.url = response.data.data.url
+                this.resource.img = response.data.data.image.url
+                this.resource.type = this.resource.type
+                this.resource.category = this.resource.category
+                this.resource.creator = this.user
+                this.resource.lang = response.data.data.lang
+                service.form(this.resource)
+                this.$router.push({ name: 'AddResources2' })
               })
               .catch((error) => console.log(error))
           } else {
@@ -149,7 +119,6 @@ export default {
             })
           }
         })
-        // .then(() => this.axios.post('http://localhost:3000/', this.resource))
     },
     submit () {
       if (this.$refs.form.validate()) {

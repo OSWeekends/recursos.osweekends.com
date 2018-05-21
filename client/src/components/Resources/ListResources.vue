@@ -16,7 +16,7 @@
           <v-container fluid wrap>
             <v-layout row>
               <v-flex xs5 md4>
-                <v-card-media :src="resource.img" height="100%" id="resourceImg"></v-card-media>
+                <v-card-media :src="resource.img" height="100%"></v-card-media>
               </v-flex>
               <v-flex xs7 md8>
                 <v-card-title class="pt-0">
@@ -24,10 +24,8 @@
                     <h3 block class="headline mb-0">{{ resource.title }}</h3>
                     <p>{{resource.description}}</p>
                     <p>Tipo: {{resource.type}}</p>
-                    <p>Añadido por: {{resource.creator}}</p>
-                    <div v-for="cate in resource.category" :key="cate.id" class="category">
-                      <v-chip disabled>{{cate}}</v-chip>
-                    </div>
+                    <p>Creador: {{resource.creator}}</p>
+                    <div v-for="cate in resource.category" :key="cate.id" class="category">{{cate}}</div>
                   </div>
                 </v-card-title>
                 <v-card-actions>
