@@ -14,6 +14,7 @@
 
 <script>
 import authService from '../../Services/auth.service.js'
+import { mapGetters} from 'vuex';
 
 export default {
   data () {
@@ -37,7 +38,8 @@ export default {
     // Log out
     logout () {
       authService.logout()
-    }
+    },
+    ...mapGetters(['getUser'])
   }
 }
 </script>
