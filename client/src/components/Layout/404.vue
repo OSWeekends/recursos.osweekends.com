@@ -1,15 +1,16 @@
 <template>
-<div>
-    <link href='https://fonts.googleapis.com/css?family=Press+Start+2P&subset=latin-ext' rel='stylesheet' type='text/css'>
-
-    <p>oops!!!<br/><span class="bigger flickering">404</span></p>
-    <p id="info">Pagina no encontrada.<a href= "/">Go Home!!!</a></p>
+    <div>
+        <link href='https://fonts.googleapis.com/css?family=Press+Start+2P&subset=latin-ext' rel='stylesheet' type='text/css'>
+        <p>oops!!!<br/><span class="bigger flickering">404</span></p>
+        <p id="info">Pagina no encontrada.<a href= "/">Go Home!!!</a></p>
     </div>
 </template>
+
 <script>
 export default {
 }
 </script>
+
 <style scoped>
 p {
   font-family: 'Press Start 2P', cursive;
