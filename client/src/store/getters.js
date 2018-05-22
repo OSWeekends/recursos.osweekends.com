@@ -4,6 +4,7 @@
 
 const getters = {
   getUser: state => state.user,
-};
+  isLogged: state => (undefined !== state.user || state.user !== null)
+}
 
-export default getters;
+export default getters

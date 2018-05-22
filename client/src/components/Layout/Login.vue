@@ -1,45 +1,52 @@
 <template>
     <v-toolbar-items class="hidden-xs-only">
-        <v-btn small flat v-on:click="login" v-if="!isLoggedIn" class="white--text mr-2 login">
-        <v-icon left>fab fa-github</v-icon> Login
-        </v-btn>
-        <v-btn small flat v-on:click="logout" v-if="isLoggedIn" class="white--text mr-2">
-        <v-icon left>fas fa-sign-out-alt</v-icon> Logout
-        </v-btn>
-        <v-avatar v-if="isLoggedIn">
-        <img class="userImg" :src="currentUser.photoURL">
-        </v-avatar>
+        <template v-if="isLogged()">
+          <v-btn small flat v-on:click="login" class="white--text mr-2 login">
+          <v-icon left>fab fa-github</v-icon> Login
+          </v-btn>
+        </template>
+        <template v-else>
+          <v-btn small flat v-on:click="logout" class="white--text mr-2">
+            <v-icon left>fas fa-sign-out-alt</v-icon> Logout
+          </v-btn>
+          <v-avatar>
+            <img class="userImg" :src="currentUser.photoURL">
+          </v-avatar>
+        </template>
     </v-toolbar-items>
 </template>
 
 <script>
 import authService from '../../Services/auth.service.js'
-import { mapGetters} from 'vuex';
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data () {
     return {
-      isLoggedIn: false,
-      currentUser: false
+      currentUser: this.getUser()
     }
   },
   created () {
     // Get UserInfo and check if user is logged
-    this.currentUser = authService.getCurrentUser()
-    if (this.currentUser) {
-      this.isLoggedIn = true
-    }
+    // this.currentUser = this.getUser() // authService.getCurrentUser()
+    // debugger
+    // if (this.currentUser) {
+    //   this.isLoggedIn = true
+    // }
   },
   methods: {
     // Sing up/Login functionality using popup and GitHub Auth
     login () {
-      authService.login()
+      // authService.login()
+      this.logIn()
     },
     // Log out
     logout () {
       authService.logout()
     },
-    ...mapGetters(['getUser'])
+    ...mapGetters(['getUser', 'isLogged']),
+    ...mapActions(['logIn'])
+
   }
 }
 </script>
