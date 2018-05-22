@@ -4,6 +4,7 @@ import Home from '@/components/LAyout/Home'
 import ListResources from '@/components/Resources/ListResources'
 import AddResources from '@/components/Resources/AddResources'
 import firebase from 'firebase'
+import PageNotFound from '@/components/Layout/404'
 
 Vue.use(Router)
 
@@ -26,6 +27,11 @@ let router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/pageNotFound',
+      name: 'PageNotFound',
+      component: PageNotFound
     }
   ]
 })
@@ -56,7 +62,7 @@ router.beforeEach((to, from, next) => {
   // TODO create a nice 404 component, and redirect there, until that redirect to home ;)
 
   if (!to.matched.length) {
-    next('/')
+    next('/pageNotFound')
   } else {
     next()
   }
