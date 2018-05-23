@@ -11,6 +11,14 @@ const actions = {
     } catch (error) {
       console.error(error)
     }
+  },
+  logOut: async ({commit}) => {
+    try {
+      await authService.logout()
+      commit('logOut')
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 

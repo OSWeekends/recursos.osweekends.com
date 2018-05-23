@@ -18,7 +18,7 @@ export default {
         // Store the user in /user/{{uid}}/datos...
         firebase.firestore().collection('User').doc(userData.uid).set({userData})
           .then((resp) => {
-            Router.go({path: Router.path})
+            // Router.go({path: Router.path})
             resolve(userData)
           })
         // Reload the page to get changes in Header component
@@ -30,13 +30,18 @@ export default {
   },
   // Log out
   logout () {
-    firebase.auth().signOut().then(() => {
-      console.log('Logout success!')
-      // Redirect to home & Reload the page to get changes in Header component
-      Router.push('/')
-      Router.go({path: Router.path})
-    }).catch((error) => {
-      console.log('Unable to Logout' + error)
+    return new Promise((resolve, reject) => {
+      firebase.auth().signOut().then(() => {
+        console.log('Logout success!')
+        resolve(true)
+        // Redirect to home & Reload the page to get changes in Header component
+        // Router.go('/')
+        Router.push('/')
+        // Router.go({path: Router.path})
+      }).catch((error) => {
+        reject(error)
+        // console.log('Unable to Logout' + error)
+      })
     })
   }
 }

@@ -10,7 +10,7 @@
             <v-icon left>fas fa-sign-out-alt</v-icon> Logout
           </v-btn>
           <v-avatar>
-            <img class="userImg" :src="currentUser.photoURL">
+            <img class="userImg" :src="user.photoURL">
           </v-avatar>
         </template>
     </v-toolbar-items>
@@ -18,12 +18,12 @@
 
 <script>
 import authService from '../../Services/auth.service.js'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex'
 
 export default {
   data () {
     return {
-      currentUser: this.getUser()
+      currentUser: {}
     }
   },
   created () {
@@ -33,6 +33,7 @@ export default {
     // if (this.currentUser) {
     //   this.isLoggedIn = true
     // }
+    // this.currentUser = this.user()
   },
   methods: {
     // Sing up/Login functionality using popup and GitHub Auth
@@ -47,6 +48,9 @@ export default {
     ...mapGetters(['getUser', 'isLogged']),
     ...mapActions(['logIn'])
 
+  },
+  computed: {
+    ...mapState(['user'])
   }
 }
 </script>

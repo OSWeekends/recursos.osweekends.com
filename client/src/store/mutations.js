@@ -4,6 +4,9 @@
 const mutations = {
   logIn: (state, user) => {
     state.user = user
+  },
+  logOut: (state) => {
+    state.user = {}
   }
 }
 
