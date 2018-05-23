@@ -10,7 +10,7 @@ import axios from 'axios'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import 'firebase/firestore'
-import {store} from './components/store/store'
+import store from './store'
 
 Vue.use(Notifications)
 Vue.use(Vuetify)
@@ -37,6 +37,7 @@ firebase.auth().onAuthStateChanged(user => {
       el: '#app',
       store: store,
       router,
+      store,
       components: { App },
       template: '<App/>'
     })
