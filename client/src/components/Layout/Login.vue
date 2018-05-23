@@ -17,36 +17,24 @@
 </template>
 
 <script>
-import authService from '../../Services/auth.service.js'
 import { mapGetters, mapActions, mapState } from 'vuex'
 
 export default {
   data () {
     return {
-      currentUser: {}
     }
-  },
-  created () {
-    // Get UserInfo and check if user is logged
-    // this.currentUser = this.getUser() // authService.getCurrentUser()
-    // debugger
-    // if (this.currentUser) {
-    //   this.isLoggedIn = true
-    // }
-    // this.currentUser = this.user()
   },
   methods: {
     // Sing up/Login functionality using popup and GitHub Auth
     login () {
-      // authService.login()
       this.logIn()
     },
     // Log out
     logout () {
-      authService.logout()
+      this.logOut()
     },
     ...mapGetters(['getUser', 'isLogged']),
-    ...mapActions(['logIn'])
+    ...mapActions(['logIn', 'logOut'])
 
   },
   computed: {
