@@ -3,7 +3,9 @@ import Router from 'vue-router'
 import Home from '@/components/LAyout/Home'
 import ListResources from '@/components/Resources/ListResources'
 import AddResources from '@/components/Resources/AddResources'
+import AddResources2 from '@/components/Resources/AddResources2'
 import firebase from 'firebase'
+import PageNotFound from '@/components/Layout/404'
 
 Vue.use(Router)
 
@@ -26,6 +28,19 @@ let router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/resources/new2',
+      name: 'AddResources2',
+      component: AddResources2,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/pageNotFound',
+      name: 'PageNotFound',
+      component: PageNotFound
     }
   ]
 })
@@ -49,6 +64,15 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     // proceed to the route
+    next()
+  }
+
+  // Check for undefinded route 404
+  // TODO create a nice 404 component, and redirect there, until that redirect to home ;)
+
+  if (!to.matched.length) {
+    next('/pageNotFound')
+  } else {
     next()
   }
 })

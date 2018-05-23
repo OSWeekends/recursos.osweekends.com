@@ -10,13 +10,13 @@
       </v-layout>
     </v-container>
     <v-container>
-     <v-layout row wrap v-for="resource in serchDo" :key="resource.id">
+      <v-layout row wrap v-for="resource in filteredList" :key="resource.id">
       <v-flex xs12 md10 offset-md1>
-        <v-card class="info mb-3 blue lighten-1">
+        <v-card class="info mb-3 grey lighten-3">
           <v-container fluid wrap>
             <v-layout row>
               <v-flex xs5 md4>
-                <v-card-media :src="resource.img" height="100%"></v-card-media>
+                <v-card-media :src="resource.img" height="100%" id="resourceImg"></v-card-media>
               </v-flex>
               <v-flex xs7 md8>
                 <v-card-title class="pt-0">
@@ -24,11 +24,14 @@
                     <h3 block class="headline mb-0">{{ resource.title }}</h3>
                     <p>{{resource.description}}</p>
                     <p>Tipo: {{resource.type}}</p>
-                    <div v-for="cate in resource.category" :key="cate.id" :class="cate">{{cate}}</div>
+                    <p>Añadido por: {{resource.creator}}</p>
+                    <div v-for="cate in resource.category" :key="cate.id" class="category">
+                      <v-chip disabled>{{cate}}</v-chip>
+                    </div>
                   </div>
                 </v-card-title>
                 <v-card-actions>
-                   <v-btn block color="grey darken-3" class="white--text" :href="resource.url" target="_blank">Link</v-btn>
+                  <v-btn block color="light-blue accent-4" round class="white--text" :href="resource.url" target="_blank">Link</v-btn>
                 </v-card-actions>
               </v-flex>
             </v-layout>
@@ -38,8 +41,8 @@
     </v-layout>
     </v-container>
     <div v-if="isLoggedIn" class="text-xs-center">
-       <v-btn to="/resources/new" fab fixed bottom right class="white--text red">
-      <v-icon>add</v-icon>
+      <v-btn to="/resources/new" fab fixed bottom right class="white--text red">
+        <v-icon>add</v-icon>
       </v-btn>
     </div>
   </div>
@@ -54,40 +57,45 @@ export default {
     return {
       resources: [],
       search: '',
-      isLoggedIn: false
+      isLoggedIn: false,
+      currentUser: '',
+      user: ''
     }
   },
   created () {
     // Get the list of resources
-    firebase.database().ref('Recursos')
-      .on('value', snapshot => this.getResources(snapshot.val()))
+    firebase.firestore().collection('Recursos').get().then((querySnapshot) => querySnapshot.forEach((doc) =>
+      this.getResources(doc.data())
+    ))
     // check if user is logged
     if (firebase.auth().currentUser) {
+      this.user = firebase.auth().currentUser.uid
       this.isLoggedIn = true
     }
   },
   methods: {
     getResources (resources) {
-      for (let key in resources) {
-        this.resources.push({
-          title: resources[key].title,
-          description: resources[key].description,
-          url: 'https://' + resources[key].url,
-          img: resources[key].img,
-          type: resources[key].type,
-          category: resources[key].category
-        })
-      }
+      this.resources.push({
+        title: resources.title,
+        description: resources.description,
+        url: 'https://' + resources.url,
+        img: resources.img,
+        type: resources.type,
+        category: resources.category,
+        creator: resources.creator
+      })
     }
   },
   computed: {
-    serchDo () {
-      return this.resources.filter((resource) => resource.category[0].includes(this.search))
+    // no aparecen los resultados al inicio
+    filteredList () {
+      return this.resources.filter(resources => {
+        return resources.category[0].includes(this.search.toLowerCase())
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-
 </style>
