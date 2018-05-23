@@ -10,7 +10,7 @@ import axios from 'axios'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import 'firebase/firestore'
-import {store} from './store/store'
+import {store} from './components/store/store'
 
 Vue.use(Notifications)
 Vue.use(Vuetify)
