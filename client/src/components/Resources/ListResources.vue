@@ -16,7 +16,7 @@
           <v-container fluid wrap>
             <v-layout row>
               <v-flex xs5 md4>
-                <v-card-media :src="resource.img" height="100%"></v-card-media>
+                <v-card-media :src="resource.img" height="100%" id="resourceImg"></v-card-media>
               </v-flex>
               <v-flex xs7 md8>
                 <v-card-title class="pt-0">
@@ -24,8 +24,10 @@
                     <h3 block class="headline mb-0">{{ resource.title }}</h3>
                     <p>{{resource.description}}</p>
                     <p>Tipo: {{resource.type}}</p>
-                    <p>Creador: {{resource.creator}}</p>
-                    <div v-for="cate in resource.category" :key="cate.id" class="category">{{cate}}</div>
+                    <p>Añadido por: {{resource.creator}}</p>
+                    <div v-for="cate in resource.category" :key="cate.id" class="category">
+                      <v-chip disabled>{{cate}}</v-chip>
+                    </div>
                   </div>
                 </v-card-title>
                 <v-card-actions>
@@ -48,7 +50,6 @@
 
 <script>
 import firebase from 'firebase'
-import authService from '../../Services/auth.service.js'
 
 export default {
   name: 'resources',
@@ -57,7 +58,8 @@ export default {
       resources: [],
       search: '',
       isLoggedIn: false,
-      currentUser: ''
+      currentUser: '',
+      user: ''
     }
   },
   created () {
@@ -65,10 +67,9 @@ export default {
     firebase.firestore().collection('Recursos').get().then((querySnapshot) => querySnapshot.forEach((doc) =>
       this.getResources(doc.data())
     ))
-
-    // Get UserInfo and check if user is logged
-    this.currentUser = authService.getCurrentUser()
-    if (this.currentUser) {
+    // check if user is logged
+    if (firebase.auth().currentUser) {
+      this.user = firebase.auth().currentUser.uid
       this.isLoggedIn = true
     }
   },
