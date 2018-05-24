@@ -19,6 +19,10 @@ const actions = {
     } catch (error) {
       console.error(error)
     }
+  },
+  checkLogged: ({commit}) => {
+    let user = authService.getCurrentUser()
+    if (user) commit('logIn', user)
   }
 }
 
