@@ -33,8 +33,8 @@
 
 <script>
 import firebase from 'firebase'
-import service from '@/services/formResources.js'
 import authService from '../../Services/auth.service.js'
+import { mapState } from 'vuex'
 
 export default {
   name: 'resources',
@@ -43,16 +43,6 @@ export default {
       exist: 0,
       types: [],
       categories: [],
-      resource: {
-        title: '',
-        description: '',
-        url: '',
-        img: '',
-        creator: '',
-        lang: '',
-        type: '',
-        category: []
-      },
       urlRules: [
         v => !!v || 'Url is required',
         // TODO Find regexp that match protocols
@@ -63,6 +53,9 @@ export default {
       ]
     }
   },
+  computed: mapState({
+    resource: state => state.resource
+  }),
   created () {
     // Get Types, call to the Firebase bd, get the response object, iterate the keys, and push the result values into types array
     firebase.firestore().collection('Type').doc('type')
@@ -92,17 +85,17 @@ export default {
       }))
         .then(() => {
           if (this.exist === 0) {
-            this.axios.get('https://api.microlink.io?url=' + this.resource.url)
+            this.axios.get('https://api.microlink.io?url=' + this.$store.state.resource.url)
               .then((response) => {
-                this.resource.title = response.data.data.title
-                this.resource.description = response.data.data.description
-                this.resource.url = response.data.data.url
-                this.resource.img = response.data.data.image.url
-                this.resource.type = this.resource.type
-                this.resource.category = this.resource.category
-                this.resource.creator = this.currentUser.displayName
-                this.resource.lang = response.data.data.lang
-                service.form(this.resource)
+                this.$store.state.resource.title = response.data.data.title
+                this.$store.state.resource.description = response.data.data.description
+                this.$store.state.resource.url = response.data.data.url
+                this.$store.state.resource.img = response.data.data.image.url
+                this.$store.state.resource.type = this.resource.type
+                this.$store.state.resource.category = this.resource.category
+                this.$store.state.resource.creator = this.currentUser.displayName
+                this.$store.state.resource.lang = response.data.data.lang
+                console.log(this.$store.state.resource)
                 this.$router.push({ name: 'AddResources2' })
               })
               .catch((error) => console.log(error))

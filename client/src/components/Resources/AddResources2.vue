@@ -33,7 +33,7 @@
 
 <script>
 import firebase from 'firebase'
-import service from '@/services/formResources.js'
+import { mapState } from 'vuex'
 
 export default {
   name: 'resources',
@@ -41,16 +41,6 @@ export default {
     return {
       types: [],
       categories: [],
-      resource: {
-        title: '',
-        description: '',
-        url: '',
-        img: '',
-        creator: '',
-        lang: '',
-        type: '',
-        category: []
-      },
       titleRules: [
         v => !!v || 'Title is required'
       ],
@@ -64,8 +54,10 @@ export default {
       ]
     }
   },
+  computed: mapState({
+    resource: state => state.resource
+  }),
   created () {
-    this.resource = service.getResource()
     if (firebase.auth().currentUser) {
       this.isLoggedIn = true
       this.currentUser = firebase.auth().currentUser

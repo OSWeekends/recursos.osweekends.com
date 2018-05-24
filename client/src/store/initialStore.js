@@ -3,7 +3,17 @@
  * mejor inicializar a null!
  */
 const store = {
-  user: {}
+  user: {},
+  resource: {
+    title: '',
+    description: '',
+    url: '',
+    img: '',
+    creator: '',
+    lang: '',
+    type: '',
+    category: []
+  }
 }
 
 export default store
