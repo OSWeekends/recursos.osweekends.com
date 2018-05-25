@@ -26,13 +26,12 @@
       </v-flex>
     </v-layout>
     <pre>{{ resource }}</pre>
-    <pre>{{ types }}</pre>
-    <pre>{{ categories }}</pre>
   </v-container>
 </template>
 
 <script>
 import firebase from 'firebase'
+import firebaseService from '../../Services/firebase.service.js'
 import { mapState } from 'vuex'
 
 export default {
@@ -66,7 +65,7 @@ export default {
   },
   methods: {
     addResource () {
-      firebase.firestore().collection('Recursos')
+      firebaseService.resourceFirebase(firebase)
         .add({
           title: this.resource.title,
           description: this.resource.description,

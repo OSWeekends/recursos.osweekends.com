@@ -34,6 +34,9 @@
 <script>
 import firebase from 'firebase'
 import authService from '../../Services/auth.service.js'
+import resourceService from '../../Services/resource.service.js'
+import microlinkService from '../../Services/microlink.service.js'
+import firebaseService from '../../Services/firebase.service.js'
 import { mapState } from 'vuex'
 
 export default {
@@ -58,34 +61,23 @@ export default {
   }),
   created () {
     // Get Types, call to the Firebase bd, get the response object, iterate the keys, and push the result values into types array
-    firebase.firestore().collection('Type').doc('type')
-      .onSnapshot((doc) => {
-        let obj = doc.data()
-        Object.keys(obj).map((key, index) => {
-          this.types.push(obj[key])
-        })
-      })
+    resourceService.getTypes(this.types)
     // Get Categories, call to the Firebase bd, get the response object, iterate the keys, and push the result values into categories array
-    firebase.firestore().collection('Category').doc('category')
-      .onSnapshot((doc) => {
-        let obj = doc.data()
-        Object.keys(obj).map((key, index) => {
-          this.categories.push(obj[key])
-        })
-      })
+    resourceService.getCategory(this.categories)
     // Get UserInfo
     this.currentUser = authService.getCurrentUser()
   },
   methods: {
     addResource () {
-      firebase.firestore().collection('Recursos').get().then((querySnapshot) => querySnapshot.forEach((doc) => {
-        if (doc.data().url === this.resource.url) {
-          this.exist = 1
-        }
-      }))
+      firebaseService.getResourceFirebase(firebase)
+        .then((querySnapshot) => querySnapshot.forEach((doc) => {
+          if (doc.data().url === this.resource.url) {
+            this.exist = 1
+          }
+        }))
         .then(() => {
           if (this.exist === 0) {
-            this.axios.get('https://api.microlink.io?url=' + this.$store.state.resource.url)
+            microlinkService.getUrl(this.$store.state.resource.url)
               .then((response) => {
                 this.$store.state.resource.title = response.data.data.title
                 this.$store.state.resource.description = response.data.data.description
@@ -95,7 +87,6 @@ export default {
                 this.$store.state.resource.category = this.resource.category
                 this.$store.state.resource.creator = this.currentUser.displayName
                 this.$store.state.resource.lang = response.data.data.lang
-                console.log(this.$store.state.resource)
                 this.$router.push({ name: 'AddResources2' })
               })
               .catch((error) => console.log(error))
