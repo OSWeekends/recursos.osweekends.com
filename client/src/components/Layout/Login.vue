@@ -38,7 +38,6 @@ export default {
     },
     ...mapGetters(['getUser', 'isLogged']),
     ...mapActions(['logIn', 'logOut', 'checkLogged'])
-
   },
   computed: {
     ...mapState(['user'])

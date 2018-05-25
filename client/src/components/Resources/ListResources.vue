@@ -10,7 +10,7 @@
       </v-layout>
     </v-container>
     <v-container>
-      <v-layout row wrap v-for="resource in filteredList" :key="resource.id">
+      <v-layout row wrap v-for="resource in resources" :key="resource.id">
       <v-flex xs12 md10 offset-md1>
         <v-card class="info mb-3 grey lighten-3">
           <v-container fluid wrap>

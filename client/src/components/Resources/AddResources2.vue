@@ -32,7 +32,7 @@
 <script>
 import firebase from 'firebase'
 import firebaseService from '../../Services/firebase.service.js'
-import { mapState } from 'vuex'
+import {mapState, mapMutations} from 'vuex'
 
 export default {
   name: 'resources',
@@ -64,6 +64,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setResource']),
     addResource () {
       firebaseService.resourceFirebase(firebase)
         .add({
@@ -77,7 +78,6 @@ export default {
           lang: this.resource.lang
         })
         .then(() => {
-          this.$refs.form.reset()
           this.$notify({
             group: 'foo',
             text: 'Añadido nuevo recurso',
@@ -86,7 +86,9 @@ export default {
             speed: 100,
             title: 'El recurso: ' + this.resource.title + 'se ha añadido correctamente'
           })
-          this.$router.push({ name: 'ListResources' })
+          let resource = {title: '', description: '', url: '', img: '', type: '', category: '', creator: '', lang: ''}
+          this.setResource(resource)
+          this.$router.push({name: 'ListResources'})
         })
         .catch(() => {
           this.$notify({

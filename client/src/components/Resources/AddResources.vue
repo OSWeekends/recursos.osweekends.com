@@ -37,7 +37,7 @@ import authService from '../../Services/auth.service.js'
 import resourceService from '../../Services/resource.service.js'
 import microlinkService from '../../Services/microlink.service.js'
 import firebaseService from '../../Services/firebase.service.js'
-import { mapState } from 'vuex'
+import {mapState, mapMutations} from 'vuex'
 
 export default {
   name: 'resources',
@@ -68,6 +68,7 @@ export default {
     this.currentUser = authService.getCurrentUser()
   },
   methods: {
+    ...mapMutations(['setResource']),
     addResource () {
       firebaseService.getResourceFirebase(firebase)
         .then((querySnapshot) => querySnapshot.forEach((doc) => {
@@ -79,15 +80,18 @@ export default {
           if (this.exist === 0) {
             microlinkService.getUrl(this.$store.state.resource.url)
               .then((response) => {
-                this.$store.state.resource.title = response.data.data.title
-                this.$store.state.resource.description = response.data.data.description
-                this.$store.state.resource.url = response.data.data.url
-                this.$store.state.resource.img = response.data.data.image.url
-                this.$store.state.resource.type = this.resource.type
-                this.$store.state.resource.category = this.resource.category
-                this.$store.state.resource.creator = this.currentUser.displayName
-                this.$store.state.resource.lang = response.data.data.lang
-                this.$router.push({ name: 'AddResources2' })
+                let resource = {
+                  title: response.data.data.title,
+                  description: response.data.data.description,
+                  url: response.data.data.url,
+                  img: response.data.data.image.url,
+                  type: this.resource.type,
+                  category: this.resource.category,
+                  creator: this.currentUser.displayName,
+                  lang: response.data.data.lang
+                }
+                this.setResource(resource)
+                this.$router.push({name: 'AddResources2'})
               })
               .catch((error) => console.log(error))
           } else {
