@@ -4,7 +4,7 @@
 
 const getters = {
   getUser: state => state.user,
-  isLogged: state => (Object.keys(state.user).length === 0)
+  isLogged: state => (state.user !== null)
 }
 
 export default getters

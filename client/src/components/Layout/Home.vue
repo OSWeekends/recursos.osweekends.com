@@ -62,7 +62,7 @@
             </v-card-text>
           </v-card>
         </v-container>
-       </v-footer>
+      </v-footer>
     </v-container>
   </div>
 </template>

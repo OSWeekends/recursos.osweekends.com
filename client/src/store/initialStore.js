@@ -3,7 +3,6 @@
  * mejor inicializar a null!
  */
 const store = {
-  user: {},
   resource: {
     title: '',
     description: '',
@@ -13,7 +12,8 @@ const store = {
     lang: '',
     type: '',
     category: []
-  }
+  },
+  user: null
 }
 
 export default store
