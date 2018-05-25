@@ -58,6 +58,7 @@ export default {
       resources: [],
       search: '',
       isLoggedIn: false,
+      currentUser: '',
       user: ''
     }
   },
