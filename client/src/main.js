@@ -8,6 +8,7 @@ import Notifications from 'vue-notification'
 import VueAxios from 'vue-axios'
 import axios from 'axios'
 import Vuetify from 'vuetify'
+import store from './store'
 import 'vuetify/dist/vuetify.min.css'
 import 'firebase/firestore'
 
@@ -34,6 +35,7 @@ firebase.auth().onAuthStateChanged(user => {
   if (!app) {
     app = new Vue({
       el: '#app',
+      store,
       router,
       components: { App },
       template: '<App/>'
