@@ -28,6 +28,7 @@
     <pre>{{ resource }}</pre>
     <pre>{{ types }}</pre>
     <pre>{{ categories }}</pre>
+    <pre>{{ url }}</pre>
   </v-container>
 </template>
 
@@ -46,6 +47,7 @@ export default {
       exist: 0,
       types: [],
       categories: [],
+      url: [],
       urlRules: [
         v => !!v || 'Url is required',
         // TODO Find regexp that match protocols
@@ -64,6 +66,7 @@ export default {
     resourceService.getTypes(this.types)
     // Get Categories, call to the Firebase bd, get the response object, iterate the keys, and push the result values into categories array
     resourceService.getCategory(this.categories)
+    resourceService.getUrl(this.url)
     // Get UserInfo
     this.currentUser = authService.getCurrentUser()
   },
