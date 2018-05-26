@@ -1,24 +1,61 @@
 <template>
   <v-container>
     <v-layout row>
-      <v-flex md10 offset-md1>
-        <v-form ref="form" @submit.prevent='addResource'>
+      <v-flex
+        md10
+        offset-md1
+      >
+        <v-form
+          ref="form"
+          @submit.prevent='addResource'
+        >
           <v-layout row>
-            <v-text-field v-model="resource.title" label="Titulo" required :rules="titleRules"></v-text-field>
+            <v-text-field
+              v-model="resource.title"
+              label="Titulo"
+              required
+              :rules="titleRules"
+            ></v-text-field>
           </v-layout>
           <v-layout row>
-            <v-text-field v-model="resource.description" label="Descripcion" required :rules="descriptionRules"></v-text-field>
+            <v-text-field
+              v-model="resource.description"
+              label="Descripcion"
+              required
+              :rules="descriptionRules"
+            ></v-text-field>
           </v-layout>
           <v-layout row>
-            <v-text-field v-model="resource.url" label="Url" required :rules="descriptionRules"></v-text-field>
+            <v-text-field
+              v-model="resource.url"
+              label="Url"
+              required
+              :rules="descriptionRules"
+            ></v-text-field>
           </v-layout >
           <v-layout row>
             <div class="mx-auto">
-              <v-btn @click="submit" title="Guardar" class="blue lighten-1">
-                <v-icon left class="white--text">send</v-icon> <span class="white--text"> Guardar</span>
+              <v-btn
+                @click="submit"
+                title="Guardar"
+                class="blue lighten-1"
+              >
+                <v-icon
+                  left
+                  class="white--text"
+                >send</v-icon>
+                <span class="white--text">Guardar</span>
                 </v-btn>
-                <v-btn @click="clear" title="Limpiar" class="red">
-                <v-icon left class="white--text">clear</v-icon><span class="white--text">Limpiar</span>
+                <v-btn
+                  @click="clear"
+                  title="Limpiar"
+                  class="red"
+                >
+                <v-icon
+                  left
+                  class="white--text"
+                >clear</v-icon>
+                <span class="white--text">Limpiar</span>
               </v-btn>
             </div>
             </v-layout>

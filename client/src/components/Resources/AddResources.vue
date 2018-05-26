@@ -1,24 +1,68 @@
 <template>
   <v-container>
     <v-layout row>
-      <v-flex md10 offset-md1>
-        <v-form ref="form" @submit.prevent='addResource'>
+      <v-flex
+        md10
+        offset-md1
+      >
+        <v-form
+          ref="form"
+          @submit.prevent='addResource'
+        >
           <v-layout row>
-            <v-text-field v-model="resource.url" label="Url" required :rules="urlRules"></v-text-field>
+            <v-text-field
+              v-model="resource.url"
+              label="Url"
+              required
+              :rules="urlRules"
+            ></v-text-field>
           </v-layout >
           <v-layout row>
-            <v-select :items="types" v-model="resource.type" label="Tipo" single-line autocomplete :rules="typeRules"></v-select>
+            <v-select
+              :items="types"
+              v-model="resource.type"
+              label="Tipo"
+              single-line autocomplete
+              :rules="typeRules"
+            ></v-select>
           </v-layout>
           <v-layout row>
-            <v-select :items="categories" v-model="resource.category" label="Categorías" single-line autocomplete multiple></v-select>
+            <v-select
+              :items="categories"
+              v-model="resource.category"
+              label="Categorías"
+              single-line
+              autocomplete
+              multiple
+            ></v-select>
           </v-layout>
           <v-layout row>
             <div class="mx-auto">
-              <v-btn @click="submit" title="Guardar" class="blue lighten-1">
-                <v-icon left class="white--text">send</v-icon> <span class="white--text"> Guardar</span>
+              <v-btn
+                @click="submit"
+                title="Guardar"
+                class="blue lighten-1"
+              >
+                <v-icon
+                  left
+                  class="white--text"
+                >send</v-icon>
+                <span
+                  class="white--text"
+                > Guardar</span>
                 </v-btn>
-                <v-btn @click="clear" title="Limpiar" class="red">
-                <v-icon left class="white--text">clear</v-icon><span class="white--text">Limpiar</span>
+                <v-btn
+                  @click="clear"
+                  title="Limpiar"
+                  class="red"
+                >
+                <v-icon
+                  left
+                  class="white--text"
+                >clear</v-icon>
+                <span
+                  class="white--text"
+                >Limpiar</span>
               </v-btn>
             </div>
             </v-layout>
