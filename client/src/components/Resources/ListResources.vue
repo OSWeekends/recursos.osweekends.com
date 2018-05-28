@@ -33,11 +33,8 @@
               <v-flex xs7 md8>
                 <v-card-title class="pt-0">
                   <div>
-                    <h3
-                      block
-                      class="headline mb-0"
-                    >{{ resource.title }}</h3>
-                    <p>{{resource.description}}</p>
+                    <h3 block class="headline mb-0">{{ resource.title }}</h3>
+                    <p>{{resource.description | snippet(100) }}</p>
                     <p>Tipo: {{resource.type}}</p>
                     <p>Añadido por: {{resource.creator}}</p>
                     <div
@@ -100,7 +97,7 @@ export default {
   },
   created () {
     // Get the list of resources
-    firebase.firestore().collection('Recursos').limit(2).get().then((querySnapshot) => querySnapshot.forEach((doc) =>
+    firebase.firestore().collection('Recursos').get().then((querySnapshot) => querySnapshot.forEach((doc) =>
       this.getResources(doc.data())
     ))
     // check if user is logged
