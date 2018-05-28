@@ -16,6 +16,12 @@ Vue.use(Notifications)
 Vue.use(Vuetify)
 Vue.use(VueAxios, axios)
 
+// Filters
+
+Vue.filter('snippet', function (value, long) {
+  return value.slice(0, long) + '...'
+})
+
 var config = {
   apiKey: 'AIzaSyCV1oei0T8oUoYEy3Uv__wQwLvev5pJ_Jc',
   authDomain: 'recursos-osw.firebaseapp.com',
