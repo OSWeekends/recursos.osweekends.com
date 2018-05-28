@@ -6,7 +6,7 @@ const mutations = {
     state.user = user
   },
   logOut: (state) => {
-    state.user = {}
+    state.user = null
   }
 }
 

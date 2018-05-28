@@ -1,6 +1,6 @@
 <template>
     <v-toolbar-items class="hidden-xs-only">
-        <template v-if="isLogged()">
+        <template v-if="!isLogged()">
           <v-btn small flat v-on:click="login" class="white--text mr-2 login">
           <v-icon left>fab fa-github</v-icon> Login
           </v-btn>
@@ -24,6 +24,9 @@ export default {
     return {
     }
   },
+  created () {
+    this.checkLogged()
+  },
   methods: {
     // Sing up/Login functionality using popup and GitHub Auth
     login () {
@@ -34,7 +37,7 @@ export default {
       this.logOut()
     },
     ...mapGetters(['getUser', 'isLogged']),
-    ...mapActions(['logIn', 'logOut'])
+    ...mapActions(['logIn', 'logOut', 'checkLogged'])
 
   },
   computed: {
