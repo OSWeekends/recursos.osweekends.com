@@ -22,7 +22,7 @@
                 <v-card-title class="pt-0">
                   <div>
                     <h3 block class="headline mb-0">{{ resource.title }}</h3>
-                    <p>{{resource.description}}</p>
+                    <p>{{resource.description | snippet(50) }}</p>
                     <p>Tipo: {{resource.type}}</p>
                     <p>Añadido por: {{resource.creator}}</p>
                     <div v-for="cate in resource.category" :key="cate.id" class="category">
