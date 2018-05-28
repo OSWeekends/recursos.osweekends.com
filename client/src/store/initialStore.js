@@ -3,7 +3,7 @@
  * mejor inicializar a null!
  */
 const store = {
-  user: {}
+  user: null
 }
 
 export default store
