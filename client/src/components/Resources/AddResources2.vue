@@ -105,8 +105,8 @@ export default {
     addResource () {
       firebaseService.resourceFirebase(firebase)
         .add({
-          title: this.resource.title,
-          description: this.resource.description,
+          title: this.resource.title.toLowerCase(),
+          description: this.resource.description.toLowerCase(),
           url: this.resource.url,
           img: this.resource.img,
           type: this.resource.type,

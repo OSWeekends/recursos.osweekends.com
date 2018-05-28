@@ -100,7 +100,7 @@ export default {
   },
   created () {
     // Get the list of resources
-    firebase.firestore().collection('Recursos').get().then((querySnapshot) => querySnapshot.forEach((doc) =>
+    firebase.firestore().collection('Recursos').limit(2).get().then((querySnapshot) => querySnapshot.forEach((doc) =>
       this.getResources(doc.data())
     ))
     // check if user is logged
@@ -125,7 +125,7 @@ export default {
   computed: {
     filteredList () {
       return this.resources.filter(resources => {
-        return resources.description.includes(this.search.toLowerCase())
+        return resources.description.includes(this.search)
       })
     }
   }
