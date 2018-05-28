@@ -18,8 +18,8 @@ Vue.use(VueAxios, axios)
 
 // Filters
 
-Vue.filter('snippet', function(value , long){
-  return value.slice(0,long) + '...';
+Vue.filter('snippet', function (value, long) {
+  return value.slice(0, long) + '...'
 })
 
 var config = {
@@ -43,7 +43,6 @@ firebase.auth().onAuthStateChanged(user => {
       el: '#app',
       store: store,
       router,
-      store,
       components: { App },
       template: '<App/>'
     })
