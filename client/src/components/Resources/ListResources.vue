@@ -83,6 +83,7 @@
 
 <script>
 import firebase from 'firebase'
+import firebaseService from '../../Services/firebase.service.js'
 
 export default {
   name: 'resources',
@@ -97,9 +98,10 @@ export default {
   },
   created () {
     // Get the list of resources
-    firebase.firestore().collection('Recursos').get().then((querySnapshot) => querySnapshot.forEach((doc) =>
-      this.getResources(doc.data())
-    ))
+    firebaseService.getResourceFirebase(firebase)
+      .then((querySnapshot) => querySnapshot.forEach((doc) =>
+        this.getResources(doc.data())
+      ))
     // check if user is logged
     if (firebase.auth().currentUser) {
       this.user = firebase.auth().currentUser.uid
@@ -111,7 +113,7 @@ export default {
       this.resources.push({
         title: resources.title,
         description: resources.description,
-        url: 'https://' + resources.url,
+        url: resources.url,
         img: resources.img,
         type: resources.type,
         category: resources.category,

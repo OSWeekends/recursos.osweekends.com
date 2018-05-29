@@ -54,6 +54,6 @@ nav .nav-wrapper i{
 }
 
 .colorOsw{
-  background-color: #003da5;
+  background-color: #003da5 !important;
 }
 </style>
