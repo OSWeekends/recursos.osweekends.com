@@ -94,8 +94,8 @@ export default {
       url: [],
       urlRules: [
         v => !!v || 'Url is required',
-        //regexp that match protocols
-        v => !/(^\w+:|^)\/\//.test(v) || 'Insert Urls without protocol'
+        // regexp that match protocols
+        v => /(^\w+:|^)\/\//.test(v) || 'Insert Urls without protocol'
       ],
       typeRules: [
         v => !!v || 'Type is required'
