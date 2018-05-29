@@ -2,7 +2,7 @@
   <div>
       <v-toolbar class="colorOsw">
       <!--Responsive menu fondo color logo de osw #003da -->
-         <v-menu bottom transition="slide-x-transition" class="hidden-sm-and-up" left>
+        <v-menu bottom transition="slide-x-transition" class="hidden-sm-and-up" left>
           <v-btn slot="activator" icon class="white--text">
             <v-icon class="text--white">menu</v-icon>
           </v-btn>
@@ -14,11 +14,11 @@
                 <v-list-tile-title> <router-link to="/resources" exact class="black--text">Recursos</router-link></v-list-tile-title>
               </v-list-tile>
             </v-list>
-         </v-menu>
+        </v-menu>
           <!--Logo -->
         <v-toolbar-title class="text-xs-center"><router-link to="/" exact><img class="logo" src="../../assets/osw.svg"></router-link></v-toolbar-title>
-         <!--Tollbar rutas -->
-         <v-toolbar-items class="hidden-xs-only">
+        <!--Tollbar rutas -->
+          <v-toolbar-items class="hidden-xs-only">
           <v-btn flat to="/resources" exact class="white--text ml-5">
             Recursos
           </v-btn>
@@ -54,6 +54,6 @@ nav .nav-wrapper i{
 }
 
 .colorOsw{
-  background-color: #003da5;
+  background-color: #003da5 !important;
 }
 </style>
