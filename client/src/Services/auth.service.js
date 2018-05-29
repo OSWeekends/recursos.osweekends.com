@@ -12,7 +12,6 @@ export default {
     return new Promise((resolve, reject) => {
       firebase.auth().signInWithPopup(provider).then((result) => {
         // retrieve the user info and store it in firebase db for custom properties of the user
-        debugger
         var userData = JSON.stringify(result.user)
         userData = JSON.parse(userData)
         // Store the user in /user/{{uid}}/datos...
