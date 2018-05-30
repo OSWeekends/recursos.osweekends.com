@@ -7,6 +7,9 @@ const mutations = {
   },
   logOut: (state) => {
     state.user = null
+  },
+  setResource: (state, resource) => {
+    state.resource = resource
   }
 }
 

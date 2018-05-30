@@ -1,24 +1,61 @@
 <template>
   <v-container>
     <v-layout row>
-      <v-flex md10 offset-md1>
-        <v-form ref="form" @submit.prevent='addResource'>
+      <v-flex
+        md10
+        offset-md1
+      >
+        <v-form
+          ref="form"
+          @submit.prevent='addResource'
+        >
           <v-layout row>
-            <v-text-field v-model="resource.title" label="Titulo" required :rules="titleRules"></v-text-field>
+            <v-text-field
+              v-model="resource.title"
+              label="Titulo"
+              required
+              :rules="titleRules"
+            ></v-text-field>
           </v-layout>
           <v-layout row>
-            <v-text-field v-model="resource.description" label="Descripcion" required :rules="descriptionRules"></v-text-field>
+            <v-text-field
+              v-model="resource.description"
+              label="Descripcion"
+              required
+              :rules="descriptionRules"
+            ></v-text-field>
           </v-layout>
           <v-layout row>
-            <v-text-field v-model="resource.url" label="Url" required :rules="descriptionRules"></v-text-field>
+            <v-text-field
+              v-model="resource.url"
+              label="Url"
+              required
+              :rules="descriptionRules"
+            ></v-text-field>
           </v-layout >
           <v-layout row>
             <div class="mx-auto">
-              <v-btn @click="submit" title="Guardar" class="blue lighten-1">
-                <v-icon left class="white--text">send</v-icon> <span class="white--text"> Guardar</span>
+              <v-btn
+                @click="submit"
+                title="Guardar"
+                class="blue lighten-1"
+              >
+                <v-icon
+                  left
+                  class="white--text"
+                >send</v-icon>
+                <span class="white--text">Guardar</span>
                 </v-btn>
-                <v-btn @click="clear" title="Limpiar" class="red">
-                <v-icon left class="white--text">clear</v-icon><span class="white--text">Limpiar</span>
+                <v-btn
+                  @click="clear"
+                  title="Limpiar"
+                  class="red"
+                >
+                <v-icon
+                  left
+                  class="white--text"
+                >clear</v-icon>
+                <span class="white--text">Limpiar</span>
               </v-btn>
             </div>
             </v-layout>
@@ -26,14 +63,13 @@
       </v-flex>
     </v-layout>
     <pre>{{ resource }}</pre>
-    <pre>{{ types }}</pre>
-    <pre>{{ categories }}</pre>
   </v-container>
 </template>
 
 <script>
 import firebase from 'firebase'
-import service from '@/services/formResources.js'
+import firebaseService from '../../Services/firebase.service.js'
+import {mapState, mapMutations} from 'vuex'
 
 export default {
   name: 'resources',
@@ -41,16 +77,6 @@ export default {
     return {
       types: [],
       categories: [],
-      resource: {
-        title: '',
-        description: '',
-        url: '',
-        img: '',
-        creator: '',
-        lang: '',
-        type: '',
-        category: []
-      },
       titleRules: [
         v => !!v || 'Title is required'
       ],
@@ -64,8 +90,10 @@ export default {
       ]
     }
   },
+  computed: mapState({
+    resource: state => state.resource
+  }),
   created () {
-    this.resource = service.getResource()
     if (firebase.auth().currentUser) {
       this.isLoggedIn = true
       this.currentUser = firebase.auth().currentUser
@@ -73,11 +101,12 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setResource']),
     addResource () {
-      firebase.firestore().collection('Recursos')
+      firebaseService.resourceFirebase(firebase)
         .add({
-          title: this.resource.title,
-          description: this.resource.description,
+          title: this.resource.title.toLowerCase(),
+          description: this.resource.description.toLowerCase(),
           url: this.resource.url,
           img: this.resource.img,
           type: this.resource.type,
@@ -86,7 +115,6 @@ export default {
           lang: this.resource.lang
         })
         .then(() => {
-          this.$refs.form.reset()
           this.$notify({
             group: 'foo',
             text: 'Añadido nuevo recurso',
@@ -95,7 +123,9 @@ export default {
             speed: 100,
             title: 'El recurso: ' + this.resource.title + 'se ha añadido correctamente'
           })
-          this.$router.push({ name: 'ListResources' })
+          let resource = {title: '', description: '', url: '', img: '', type: '', category: '', creator: '', lang: ''}
+          this.setResource(resource)
+          this.$router.push({name: 'ListResources'})
         })
         .catch(() => {
           this.$notify({

@@ -1,24 +1,68 @@
 <template>
   <v-container>
     <v-layout row>
-      <v-flex md10 offset-md1>
-        <v-form ref="form" @submit.prevent='addResource'>
+      <v-flex
+        md10
+        offset-md1
+      >
+        <v-form
+          ref="form"
+          @submit.prevent='addResource'
+        >
           <v-layout row>
-            <v-text-field v-model="resource.url" label="Url" required :rules="urlRules"></v-text-field>
+            <v-text-field
+              v-model="resource.url"
+              label="Url"
+              required
+              :rules="urlRules"
+            ></v-text-field>
           </v-layout >
           <v-layout row>
-            <v-select :items="types" v-model="resource.type" label="Tipo" single-line autocomplete :rules="typeRules"></v-select>
+            <v-select
+              :items="types"
+              v-model="resource.type"
+              label="Tipo"
+              single-line autocomplete
+              :rules="typeRules"
+            ></v-select>
           </v-layout>
           <v-layout row>
-            <v-select :items="categories" v-model="resource.category" label="Categorías" single-line autocomplete multiple></v-select>
+            <v-select
+              :items="categories"
+              v-model="resource.category"
+              label="Categorías"
+              single-line
+              autocomplete
+              multiple
+            ></v-select>
           </v-layout>
           <v-layout row>
             <div class="mx-auto">
-              <v-btn @click="submit" title="Guardar" class="blue lighten-1">
-                <v-icon left class="white--text">send</v-icon> <span class="white--text"> Guardar</span>
+              <v-btn
+                @click="submit"
+                title="Guardar"
+                class="blue lighten-1"
+              >
+                <v-icon
+                  left
+                  class="white--text"
+                >send</v-icon>
+                <span
+                  class="white--text"
+                > Guardar</span>
                 </v-btn>
-                <v-btn @click="clear" title="Limpiar" class="red">
-                <v-icon left class="white--text">clear</v-icon><span class="white--text">Limpiar</span>
+                <v-btn
+                  @click="clear"
+                  title="Limpiar"
+                  class="red"
+                >
+                <v-icon
+                  left
+                  class="white--text"
+                >clear</v-icon>
+                <span
+                  class="white--text"
+                >Limpiar</span>
               </v-btn>
             </div>
             </v-layout>
@@ -28,13 +72,17 @@
     <pre>{{ resource }}</pre>
     <pre>{{ types }}</pre>
     <pre>{{ categories }}</pre>
+    <pre>{{ url }}</pre>
   </v-container>
 </template>
 
 <script>
 import firebase from 'firebase'
-import service from '@/services/formResources.js'
 import authService from '../../Services/auth.service.js'
+import resourceService from '../../Services/resource.service.js'
+import microlinkService from '../../Services/microlink.service.js'
+import firebaseService from '../../Services/firebase.service.js'
+import {mapState, mapMutations} from 'vuex'
 
 export default {
   name: 'resources',
@@ -43,16 +91,7 @@ export default {
       exist: 0,
       types: [],
       categories: [],
-      resource: {
-        title: '',
-        description: '',
-        url: '',
-        img: '',
-        creator: '',
-        lang: '',
-        type: '',
-        category: []
-      },
+      url: [],
       urlRules: [
         v => !!v || 'Url is required',
         // TODO Find regexp that match protocols
@@ -63,47 +102,43 @@ export default {
       ]
     }
   },
+  computed: mapState({
+    resource: state => state.resource
+  }),
   created () {
     // Get Types, call to the Firebase bd, get the response object, iterate the keys, and push the result values into types array
-    firebase.firestore().collection('Type').doc('type')
-      .onSnapshot((doc) => {
-        let obj = doc.data()
-        Object.keys(obj).map((key, index) => {
-          this.types.push(obj[key])
-        })
-      })
+    resourceService.getTypes(this.types)
     // Get Categories, call to the Firebase bd, get the response object, iterate the keys, and push the result values into categories array
-    firebase.firestore().collection('Category').doc('category')
-      .onSnapshot((doc) => {
-        let obj = doc.data()
-        Object.keys(obj).map((key, index) => {
-          this.categories.push(obj[key])
-        })
-      })
+    resourceService.getCategory(this.categories)
+    resourceService.getUrl(this.url)
     // Get UserInfo
     this.currentUser = authService.getCurrentUser()
   },
   methods: {
+    ...mapMutations(['setResource']),
     addResource () {
-      firebase.firestore().collection('Recursos').get().then((querySnapshot) => querySnapshot.forEach((doc) => {
-        if (doc.data().url === this.resource.url) {
-          this.exist = 1
-        }
-      }))
+      firebaseService.getResourceFirebase(firebase)
+        .then((querySnapshot) => querySnapshot.forEach((doc) => {
+          if (doc.data().url === this.resource.url) {
+            this.exist = 1
+          }
+        }))
         .then(() => {
           if (this.exist === 0) {
-            this.axios.get('https://api.microlink.io?url=' + this.resource.url)
+            microlinkService.getUrl(this.$store.state.resource.url)
               .then((response) => {
-                this.resource.title = response.data.data.title
-                this.resource.description = response.data.data.description
-                this.resource.url = response.data.data.url
-                this.resource.img = response.data.data.image.url
-                this.resource.type = this.resource.type
-                this.resource.category = this.resource.category
-                this.resource.creator = this.currentUser.displayName
-                this.resource.lang = response.data.data.lang
-                service.form(this.resource)
-                this.$router.push({ name: 'AddResources2' })
+                let resource = {
+                  title: response.data.data.title,
+                  description: response.data.data.description,
+                  url: response.data.data.url,
+                  img: response.data.data.image.url,
+                  type: this.resource.type,
+                  category: this.resource.category,
+                  creator: this.currentUser.displayName,
+                  lang: response.data.data.lang
+                }
+                this.setResource(resource)
+                this.$router.push({name: 'AddResources2'})
               })
               .catch((error) => console.log(error))
           } else {
