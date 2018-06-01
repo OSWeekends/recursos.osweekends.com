@@ -23,6 +23,12 @@ const actions = {
   checkLogged: ({commit}) => {
     let user = authService.getCurrentUser()
     if (user) commit('logIn', user)
+  },
+  startSpinner: ({commit}) => {
+    commit('setSpinner', true)
+  },
+  stopSpinner: ({commit}) => {
+    commit('setSpinner', false)
   }
 }
 
