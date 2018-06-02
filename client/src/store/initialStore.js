@@ -13,7 +13,8 @@ const store = {
     type: '',
     category: []
   },
-  user: ''
+  user: null,
+  loading: false
 }
 
 export default store
