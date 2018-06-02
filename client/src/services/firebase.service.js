@@ -4,5 +4,8 @@ export default {
   },
   resourceFirebase (firebase) {
     return firebase.firestore().collection('Recursos')
+  },
+  resource (firebase, id) {
+    return firebase.firestore().collection('Recursos').doc(id).get()
   }
 }

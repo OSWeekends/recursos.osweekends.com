@@ -4,6 +4,7 @@ import Home from '@/components/LAyout/Home'
 import ListResources from '@/components/Resources/ListResources'
 import firebase from 'firebase'
 import PageNotFound from '@/components/Layout/404'
+import Resource from '@/components/Resources/Resource'
 
 Vue.use(Router)
 
@@ -18,6 +19,12 @@ let router = new Router({
       path: '/resources',
       name: 'ListResources',
       component: ListResources
+    },
+    {
+      path: '/resource/:id',
+      name: 'resource',
+      component: Resource,
+      props: true
     },
     {
       path: '/pageNotFound',
