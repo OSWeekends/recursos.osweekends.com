@@ -25,10 +25,11 @@
             <v-layout row>
               <v-flex xs5 md4>
                 <v-card-media
-                  :src="resource.img"
                   height="100%"
                   id="resourceImg"
-                ></v-card-media>
+                >
+                  <img :src="resource.img">
+                </v-card-media>
               </v-flex>
               <v-flex xs7 md8>
                 <v-card-title class="pt-0">
@@ -104,7 +105,8 @@ export default {
       search: '',
       isLoggedIn: false,
       currentUser: '',
-      user: ''
+      user: '',
+      img: ''
     }
   },
   created () {
@@ -125,11 +127,17 @@ export default {
       this.setModal(modal)
     },
     getResources (resources) {
+      if (resources.img === null) {
+        // no funciona, preguntar.....
+        this.img = '../../../static/logo.jpg'
+      } else {
+        this.img = resources.img
+      }
       this.resources.push({
         title: resources.title,
         description: resources.description,
         url: resources.url,
-        img: resources.img,
+        img: this.img,
         type: resources.type,
         category: resources.category,
         creator: resources.creator
@@ -153,4 +161,8 @@ export default {
 }
 </script>
 
-<style scoped> </style>
+<style scoped>
+#resourceImg img{
+  max-height: 250px;
+}
+</style>

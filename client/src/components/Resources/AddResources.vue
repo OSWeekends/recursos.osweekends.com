@@ -89,7 +89,7 @@ export default {
       exist: 0,
       types: [],
       categories: [],
-      url: [],
+      img: '',
       urlRules: [
         v => !!v || 'Url is required',
         // TODO Find regexp that match protocols
@@ -130,11 +130,16 @@ export default {
           if (this.exist === 0) {
             microlinkService.getUrl(this.$store.state.resource.url)
               .then((response) => {
+                if (response.data.data.image === null) {
+                  this.img = null
+                } else {
+                  this.img = response.data.data.image.url
+                }
                 let resource = {
                   title: response.data.data.title,
                   description: response.data.data.description,
-                  url: response.data.data.url,
-                  img: response.data.data.image.url,
+                  url: this.resource.url,
+                  img: this.img,
                   type: this.resource.type,
                   category: this.resource.category,
                   creator: this.currentUser.displayName,
