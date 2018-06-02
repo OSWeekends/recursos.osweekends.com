@@ -14,7 +14,7 @@
                 <v-card-title class="pt-0">
                   <div>
                     <h3 block class="headline mb-0">{{ resource.title }}</h3>
-                    <p>{{resource.description | snippet(100) }}</p>
+                    <p>{{resource.description}}</p>
                     <p>Tipo: {{resource.type}}</p>
                     <p>Añadido por: {{resource.creator}}</p>
                     <div
@@ -36,13 +36,13 @@
                     target="_blank"
                   >Link</v-btn>
                    <v-btn
-                    :to="id"
+                    to="/resources"
                     block
                     color="light-blue accent-4"
                     round
                     class="white--text"
                     target="_blank"
-                  >Detalle</v-btn>
+                  >Recursos</v-btn>
                 </v-card-actions>
               </v-flex>
             </v-layout>
@@ -74,14 +74,6 @@ export default {
   methods: {
     getResources (resources, id) {
       this.resource = resources
-      //   this.resource.title = resources.title
-      //   this.description = resources.description
-      //   this.url = resources.url
-      //   this.img = resources.img
-      //   this.type = resources.type
-      //   this.category = resources.category
-      //   this.creator = resources.creator
-      console.log(this.resource)
     }
   }
 }

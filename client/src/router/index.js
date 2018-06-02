@@ -23,7 +23,7 @@ let router = new Router({
       component: ListResources
     },
     {
-      path: '/resources/:id',
+      path: '/resource/:id',
       name: 'resource',
       component: Resource,
       props: true

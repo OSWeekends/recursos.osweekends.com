@@ -59,7 +59,7 @@ export default {
   },
   data () {
     return {
-      id: '/resources/' + this.resource.id
+      id: '/resource/' + this.resource.id
     }
   }
 
