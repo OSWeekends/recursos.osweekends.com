@@ -6,6 +6,7 @@ import AddResources from '@/components/Resources/AddResources'
 import AddResources2 from '@/components/Resources/AddResources2'
 import firebase from 'firebase'
 import PageNotFound from '@/components/Layout/404'
+import Resource from '@/components/Resources/Resource'
 
 Vue.use(Router)
 
@@ -20,6 +21,12 @@ let router = new Router({
       path: '/resources',
       name: 'ListResources',
       component: ListResources
+    },
+    {
+      path: '/resources/:id',
+      name: 'resource',
+      component: Resource,
+      props: true
     },
     {
       path: '/resources/new',

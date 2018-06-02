@@ -53,7 +53,6 @@ export default {
   components: {
     'card-resources': CardResource
   },
-
   data () {
     return {
       resources: [],
@@ -67,7 +66,7 @@ export default {
     // Get the list of resources
     firebaseService.getResourceFirebase(firebase)
       .then((querySnapshot) => querySnapshot.forEach((doc) =>
-        this.getResources(doc.data())
+        this.getResources(doc.data(), doc.id)
       ))
     // check if user is logged
     if (firebase.auth().currentUser) {
@@ -76,8 +75,9 @@ export default {
     }
   },
   methods: {
-    getResources (resources) {
+    getResources (resources, id) {
       this.resources.push({
+        id: id,
         title: resources.title,
         description: resources.description,
         url: resources.url,

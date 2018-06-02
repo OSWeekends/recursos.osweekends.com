@@ -1,5 +1,5 @@
 <template>
-<v-flex xs12 md10 offset-md1>
+    <v-flex xs12 md10 offset-md1>
         <v-card class="info mb-3 grey lighten-3">
           <v-container fluid wrap>
             <v-layout row>
@@ -51,18 +51,39 @@
 </v-flex>
 </template>
 <script>
+import firebase from 'firebase'
+import firebaseService from '../../Services/firebase.service.js'
 export default {
-  name: 'card-resources',
-  props: ['resource'],
-  mounted () {
-    console.log(this.resource.RecursosId)
-  },
+  props: ['id'],
   data () {
     return {
-      id: '/resources/' + this.resource.id
+      resource: {}
+    }
+  },
+  created () {
+    // Get the list of resources
+    firebaseService.resource(firebase, this.id)
+      .then((doc) =>
+        this.getResources(doc.data(), doc.id))
+    // check if user is logged
+    if (firebase.auth().currentUser) {
+      this.user = firebase.auth().currentUser.uid
+      this.isLoggedIn = true
+    }
+  },
+  methods: {
+    getResources (resources, id) {
+      this.resource = resources
+      //   this.resource.title = resources.title
+      //   this.description = resources.description
+      //   this.url = resources.url
+      //   this.img = resources.img
+      //   this.type = resources.type
+      //   this.category = resources.category
+      //   this.creator = resources.creator
+      console.log(this.resource)
     }
   }
-
 }
 </script>
 <style>
