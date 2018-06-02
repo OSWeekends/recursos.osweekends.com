@@ -68,7 +68,7 @@
       class="text-xs-center"
     >
       <v-btn
-        to="/resources/new"
+        @click="modals(1)"
         fab
         fixed
         bottom
@@ -77,6 +77,10 @@
       >
         <v-icon>add</v-icon>
       </v-btn>
+      <v-dialog v-model="modal" max-width="500px">
+        <add-resource v-if="modal==1"></add-resource>
+        <add-resource2 v-if="modal==2"></add-resource2>
+      </v-dialog>
     </div>
   </div>
 </template>
@@ -84,9 +88,16 @@
 <script>
 import firebase from 'firebase'
 import firebaseService from '../../Services/firebase.service.js'
+import AddResource from './AddResources.vue'
+import AddResource2 from './AddResources2.vue'
+import {mapMutations} from 'vuex'
 
 export default {
   name: 'resources',
+  components: {
+    'add-resource': AddResource,
+    'add-resource2': AddResource2
+  },
   data () {
     return {
       resources: [],
@@ -109,6 +120,10 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setModal']),
+    modals (modal) {
+      this.setModal(modal)
+    },
     getResources (resources) {
       this.resources.push({
         title: resources.title,
@@ -122,6 +137,14 @@ export default {
     }
   },
   computed: {
+    modal: {
+      get () {
+        return this.$store.state.modals
+      },
+      set (value) {
+        this.$store.commit('setModal', value)
+      }
+    },
     filteredList () {
       return this.resources.filter(resources => resources.description.includes(this.search) || resources.title.includes(this.search)
       )

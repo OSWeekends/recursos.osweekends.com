@@ -1,10 +1,12 @@
 <template>
-  <v-container>
+  <v-container class="container">
     <v-layout row>
       <v-flex
         md10
         offset-md1
       >
+        <h3>Paso 1/2</h3>
+        <h4>Introduce la url del recurso, tipo y categoria</h4>
         <v-form
           ref="form"
           @submit.prevent='addResource'
@@ -49,7 +51,7 @@
                 >send</v-icon>
                 <span
                   class="white--text"
-                > Guardar</span>
+                > Paso 2/2</span>
                 </v-btn>
                 <v-btn
                   @click="clear"
@@ -69,10 +71,6 @@
         </v-form>
       </v-flex>
     </v-layout>
-    <pre>{{ resource }}</pre>
-    <pre>{{ types }}</pre>
-    <pre>{{ categories }}</pre>
-    <pre>{{ url }}</pre>
   </v-container>
 </template>
 
@@ -82,7 +80,7 @@ import authService from '../../Services/auth.service.js'
 import resourceService from '../../Services/resource.service.js'
 import microlinkService from '../../Services/microlink.service.js'
 import firebaseService from '../../Services/firebase.service.js'
-import {mapState, mapMutations} from 'vuex'
+import {mapState, mapMutations, mapActions} from 'vuex'
 
 export default {
   name: 'resources',
@@ -110,12 +108,17 @@ export default {
     resourceService.getTypes(this.types)
     // Get Categories, call to the Firebase bd, get the response object, iterate the keys, and push the result values into categories array
     resourceService.getCategory(this.categories)
-    resourceService.getUrl(this.url)
     // Get UserInfo
     this.currentUser = authService.getCurrentUser()
   },
   methods: {
-    ...mapMutations(['setResource']),
+    ...mapMutations(['setResource', 'setModal']),
+    ...mapActions(['startSpinner', 'stopSpinner']),
+    async add () {
+      this.startSpinner()
+      await this.addResource()
+      this.stopSpinner()
+    },
     addResource () {
       firebaseService.getResourceFirebase(firebase)
         .then((querySnapshot) => querySnapshot.forEach((doc) => {
@@ -138,7 +141,7 @@ export default {
                   lang: response.data.data.lang
                 }
                 this.setResource(resource)
-                this.$router.push({name: 'AddResources2'})
+                this.setModal(2)
               })
               .catch((error) => console.log(error))
           } else {
@@ -155,7 +158,7 @@ export default {
     submit () {
       if (this.$refs.form.validate()) {
         // check if the form is valid and add the resource
-        this.addResource()
+        this.add()
       }
     },
     clear () {
@@ -167,4 +170,9 @@ export default {
 </script>
 
 <style scoped>
+.container{
+  background-color: white;
+  border-radius: 30px;
+  border: 3px solid #003da5;
+}
 </style>

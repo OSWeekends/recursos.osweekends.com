@@ -11,7 +11,7 @@ import Vuetify from 'vuetify'
 import store from './store'
 import 'vuetify/dist/vuetify.min.css'
 import 'firebase/firestore'
-import config from './fireabse.config'
+import config from '../firebase.config'
 
 Vue.use(Notifications)
 Vue.use(Vuetify)
