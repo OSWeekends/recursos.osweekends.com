@@ -123,13 +123,11 @@ export default {
   },
   computed: {
     filteredList () {
-      return this.resources.filter(resources => {
-        return resources.description.includes(this.search)
-      })
+      return this.resources.filter(resources => resources.description.includes(this.search) || resources.title.includes(this.search)
+      )
     }
   }
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped> </style>

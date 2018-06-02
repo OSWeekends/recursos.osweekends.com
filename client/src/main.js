@@ -11,6 +11,7 @@ import Vuetify from 'vuetify'
 import store from './store'
 import 'vuetify/dist/vuetify.min.css'
 import 'firebase/firestore'
+import config from './fireabse.config'
 
 Vue.use(Notifications)
 Vue.use(Vuetify)
@@ -21,15 +22,6 @@ Vue.use(VueAxios, axios)
 Vue.filter('snippet', function (value, long) {
   return value.slice(0, long) + '...'
 })
-
-var config = {
-  apiKey: 'AIzaSyCV1oei0T8oUoYEy3Uv__wQwLvev5pJ_Jc',
-  authDomain: 'recursos-osw.firebaseapp.com',
-  databaseURL: 'https://recursos-osw.firebaseio.com',
-  projectId: 'recursos-osw',
-  storageBucket: 'recursos-osw.appspot.com',
-  messagingSenderId: '566044748794'
-}
 
 firebase.initializeApp(config)
 
