@@ -54,7 +54,6 @@
 <script>
 import firebase from 'firebase'
 import firebaseService from '../../Services/firebase.service.js'
-import {mapMutations} from 'vuex'
 
 export default {
   props: ['id'],
@@ -75,10 +74,6 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setModal']),
-    modals (modal) {
-      this.setModal(modal)
-    },
     getResources (resources, id) {
       this.resource = resources
     }

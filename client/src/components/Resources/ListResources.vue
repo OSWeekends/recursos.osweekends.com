@@ -53,6 +53,7 @@ import firebaseService from '../../Services/firebase.service.js'
 import AddResource from './AddResources.vue'
 import AddResource2 from './AddResources2.vue'
 import CardResource from './CardResource'
+import {mapMutations} from 'vuex'
 
 export default {
   name: 'resources',
@@ -84,6 +85,10 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setModal']),
+    modals (modal) {
+      this.setModal(modal)
+    },
     getResources (resources, id) {
       if (resources.img === null) {
         this.img = '../../../static/logo.jpg'
