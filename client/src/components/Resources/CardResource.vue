@@ -36,7 +36,7 @@
                     :href="resource.url"
                     target="_blank"
                   >Link</v-btn>
-                   <v-btn
+                  <v-btn
                     :to="id"
                     block
                     color="light-blue accent-4"
@@ -56,7 +56,7 @@ export default {
   name: 'card-resources',
   props: ['resource'],
   mounted () {
-    console.log(this.resource.RecursosId)
+    // console.log(this.resource.id)
   },
   data () {
     return {

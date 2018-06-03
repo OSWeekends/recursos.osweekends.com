@@ -36,7 +36,7 @@
                     :href="resource.url"
                     target="_blank"
                   >Link</v-btn>
-                   <v-btn
+                  <v-btn
                     to="/resources"
                     block
                     color="light-blue accent-4"
