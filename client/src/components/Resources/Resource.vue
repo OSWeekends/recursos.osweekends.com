@@ -3,7 +3,7 @@
         <v-card class="info mb-3 grey lighten-3">
           <v-container fluid wrap>
             <v-layout row>
-              <v-flex xs5 md4>
+              <v-flex xs5 md12>
                 <v-card-media
                   height="100%"
                   id="resourceImg"
@@ -18,6 +18,7 @@
                     <p>{{resource.description}}</p>
                     <p>Tipo: {{resource.type}}</p>
                     <p>Añadido por: {{resource.creator}}</p>
+                    <p>Idioma: {{resource.lang}}</p>
                     <div
                       v-for="cate in resource.category"
                       :key="cate.id"

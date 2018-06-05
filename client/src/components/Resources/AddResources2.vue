@@ -133,7 +133,6 @@ export default {
           let resource = {title: '', description: '', url: '', img: '', type: '', category: '', creator: '', lang: ''}
           this.setResource(resource)
           this.setModal(0)
-          this.$router.push('/resources')
         })
         .catch(() => {
           this.$notify({

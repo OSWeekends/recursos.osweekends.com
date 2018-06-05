@@ -127,28 +127,37 @@ export default {
           }
         }))
         .then(() => {
+          console.log(this.img)
           if (this.exist === 0) {
-            microlinkService.getUrl(this.$store.state.resource.url)
+            microlinkService.getScreenshot(this.$store.state.resource.url)
               .then((response) => {
-                if (response.data.data.image === null) {
+                if (response.data.data.screenshot.url === null || response.data.data.screenshot.url === '') {
                   this.img = null
+                  console.log(this.img)
                 } else {
-                  this.img = response.data.data.image.url
+                  this.img = response.data.data.screenshot.url
+                  console.log(this.img)
                 }
-                let resource = {
-                  title: response.data.data.title,
-                  description: response.data.data.description,
-                  url: this.resource.url,
-                  img: this.img,
-                  type: this.resource.type,
-                  category: this.resource.category,
-                  creator: this.currentUser.displayName,
-                  lang: response.data.data.lang
-                }
-                this.setResource(resource)
-                this.setModal(2)
               })
-              .catch((error) => console.log(error))
+              .then(() => {
+                microlinkService.getUrl(this.$store.state.resource.url)
+                  .then((response) => {
+                    console.log(this.img)
+                    let resource = {
+                      title: response.data.data.title,
+                      description: response.data.data.description,
+                      url: this.resource.url,
+                      img: this.img,
+                      type: this.resource.type,
+                      category: this.resource.category,
+                      creator: this.currentUser.displayName,
+                      lang: response.data.data.lang
+                    }
+                    this.setResource(resource)
+                    this.setModal(2)
+                  })
+                  .catch((error) => console.log(error))
+              })
           } else {
             this.$notify({
               group: 'foo',
