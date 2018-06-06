@@ -29,15 +29,17 @@ export default {
   },
   methods: {
     // Sing up/Login functionality using popup and GitHub Auth
-    login () {
-      this.logIn()
+    async login () {
+      this.startSpinner()
+      await this.logIn()
+      this.stopSpinner()
     },
     // Log out
     logout () {
       this.logOut()
     },
     ...mapGetters(['getUser', 'isLogged']),
-    ...mapActions(['logIn', 'logOut', 'checkLogged'])
+    ...mapActions(['logIn', 'logOut', 'checkLogged', 'startSpinner', 'stopSpinner'])
   },
   computed: {
     ...mapState(['user'])

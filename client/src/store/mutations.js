@@ -10,6 +10,9 @@ const mutations = {
   },
   setResource: (state, resource) => {
     state.resource = resource
+  },
+  setSpinner: (state, payload) => {
+    state.loading = payload
   }
 }
 
