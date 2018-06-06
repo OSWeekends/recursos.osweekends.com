@@ -30,7 +30,7 @@
       class="text-xs-center"
     >
       <v-btn
-        to="/resources/new"
+        @click="modals(1)"
         fab
         fixed
         bottom
@@ -39,6 +39,10 @@
       >
         <v-icon>add</v-icon>
       </v-btn>
+      <v-dialog v-model="modal" max-width="500px">
+        <add-resource v-if="modal==1"></add-resource>
+        <add-resource2 v-if="modal==2"></add-resource2>
+      </v-dialog>
     </div>
   </div>
 </template>
@@ -46,11 +50,16 @@
 <script>
 import firebase from 'firebase'
 import firebaseService from '../../Services/firebase.service.js'
+import AddResource from './AddResources.vue'
+import AddResource2 from './AddResources2.vue'
 import CardResource from './CardResource'
+import {mapMutations} from 'vuex'
 
 export default {
   name: 'resources',
   components: {
+    'add-resource': AddResource,
+    'add-resource2': AddResource2,
     'card-resources': CardResource
   },
   data () {
@@ -59,7 +68,8 @@ export default {
       search: '',
       isLoggedIn: false,
       currentUser: '',
-      user: ''
+      user: '',
+      img: ''
     }
   },
   created () {
@@ -75,13 +85,22 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setModal']),
+    modals (modal) {
+      this.setModal(modal)
+    },
     getResources (resources, id) {
+      if (resources.img === null) {
+        this.img = '../../../static/logo.jpg'
+      } else {
+        this.img = resources.img
+      }
       this.resources.push({
         id: id,
         title: resources.title,
         description: resources.description,
         url: resources.url,
-        img: resources.img,
+        img: this.img,
         type: resources.type,
         category: resources.category,
         creator: resources.creator
@@ -89,14 +108,24 @@ export default {
     }
   },
   computed: {
+    modal: {
+      get () {
+        return this.$store.state.modals
+      },
+      set (value) {
+        this.$store.commit('setModal', value)
+      }
+    },
     filteredList () {
-      return this.resources.filter(resources => {
-        return resources.description.includes(this.search)
-      })
+      return this.resources.filter(resources => resources.description.includes(this.search) || resources.title.includes(this.search)
+      )
     }
   }
 }
 </script>
 
 <style scoped>
+#resourceImg img{
+  max-height: 250px;
+}
 </style>

@@ -14,7 +14,8 @@ const store = {
     category: []
   },
   user: null,
-  loading: false
+  loading: false,
+  modals: 0
 }
 
 export default store

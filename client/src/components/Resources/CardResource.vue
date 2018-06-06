@@ -5,10 +5,11 @@
             <v-layout row>
               <v-flex xs5 md4>
                 <v-card-media
-                  :src="resource.img"
                   height="100%"
                   id="resourceImg"
-                ></v-card-media>
+                >
+                  <img :src="resource.img">
+                </v-card-media>
               </v-flex>
               <v-flex xs7 md8>
                 <v-card-title class="pt-0">
@@ -35,7 +36,7 @@
                     :href="resource.url"
                     target="_blank"
                   >Link</v-btn>
-                   <v-btn
+                  <v-btn
                     :to="id"
                     block
                     color="light-blue accent-4"
@@ -55,7 +56,7 @@ export default {
   name: 'card-resources',
   props: ['resource'],
   mounted () {
-    console.log(this.resource.RecursosId)
+    // console.log(this.resource.id)
   },
   data () {
     return {
@@ -65,6 +66,9 @@ export default {
 
 }
 </script>
-<style>
-
+<style scoped>
+img{
+  max-height: 250px;
+  max-width: 250px;
+}
 </style>

@@ -1,10 +1,12 @@
 <template>
-  <v-container>
+  <v-container class="container">
     <v-layout row>
       <v-flex
         md10
         offset-md1
       >
+        <h3>Paso 1/2</h3>
+        <h4>Introduce la url del recurso, tipo y categoria</h4>
         <v-form
           ref="form"
           @submit.prevent='addResource'
@@ -49,7 +51,7 @@
                 >send</v-icon>
                 <span
                   class="white--text"
-                > Guardar</span>
+                > Paso 2/2</span>
                 </v-btn>
                 <v-btn
                   @click="clear"
@@ -69,10 +71,6 @@
         </v-form>
       </v-flex>
     </v-layout>
-    <pre>{{ resource }}</pre>
-    <pre>{{ types }}</pre>
-    <pre>{{ categories }}</pre>
-    <pre>{{ url }}</pre>
   </v-container>
 </template>
 
@@ -82,7 +80,7 @@ import authService from '../../Services/auth.service.js'
 import resourceService from '../../Services/resource.service.js'
 import microlinkService from '../../Services/microlink.service.js'
 import firebaseService from '../../Services/firebase.service.js'
-import {mapState, mapMutations} from 'vuex'
+import {mapState, mapMutations, mapActions} from 'vuex'
 
 export default {
   name: 'resources',
@@ -91,7 +89,7 @@ export default {
       exist: 0,
       types: [],
       categories: [],
-      url: [],
+      img: '',
       urlRules: [
         v => !!v || 'Url is required',
         // regexp that match protocols
@@ -110,12 +108,17 @@ export default {
     resourceService.getTypes(this.types)
     // Get Categories, call to the Firebase bd, get the response object, iterate the keys, and push the result values into categories array
     resourceService.getCategory(this.categories)
-    resourceService.getUrl(this.url)
     // Get UserInfo
     this.currentUser = authService.getCurrentUser()
   },
   methods: {
-    ...mapMutations(['setResource']),
+    ...mapMutations(['setResource', 'setModal']),
+    ...mapActions(['startSpinner', 'stopSpinner']),
+    async add () {
+      this.startSpinner()
+      await this.addResource()
+      this.stopSpinner()
+    },
     addResource () {
       firebaseService.getResourceFirebase(firebase)
         .then((querySnapshot) => querySnapshot.forEach((doc) => {
@@ -124,23 +127,37 @@ export default {
           }
         }))
         .then(() => {
+          console.log(this.img)
           if (this.exist === 0) {
-            microlinkService.getUrl(this.$store.state.resource.url)
+            microlinkService.getScreenshot(this.$store.state.resource.url)
               .then((response) => {
-                let resource = {
-                  title: response.data.data.title,
-                  description: response.data.data.description,
-                  url: response.data.data.url,
-                  img: response.data.data.image.url,
-                  type: this.resource.type,
-                  category: this.resource.category,
-                  creator: this.currentUser.displayName,
-                  lang: response.data.data.lang
+                if (response.data.data.screenshot.url === null || response.data.data.screenshot.url === '') {
+                  this.img = null
+                  console.log(this.img)
+                } else {
+                  this.img = response.data.data.screenshot.url
+                  console.log(this.img)
                 }
-                this.setResource(resource)
-                this.$router.push({name: 'AddResources2'})
               })
-              .catch((error) => console.log(error))
+              .then(() => {
+                microlinkService.getUrl(this.$store.state.resource.url)
+                  .then((response) => {
+                    console.log(this.img)
+                    let resource = {
+                      title: response.data.data.title,
+                      description: response.data.data.description,
+                      url: this.resource.url,
+                      img: this.img,
+                      type: this.resource.type,
+                      category: this.resource.category,
+                      creator: this.currentUser.displayName,
+                      lang: response.data.data.lang
+                    }
+                    this.setResource(resource)
+                    this.setModal(2)
+                  })
+                  .catch((error) => console.log(error))
+              })
           } else {
             this.$notify({
               group: 'foo',
@@ -155,7 +172,7 @@ export default {
     submit () {
       if (this.$refs.form.validate()) {
         // check if the form is valid and add the resource
-        this.addResource()
+        this.add()
       }
     },
     clear () {
@@ -167,4 +184,9 @@ export default {
 </script>
 
 <style scoped>
+.container{
+  background-color: white;
+  border-radius: 30px;
+  border: 3px solid #003da5;
+}
 </style>

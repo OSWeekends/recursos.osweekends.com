@@ -2,8 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/LAyout/Home'
 import ListResources from '@/components/Resources/ListResources'
-import AddResources from '@/components/Resources/AddResources'
-import AddResources2 from '@/components/Resources/AddResources2'
 import firebase from 'firebase'
 import PageNotFound from '@/components/Layout/404'
 import Resource from '@/components/Resources/Resource'
@@ -27,22 +25,6 @@ let router = new Router({
       name: 'resource',
       component: Resource,
       props: true
-    },
-    {
-      path: '/resources/new',
-      name: 'AddResources',
-      component: AddResources,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/resources/new2',
-      name: 'AddResources2',
-      component: AddResources2,
-      meta: {
-        requiresAuth: true
-      }
     },
     {
       path: '/pageNotFound',

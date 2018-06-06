@@ -26,9 +26,9 @@ La idea es centralizar en una web todos esos recursos que encontramos interesant
 
 Actualmente en el canal de slack de OSW ya hay un canal dedicado a este fin, pero la limitación de mensajes de slack, hacen de este canal una fuente efímera de información. 
 
-Centralizarlo en una web nos ayudará a que persistan en el tiempo, además, mediante herramientas de filtrado será super sencillo encontrar rápidamente el recurso que mejor se adapta a la necesidad que tenemos, el sistema de votos permitirá ver los mejor valorados por el resto de usuarios, podrás guardar los que más te gusten, y lo más importante de todo, alimentado, y mantenido por una comunidad amante de la programación, la filosofía opensource (en todo su abanico de modalidades) con mucho que enseñar, pero sobre todo, con muchísimas ganas de aprender.
+Centralizarlo en una web nos ayudará a que persistan en el tiempo, además, mediante herramientas de filtrado será super sencillo encontrar rápidamente el recurso que mejor se adapta a la necesidad que tenemos, el sistema de votos permitirá ver los mejor valorados por el resto de usuarios, podrás guardar los que más te gusten, y lo más importante de todo, alimentado, y mantenido por una comunidad amante de la programación, la filosofía open source (en todo su abanico de modalidades) con mucho que enseñar, pero sobre todo, con muchísimas ganas de aprender.
 
-Si con lo anterior no te he convencido, añádele el reto personal de crear algo desde 0 enfrentandote a nuevas tecnologías, con el fin de aportar un granito de arena al mundo del opensource,y haciéndolo en compañía de un grupo de personas que comparten filosofía y ambición, donde aprender, enseñar y, por supuesto, donde no falta la cerveza.
+Si con lo anterior no te he convencido, añádele el reto personal de crear algo desde 0 enfrentandote a nuevas tecnologías, con el fin de aportar un granito de arena al mundo del open source,y haciéndolo en compañía de un grupo de personas que comparten filosofía y ambición, donde aprender, enseñar y, por supuesto, donde no falta la cerveza.
 
 **[JOIN US!](CONTRIBUTING.md)** 
 
@@ -37,8 +37,8 @@ Si con lo anterior no te he convencido, añádele el reto personal de crear algo
  - [Jorge Urosa Alonso @jorgeural](https://github.com/Jorgeural/) (Leader Backend/Frontend Developer)
  - [Santiago Trigo Porres @trigoporres ](https://github.com/trigoporres) (Co-leader  Backend/Frontend Developer)
  - [Jorge Baumann @baumannzone](https://github.com/baumannzone) (Co-leader  Backend/Frontend Developer)
- - [Jonathan Martin @jonasync ](https://github.com/jonasync) (Contributor  Backend/Frontend Developer)
- - [Pablo Carmona Gonzalez](https://github.com/PabloCarmona) (Contributor  Backend/Frontend Developer)
+ - [Nacho Rv](https://github.com/NachoRV) (Contributor  Backend/Frontend Developer)
+ - [Jesus Sabroso](https://github.com/Xexuline) (Contributor  Backend/Frontend Developer)
 
 
 
@@ -63,7 +63,7 @@ Próximamente
 
 ### Demo
 
-- [ ] TODO: No disponible aún.
+- [Proyecto](https://recursos-osw.firebaseapp.com/#/resources)
 
 ### Tecnología utilizada
 
@@ -91,7 +91,7 @@ Si has leido hasta aquí, y ahora mismo lo que estás pensando es, "cómo he pod
 
 #### Instalación
 - Instalar [Node](https://nodejs.org/es/)
-- Clona este repositorio
+- [Clona este repositorio](https://github.com/OSWeekends/recursos.osweekends.com)
 
 **Backend**
 
