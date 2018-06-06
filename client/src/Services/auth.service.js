@@ -6,18 +6,16 @@ export default {
   getCurrentUser () {
     return new Promise(async (resolve, reject) => {
       try {
-        // check if user is logged
         var firebaseUser = await firebase.auth().currentUser
         if (firebaseUser) {
-          await firebase.firestore().collection('User').doc(firebaseUser.uid).get().then(doc => {
-            if (doc.exists) {
-              var currentUser = doc.data()
-              resolve(currentUser.userData)
-            } else {
-              console.log('no existe el usuario solicitado')
-              return null
-            }
-          })
+          let doc = await firebase.firestore().collection('User').doc(firebaseUser.uid).get()
+          if (doc.exists) {
+            var currentUser = doc.data()
+            resolve(currentUser.userData)
+          } else {
+            console.log('no existe el usuario solicitado')
+            resolve(undefined)
+          }
         }
       } catch (error) {
         reject(new Error(`Unable to get current user! ${error}`))
