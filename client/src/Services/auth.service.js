@@ -4,8 +4,23 @@ import Router from '../router/index.js'
 const provider = new firebase.auth.GithubAuthProvider()
 export default {
   getCurrentUser () {
-  // check if user is logged
-    return firebase.auth().currentUser
+    return new Promise(async (resolve, reject) => {
+      try {
+        var firebaseUser = await firebase.auth().currentUser
+        if (firebaseUser) {
+          let doc = await firebase.firestore().collection('User').doc(firebaseUser.uid).get()
+          if (doc.exists) {
+            var currentUser = doc.data()
+            resolve(currentUser.userData)
+          } else {
+            console.log('no existe el usuario solicitado')
+            resolve(undefined)
+          }
+        }
+      } catch (error) {
+        reject(new Error(`Unable to get current user! ${error}`))
+      }
+    })
   },
 
   login () {
@@ -17,10 +32,8 @@ export default {
         // Store the user in /user/{{uid}}/datos...
         firebase.firestore().collection('User').doc(userData.uid).set({userData})
           .then((resp) => {
-            // Router.go({path: Router.path})
             resolve(userData)
           })
-        // Reload the page to get changes in Header component
       }).catch((error) => {
         console.log('Unable to Log in!' + error)
         reject(new Error(`Unable to Log in! ${error}`))
@@ -33,13 +46,10 @@ export default {
       firebase.auth().signOut().then(() => {
         console.log('Logout success!')
         resolve(true)
-        // Redirect to home & Reload the page to get changes in Header component
-        // Router.go('/')
+        // Redirect to home
         Router.push('/')
-        // Router.go({path: Router.path})
       }).catch((error) => {
         reject(error)
-        // console.log('Unable to Logout' + error)
       })
     })
   }
