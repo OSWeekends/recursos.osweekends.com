@@ -1,10 +1,12 @@
 <template>
-  <v-container>
+  <v-container class="container">
     <v-layout row>
       <v-flex
         md10
         offset-md1
       >
+        <h3>Paso 2/2</h3>
+        <h4>Modifica los datos (o no) y guarda</h4>
         <v-form
           ref="form"
           @submit.prevent='addResource'
@@ -62,14 +64,13 @@
         </v-form>
       </v-flex>
     </v-layout>
-    <pre>{{ resource }}</pre>
   </v-container>
 </template>
 
 <script>
 import firebase from 'firebase'
 import firebaseService from '../../Services/firebase.service.js'
-import {mapState, mapMutations} from 'vuex'
+import {mapState, mapMutations, mapActions} from 'vuex'
 
 export default {
   name: 'resources',
@@ -101,7 +102,13 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setResource']),
+    ...mapMutations(['setResource', 'setModal']),
+    ...mapActions(['startSpinner', 'stopSpinner']),
+    async add () {
+      this.startSpinner()
+      await this.addResource()
+      this.stopSpinner()
+    },
     addResource () {
       firebaseService.resourceFirebase(firebase)
         .add({
@@ -125,7 +132,7 @@ export default {
           })
           let resource = {title: '', description: '', url: '', img: '', type: '', category: '', creator: '', lang: ''}
           this.setResource(resource)
-          this.$router.push({name: 'ListResources'})
+          this.setModal(0)
         })
         .catch(() => {
           this.$notify({
@@ -141,7 +148,7 @@ export default {
     submit () {
       if (this.$refs.form.validate()) {
         // check if the form is valid and add the resource
-        this.addResource()
+        this.add()
       }
     },
     clear () {
@@ -153,4 +160,10 @@ export default {
 </script>
 
 <style scoped>
+.container{
+  background-color: white;
+  border-radius: 30px;
+  border: 50px;
+  border: 3px solid #003da5;
+}
 </style>

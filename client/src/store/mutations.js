@@ -11,6 +11,9 @@ const mutations = {
   setResource: (state, resource) => {
     state.resource = resource
   },
+  setModal: (state, modal) => {
+    state.modals = modal
+  },
   setSpinner: (state, payload) => {
     state.loading = payload
   }
