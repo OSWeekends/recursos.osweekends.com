@@ -92,7 +92,7 @@ export default {
       img: '',
       urlRules: [
         v => !!v || 'Url is required',
-        // TODO Find regexp that match protocols
+        // regexp that match protocols
         v => /(^\w+:|^)\/\//.test(v) || 'Insert Urls without protocol'
       ],
       typeRules: [
