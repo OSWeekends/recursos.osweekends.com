@@ -21,7 +21,7 @@ const actions = {
     }
   },
   checkLogged: async ({ commit }) => {
-    let user = authService.getCurrentUser()
+    let user = await authService.getCurrentUser()
       .catch(err => console.error(err))
     if (user) commit('logIn', user)
   },

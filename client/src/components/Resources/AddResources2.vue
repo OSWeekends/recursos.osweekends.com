@@ -71,6 +71,7 @@
 import firebase from 'firebase'
 import firebaseService from '../../Services/firebase.service.js'
 import {mapState, mapMutations, mapActions} from 'vuex'
+import { initialState } from '../../store/initialStore.js'
 
 export default {
   name: 'resources',
@@ -130,7 +131,7 @@ export default {
             speed: 100,
             title: 'El recurso: ' + this.resource.title + 'se ha añadido correctamente'
           })
-          let resource = {title: '', description: '', url: '', img: '', type: '', category: '', creator: '', lang: ''}
+          let resource = initialState
           this.setResource(resource)
           this.setModal(0)
         })

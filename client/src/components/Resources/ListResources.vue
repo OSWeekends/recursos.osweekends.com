@@ -26,7 +26,7 @@
     </v-layout>
     </v-container>
     <div
-      v-if="isLoggedIn"
+      v-if="isLogged"
       class="text-xs-center"
     >
       <v-btn
@@ -53,7 +53,7 @@ import firebaseService from '../../Services/firebase.service.js'
 import AddResource from './AddResources.vue'
 import AddResource2 from './AddResources2.vue'
 import CardResource from './CardResource'
-import {mapMutations} from 'vuex'
+import {mapMutations, mapGetters} from 'vuex'
 
 export default {
   name: 'resources',
@@ -66,7 +66,6 @@ export default {
     return {
       resources: [],
       search: '',
-      isLoggedIn: false,
       currentUser: '',
       user: '',
       img: ''
@@ -78,11 +77,6 @@ export default {
       .then((querySnapshot) => querySnapshot.forEach((doc) =>
         this.getResources(doc.data(), doc.id)
       ))
-    // check if user is logged
-    if (firebase.auth().currentUser) {
-      this.user = firebase.auth().currentUser.uid
-      this.isLoggedIn = true
-    }
   },
   methods: {
     ...mapMutations(['setModal']),
@@ -108,6 +102,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['isLogged']),
     modal: {
       get () {
         return this.$store.state.modals
