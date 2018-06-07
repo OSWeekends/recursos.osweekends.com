@@ -19,11 +19,13 @@
                     <p>Tipo: {{resource.type}}</p>
                     <p>Añadido por: {{resource.creator}}</p>
                     <div
-                      v-for="cate in resource.category"
-                      :key="cate.id"
                       class="category"
                     >
-                      <v-chip disabled>{{cate}}</v-chip>
+                      <v-chip
+                        disabled
+                        v-for="cate in resource.category"
+                        :key="cate.id"
+                      >{{cate}}</v-chip>
                     </div>
                   </div>
                 </v-card-title>
@@ -70,5 +72,10 @@ export default {
 img{
   max-height: 250px;
   max-width: 250px;
+}
+category{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
 }
 </style>
