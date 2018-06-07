@@ -109,7 +109,9 @@ export default {
     // Get Categories, call to the Firebase bd, get the response object, iterate the keys, and push the result values into categories array
     resourceService.getCategory(this.categories)
     // Get UserInfo
-    this.currentUser = authService.getCurrentUser()
+    authService.getCurrentUser().then(data => {
+      this.currentUser = data
+    })
   },
   methods: {
     ...mapMutations(['setResource', 'setModal']),
