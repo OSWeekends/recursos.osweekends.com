@@ -3,12 +3,13 @@
         <v-card class="info mb-3 grey lighten-3">
           <v-container fluid wrap>
             <v-layout row>
-              <v-flex xs5 md4>
+              <v-flex xs5 md12>
                 <v-card-media
-                  :src="resource.img"
                   height="100%"
                   id="resourceImg"
-                ></v-card-media>
+                >
+                  <img :src="resource.img">
+                </v-card-media>
               </v-flex>
               <v-flex xs7 md8>
                 <v-card-title class="pt-0">
@@ -17,12 +18,15 @@
                     <p>{{resource.description}}</p>
                     <p>Tipo: {{resource.type}}</p>
                     <p>Añadido por: {{resource.creator}}</p>
+                    <p>Idioma: {{resource.lang}}</p>
                     <div
-                      v-for="cate in resource.category"
-                      :key="cate.id"
                       class="category"
                     >
-                      <v-chip disabled>{{cate}}</v-chip>
+                      <v-chip
+                        disabled
+                        v-for="cate in resource.category"
+                        :key="cate.id"
+                      >{{cate}}</v-chip>
                     </div>
                   </div>
                 </v-card-title>
@@ -35,7 +39,7 @@
                     :href="resource.url"
                     target="_blank"
                   >Link</v-btn>
-                   <v-btn
+                  <v-btn
                     to="/resources"
                     block
                     color="light-blue accent-4"
@@ -53,6 +57,7 @@
 <script>
 import firebase from 'firebase'
 import firebaseService from '../../Services/firebase.service.js'
+
 export default {
   props: ['id'],
   data () {

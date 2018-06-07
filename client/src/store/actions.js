@@ -20,8 +20,9 @@ const actions = {
       console.error(error)
     }
   },
-  checkLogged: ({commit}) => {
+  checkLogged: async ({ commit }) => {
     let user = authService.getCurrentUser()
+      .catch(err => console.error(err))
     if (user) commit('logIn', user)
   },
   startSpinner: ({commit}) => {
