@@ -64,7 +64,6 @@ export default {
   },
   data () {
     return {
-      ...mapGetters(['isLogged']),
       resources: [],
       search: '',
       isLoggedIn: false,
@@ -87,6 +86,7 @@ export default {
   },
   methods: {
     ...mapMutations(['setModal']),
+    ...mapGetters(['isLogged']),
     modals (modal) {
       this.setModal(modal)
     },
