@@ -20,11 +20,13 @@
                     <p>Añadido por: {{resource.creator}}</p>
                     <p>Idioma: {{resource.lang}}</p>
                     <div
-                      v-for="cate in resource.category"
-                      :key="cate.id"
                       class="category"
                     >
-                      <v-chip disabled>{{cate}}</v-chip>
+                      <v-chip
+                        disabled
+                        v-for="cate in resource.category"
+                        :key="cate.id"
+                      >{{cate}}</v-chip>
                     </div>
                   </div>
                 </v-card-title>
