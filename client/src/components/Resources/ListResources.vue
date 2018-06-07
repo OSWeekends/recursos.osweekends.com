@@ -26,7 +26,7 @@
     </v-layout>
     </v-container>
     <div
-      v-if="isLogged"
+      v-if="isLogged()"
       class="text-xs-center"
     >
       <v-btn
@@ -66,6 +66,7 @@ export default {
     return {
       resources: [],
       search: '',
+      isLoggedIn: false,
       currentUser: '',
       user: '',
       img: ''
@@ -77,9 +78,15 @@ export default {
       .then((querySnapshot) => querySnapshot.forEach((doc) =>
         this.getResources(doc.data(), doc.id)
       ))
+    // check if user is logged
+    if (firebase.auth().currentUser) {
+      this.user = firebase.auth().currentUser.uid
+      this.isLoggedIn = true
+    }
   },
   methods: {
     ...mapMutations(['setModal']),
+    ...mapGetters(['isLogged']),
     modals (modal) {
       this.setModal(modal)
     },
@@ -102,7 +109,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isLogged']),
     modal: {
       get () {
         return this.$store.state.modals
