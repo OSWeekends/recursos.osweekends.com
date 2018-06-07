@@ -30,7 +30,8 @@
           </v-flex>
         </v-layout>
       </v-container>
-      <v-footer height="auto" class="grey darken-3">
+    </v-container>
+     <v-footer height="auto" class="grey darken-3">
         <v-container>
           <v-card flat tile class="grey darken-3 white--text text-xs-center">
             <v-card-text>
@@ -63,7 +64,6 @@
           </v-card>
         </v-container>
       </v-footer>
-    </v-container>
   </div>
 </template>
 
