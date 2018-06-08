@@ -1,5 +1,6 @@
 import firebase from 'firebase'
 import Router from '../router/index.js'
+import axios from 'axios'
 
 const provider = new firebase.auth.GithubAuthProvider()
 export default {
@@ -18,26 +19,30 @@ export default {
           }
         }
       } catch (error) {
+        console.log('Unable to get current user!' + error)
         reject(new Error(`Unable to get current user! ${error}`))
       }
     })
   },
-
   login () {
-    return new Promise((resolve, reject) => {
-      firebase.auth().signInWithPopup(provider).then((result) => {
-        // retrieve the user info and store it in firebase db for custom properties of the user
-        var userData = JSON.stringify(result.user)
+    return new Promise(async (resolve, reject) => {
+      try {
+        // User firebase github login provider
+        let auth = await firebase.auth().signInWithPopup(provider)
+        // Get github's user accessToken
+        const token = auth.credential.accessToken
+        // Use github API and fetch user info
+        let gitHubData = await this.getGitHubData(token)
+        let userData = JSON.stringify(auth.user)
         userData = JSON.parse(userData)
+        userData.gitHubData = gitHubData
         // Store the user in /user/{{uid}}/datos...
-        firebase.firestore().collection('User').doc(userData.uid).set({userData})
-          .then((resp) => {
-            resolve(userData)
-          })
-      }).catch((error) => {
+        await firebase.firestore().collection('User').doc(userData.uid).set({userData})
+        resolve(userData)
+      } catch (error) {
         console.log('Unable to Log in!' + error)
         reject(new Error(`Unable to Log in! ${error}`))
-      })
+      }
     })
   },
   // Log out
@@ -51,6 +56,17 @@ export default {
       }).catch((error) => {
         reject(error)
       })
+    })
+  },
+
+  async getGitHubData (token) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let data = await axios.get('https://api.github.com/user?access_token=' + token)
+        resolve(data.data)
+      } catch (error) {
+        reject(error)
+      }
     })
   }
 }
