@@ -66,9 +66,6 @@ export default {
     return {
       resources: [],
       search: '',
-      isLoggedIn: false,
-      currentUser: '',
-      user: '',
       img: ''
     }
   },
@@ -78,15 +75,11 @@ export default {
       .then((querySnapshot) => querySnapshot.forEach((doc) =>
         this.getResources(doc.data(), doc.id)
       ))
-    // check if user is logged
-    if (firebase.auth().currentUser) {
-      this.user = firebase.auth().currentUser.uid
-      this.isLoggedIn = true
-    }
   },
   methods: {
     ...mapMutations(['setModal']),
     ...mapGetters(['isLogged']),
+    ...mapGetters({user: ['getUser']}),
     modals (modal) {
       this.setModal(modal)
     },
