@@ -3,8 +3,6 @@
  */
 
 const getters = {
-  getUser: state => state.user,
-  isLogged: state => (state.user !== null)
 }
 
 export default getters
