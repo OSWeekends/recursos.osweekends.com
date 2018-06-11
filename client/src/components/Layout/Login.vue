@@ -10,14 +10,14 @@
             <v-icon left>fas fa-sign-out-alt</v-icon> Logout
           </v-btn>
           <v-avatar>
-            <img class="userImg" :src="user.photoURL">
+            <img class="userImg" :src="getUser().photoURL">
           </v-avatar>
         </template>
     </v-toolbar-items>
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data () {
@@ -42,7 +42,7 @@ export default {
     ...mapActions(['logIn', 'logOut', 'checkLogged', 'startSpinner', 'stopSpinner'])
   },
   computed: {
-    ...mapState(['user'])
+    // ...mapState({user: state => state.userModule.user})
   }
 }
 </script>
