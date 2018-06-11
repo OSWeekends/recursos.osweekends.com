@@ -1,5 +1,4 @@
 import firebase from 'firebase'
-import Router from '../router/index.js'
 
 const provider = new firebase.auth.GithubAuthProvider()
 export default {
@@ -46,8 +45,6 @@ export default {
       firebase.auth().signOut().then(() => {
         console.log('Logout success!')
         resolve(true)
-        // Redirect to home
-        Router.push('/')
       }).catch((error) => {
         reject(error)
       })
