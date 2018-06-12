@@ -12,13 +12,13 @@ let router = new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
-    },
-    {
-      path: '/resources',
       name: 'ListResources',
       component: ListResources
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: Home
     },
     {
       path: '/resource/:id',

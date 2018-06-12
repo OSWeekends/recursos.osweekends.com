@@ -1,35 +1,23 @@
 <template>
-<v-flex xs12 md10 offset-md1>
-        <v-card class="info mb-3 grey lighten-3">
-          <v-container fluid wrap>
-            <v-layout row>
-              <v-flex xs5 md4>
-                <v-card-media
-                  height="100%"
-                  id="resourceImg"
-                >
-                  <img :src="resource.img">
-                </v-card-media>
-              </v-flex>
-              <v-flex xs7 md8>
-                <v-card-title class="pt-0">
-                  <div>
-                    <h3 block class="headline mb-0">{{ resource.title }}</h3>
-                    <p>{{resource.description | snippet(100) }}</p>
-                    <p>Tipo: {{resource.type}}</p>
-                    <p>Añadido por: {{resource.creator}}</p>
-                    <div
-                      class="category"
-                    >
-                      <v-chip
-                        disabled
-                        v-for="cate in resource.category"
-                        :key="cate.id"
-                      >{{cate}}</v-chip>
-                    </div>
-                  </div>
-                </v-card-title>
-                <v-card-actions>
+  <div class="container">
+    <article>
+      <img :src="resource.img">
+      <section class="text">
+        <h1>{{ resource.title }}</h1>
+        <p>{{resource.description | snippet(100) }}</p>
+        <p>Tipo: {{resource.type}}</p>
+        <p>Añadido por: {{resource.creator}}</p>
+        <ul class="category">
+          <li
+            v-for="cate in resource.category"
+            :key="cate.id"
+            class="categoryItems"
+          >
+          {{cate}}
+          </li>
+        </ul>
+      </section>
+      <v-card-actions>
                   <v-btn
                     block
                     color="light-blue accent-4"
@@ -47,11 +35,8 @@
                     target="_blank"
                   >Detalle</v-btn>
                 </v-card-actions>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-card>
-</v-flex>
+    </article>
+  </div>
 </template>
 <script>
 export default {
@@ -69,13 +54,39 @@ export default {
 }
 </script>
 <style scoped>
+.container{
+  margin: 0;
+  padding: 0;
+}
+article{
+  margin: 5px auto;
+  width: 85%;
+  padding: 10px;
+  border: 2px solid green;
+  border-radius: 30px;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-gap: 10px;
+}
+.text{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+}
 img{
   max-height: 250px;
   max-width: 250px;
 }
-category{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
+.category{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.categoryItems{
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 5px;
+  margin: 5px;
 }
 </style>

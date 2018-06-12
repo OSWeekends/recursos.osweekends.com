@@ -18,14 +18,5 @@ export default {
           category.push(obj[key])
         })
       })
-  },
-  getUrl (url) {
-    return firebase.firestore().collection('Url').doc('url')
-      .onSnapshot((doc) => {
-        let obj = doc.data()
-        Object.keys(obj).map((key, index) => {
-          url.push(obj[key])
-        })
-      })
   }
 }

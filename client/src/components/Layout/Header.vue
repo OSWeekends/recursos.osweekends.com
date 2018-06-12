@@ -1,32 +1,41 @@
 <template>
-  <div>
-      <v-toolbar class="colorOsw">
-      <!--Responsive menu fondo color logo de osw #003da -->
-        <v-menu bottom transition="slide-x-transition" class="hidden-sm-and-up" left>
-          <v-btn slot="activator" icon class="white--text">
-            <v-icon class="text--white">menu</v-icon>
-          </v-btn>
-            <v-list>
-              <v-list-tile>
-                <v-list-tile-title> <router-link to="/" exact class="black--text">Home</router-link></v-list-tile-title>
-              </v-list-tile>
-              <v-list-tile>
-                <v-list-tile-title> <router-link to="/resources" exact class="black--text">Recursos</router-link></v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-        </v-menu>
-          <!--Logo -->
-        <v-toolbar-title class="text-xs-center"><router-link to="/" exact><img class="logo" src="../../assets/osw.svg"></router-link></v-toolbar-title>
-        <!--Tollbar rutas -->
-          <v-toolbar-items class="hidden-xs-only">
-          <v-btn flat to="/resources" exact class="white--text ml-5">
-            Recursos
-          </v-btn>
-        </v-toolbar-items>
-        <v-spacer></v-spacer>
-        <app-login></app-login>
-      </v-toolbar>
-  </div>
+    <nav>
+      <v-menu bottom transition="slide-x-transition" class="hidden-sm-and-up" left>
+        <v-btn slot="activator" icon class="white--text">
+          <v-icon class="text--white">menu</v-icon>
+        </v-btn>
+        <v-list>
+          <v-list-tile>
+            <v-list-tile-title>
+              <router-link to="/" exac  class="black--text">
+                Home
+              </router-link>
+            </v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile>
+              <v-list-tile-title>
+                <router-link to="/resources" exac class="black--text">
+                  Recursos
+                </router-link>
+              </v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+      </v-menu>
+      <ul class="menu2">
+        <li>
+          <router-link to="/">Home</router-link>
+        </li>
+        <li>
+          <router-link to="/about">About</router-link>
+        </li>
+      </ul>
+      <router-link to="/" class="logo">
+        <figure>
+          <img src="../../assets/osw.svg">
+        </figure>
+      </router-link>
+      <app-login class="login"></app-login>
+    </nav>
 </template>
 
 <script>
@@ -45,15 +54,43 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+nav{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  background-color: #003da5;
+  grid-gap: 10px;
+  align-items: center;
+  padding: 10px;
+}
 .logo{
-    width: 75px;
+  display: flex;
+  justify-content: center;
 }
-
-nav .nav-wrapper i{
-  line-height: inherit;
+figure img{
+  width: 112px;
 }
-
-.colorOsw{
-  background-color: #003da5 !important;
+.menu2{
+  display: flex;
+  justify-content: flex-start;
+  list-style: none;
+}
+li{
+  display: inline-block;
+  margin: 10px;
+}
+li a{
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+}
+.login{
+  display: flex;
+  justify-content: flex-end;
+}
+@media (max-width: 600px) {
+  .menu2 {
+    display: none;
+  }
 }
 </style>

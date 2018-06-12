@@ -1,19 +1,19 @@
 <template>
-    <v-toolbar-items class="hidden-xs-only">
-        <template v-if="!isLogged()">
-          <v-btn small flat v-on:click="login" class="white--text mr-2 login">
-          <v-icon left>fab fa-github</v-icon> Login
-          </v-btn>
-        </template>
-        <template v-else>
-          <v-btn small flat v-on:click="logout" class="white--text mr-2">
-            <v-icon left>fas fa-sign-out-alt</v-icon> Logout
-          </v-btn>
-          <v-avatar>
-            <img class="userImg" :src="user.photoURL">
-          </v-avatar>
-        </template>
-    </v-toolbar-items>
+  <div class="container">
+    <section v-if="!isLogged()">
+      <button type="button" v-on:click="login">
+        <v-icon left dark>fab fa-github</v-icon> Login
+      </button>
+    </section>
+    <section v-else>
+      <button type="button" v-on:click="logout">
+        <v-icon dark left>fas fa-sign-out-alt</v-icon> Logout
+      </button>
+      <figure>
+        <img class="userImg" :src="user.photoURL">
+      </figure>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -49,14 +49,19 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-.userImg{
-    width: 50px;
-    border-radius: 50%;
-    margin-top: 15px;
+section{
+  height: 58px;
+  display: grid;
+  grid-template-columns: 1fr 50px;
+  grid-template-rows: 1fr;
+  grid-gap: 10px;
+  align-items: center;
+  justify-content: end;
+  color: white;
+  font-size: 20px;
 }
-
-.colorOsw{
-  background-color: #003da5;
+.userImg{
+    width: 100%;
+    border-radius: 50%;
 }
 </style>

@@ -20,11 +20,5 @@ export default {
 }
 </script>
 
-<style>
-body{
-  margin: 0px;
-}
-v-app{
-  height: 100vh;
-}
+<style scoped>
 </style>
