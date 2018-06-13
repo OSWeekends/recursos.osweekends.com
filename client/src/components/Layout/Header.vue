@@ -7,6 +7,12 @@
         <v-list>
           <v-list-tile>
             <v-list-tile-title>
+              <h3>MENU</h3>
+            </v-list-tile-title>
+          </v-list-tile>
+          <hr>
+          <v-list-tile>
+            <v-list-tile-title>
               <router-link to="/" exac  class="black--text">
                 Home
               </router-link>

@@ -69,7 +69,7 @@ button:hover{
 }
 .text{
   width: 80%;
-  margin: 5px;
+  margin: 10px;
 }
 p{
   display: flex;

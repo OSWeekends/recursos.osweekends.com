@@ -143,10 +143,12 @@ export default {
                   this.img = response.data.data.screenshot.url
                 }
               })
+              .catch(() => {
+                this.img = null
+              })
               .then(() => {
                 microlinkService.getUrl(this.$store.state.resource.url)
                   .then((response) => {
-                    console.log(this.img)
                     let resource = {
                       title: response.data.data.title,
                       description: response.data.data.description,
