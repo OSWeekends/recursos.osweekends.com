@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <article>
+    <router-link :to="id" tag="button">
       <img :src="resource.img">
       <section class="text">
         <h1>{{ resource.title }}</h1>
-        <p>{{resource.description | snippet(100) }}</p>
+        <h4>{{resource.description | snippet(100) }}</h4>
         <p>Tipo: {{resource.type}}</p>
         <p>Añadido por: {{resource.creator}}</p>
         <ul class="category">
@@ -12,30 +12,13 @@
             v-for="cate in resource.category"
             :key="cate.id"
             class="categoryItems"
+            :style="{'background-color': cate.color}"
           >
-          {{cate}}
+          {{cate.name}}
           </li>
         </ul>
       </section>
-      <v-card-actions>
-                  <v-btn
-                    block
-                    color="light-blue accent-4"
-                    round
-                    class="white--text"
-                    :href="resource.url"
-                    target="_blank"
-                  >Link</v-btn>
-                  <v-btn
-                    :to="id"
-                    block
-                    color="light-blue accent-4"
-                    round
-                    class="white--text"
-                    target="_blank"
-                  >Detalle</v-btn>
-                </v-card-actions>
-    </article>
+    </router-link>
   </div>
 </template>
 <script>
@@ -58,20 +41,40 @@ export default {
   margin: 0;
   padding: 0;
 }
-article{
-  margin: 5px auto;
+button{
+  margin: 15px auto;
   width: 85%;
   padding: 10px;
-  border: 2px solid green;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
   border-radius: 30px;
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  grid-gap: 10px;
+  -webkit-box-shadow: 14px 14px 30px -6px rgba(0,61,165,0.49);
+  -moz-box-shadow: 14px 14px 30px -6px rgba(0,61,165,0.49);
+  box-shadow: 14px 14px 30px -6px rgba(0,61,165,0.49);
+}
+@media (max-width: 600px) {
+  button{
+    display: flex;
+    flex-direction: column;
+    -webkit-box-shadow: 14px 14px 30px -6px rgba(0,61,165,1);
+    -moz-box-shadow: 14px 14px 30px -6px rgba(0,61,165,1);
+    box-shadow: 14px 14px 30px -6px rgba(0,61,165,1);
+  }
+}
+button:hover{
+  background-color: #dfe2e7;
 }
 .text{
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 10px;
+  width: 80%;
+  margin: 5px;
+}
+p{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 5px;
 }
 img{
   max-height: 250px;
@@ -84,9 +87,9 @@ img{
 }
 .categoryItems{
   display: inline-block;
-  border: 1px solid black;
   border-radius: 20px;
-  padding: 5px;
-  margin: 5px;
+  padding: 2px 5px;
+  margin: 3px;
+  color: white;
 }
 </style>

@@ -23,10 +23,11 @@
                       class="category"
                     >
                       <v-chip
-                        disabled
                         v-for="cate in resource.category"
                         :key="cate.id"
-                      >{{cate}}</v-chip>
+                        class="categoryItems"
+                        :style="{'background-color': cate.color}"
+                      >{{cate.name}}</v-chip>
                     </div>
                   </div>
                 </v-card-title>

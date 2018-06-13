@@ -31,6 +31,7 @@
           <v-layout row>
             <v-select
               :items="categories"
+              item-text="name"
               v-model="resource.category"
               label="Categorías"
               single-line

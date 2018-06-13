@@ -14,8 +14,8 @@
             </v-list-tile>
             <v-list-tile>
               <v-list-tile-title>
-                <router-link to="/resources" exac class="black--text">
-                  Recursos
+                <router-link to="/about" exac class="black--text">
+                  About
                 </router-link>
               </v-list-tile-title>
             </v-list-tile>
