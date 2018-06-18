@@ -25,11 +25,15 @@ const actions = {
     }
   },
   checkLogged: async ({commit, dispatch}) => {
-    debugger
     dispatch('startSpinner')
-    let user = await authService.getCurrentUser()
-    if (user) commit('logIn', user)
-    dispatch('stopSpinner')
+    try {
+      let user = await authService.getCurrentUser()
+      if (user) commit('logIn', user)
+    } catch (error) {
+      console.error(error.message)
+    } finally {
+      dispatch('stopSpinner')
+    }
   }
 }
 
