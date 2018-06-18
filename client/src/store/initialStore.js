@@ -27,7 +27,6 @@ const store = {
     type: '',
     category: []
   },
-  user: null,
   loading: false,
   modals: 0
 }
