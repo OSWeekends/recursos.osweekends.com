@@ -5,7 +5,6 @@
       <section class="text">
         <h1>{{ resource.title }}</h1>
         <h4>{{resource.description | snippet(100) }}</h4>
-        <p>Tipo: {{resource.type}}</p>
         <p>Añadido por: {{resource.creator}}</p>
         <ul class="category">
           <li
@@ -49,23 +48,18 @@ button{
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
-  border-radius: 30px;
-  -webkit-box-shadow: 14px 14px 30px -6px rgba(0,61,165,0.49);
-  -moz-box-shadow: 14px 14px 30px -6px rgba(0,61,165,0.49);
-  box-shadow: 14px 14px 30px -6px rgba(0,61,165,0.49);
 }
 @media (max-width: 600px) {
   button{
     display: flex;
     flex-direction: column;
-    -webkit-box-shadow: 14px 14px 30px -6px rgba(0,61,165,1);
-    -moz-box-shadow: 14px 14px 30px -6px rgba(0,61,165,1);
-    box-shadow: 14px 14px 30px -6px rgba(0,61,165,1);
   }
 }
 button:hover{
   background-color: #dfe2e7;
+  -webkit-box-shadow: 14px 14px 30px -6px rgba(0,61,165,1);
+  -moz-box-shadow: 14px 14px 30px -6px rgba(0,61,165,1);
+  box-shadow: 14px 14px 30px -6px rgba(0,61,165,1);
 }
 .text{
   width: 80%;
@@ -75,6 +69,10 @@ p{
   display: flex;
   justify-content: flex-end;
   margin-top: 5px;
+}
+h1,h4{
+  display: flex;
+  justify-content: flex-start;
 }
 img{
   max-height: 250px;
