@@ -96,11 +96,11 @@ export default {
     resource: state => state.resource
   }),
   created () {
-    if (firebase.auth().currentUser) {
-      this.isLoggedIn = true
-      this.currentUser = firebase.auth().currentUser
-      this.user = this.currentUser.displayName
-    }
+    // if (firebase.auth().currentUser) {
+    //   this.isLoggedIn = true
+    //   this.currentUser = firebase.auth().currentUser
+    //   this.user = this.currentUser.displayName
+    // }
   },
   methods: {
     ...mapMutations(['setResource', 'setModal']),
