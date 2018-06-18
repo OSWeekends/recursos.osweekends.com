@@ -70,11 +70,6 @@ export default {
     firebaseService.resource(firebase, this.id)
       .then((doc) =>
         this.getResources(doc.data(), doc.id))
-    // check if user is logged
-    if (firebase.auth().currentUser) {
-      this.user = firebase.auth().currentUser.uid
-      this.isLoggedIn = true
-    }
   },
   methods: {
     getResources (resources, id) {
