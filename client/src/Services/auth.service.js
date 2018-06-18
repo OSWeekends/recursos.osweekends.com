@@ -6,19 +6,15 @@ export default {
   getCurrentUser () {
     return new Promise(async (resolve, reject) => {
       try {
-        var firebaseUser = await firebase.auth().currentUser
-        if (firebaseUser) {
-          let doc = await firebase.firestore().collection('User').doc(firebaseUser.uid).get()
-          if (doc.exists) {
-            var currentUser = doc.data()
-            resolve(currentUser.userData)
-          } else {
-            console.log('no existe el usuario solicitado')
-            resolve(undefined)
-          }
-        }
+        let firebaseUser = await firebase.auth().currentUser
+        if (!firebaseUser) resolve(null)
+
+        let doc = await firebase.firestore().collection('User').doc(firebaseUser.uid).get()
+        if (!doc.exists) reject(new Error('user doesn`t exist'))
+
+        let currentUser = doc.data()
+        resolve(currentUser.userData)
       } catch (error) {
-        console.log('Unable to get current user!' + error)
         reject(new Error(`Unable to get current user! ${error}`))
       }
     })
@@ -39,7 +35,6 @@ export default {
         await firebase.firestore().collection('User').doc(userData.uid).set({userData})
         resolve(userData)
       } catch (error) {
-        console.log('Unable to Log in!' + error)
         reject(new Error(`Unable to Log in! ${error}`))
       }
     })
@@ -48,7 +43,6 @@ export default {
   logout () {
     return new Promise((resolve, reject) => {
       firebase.auth().signOut().then(() => {
-        console.log('Logout success!')
         resolve(true)
       }).catch((error) => {
         reject(error)
