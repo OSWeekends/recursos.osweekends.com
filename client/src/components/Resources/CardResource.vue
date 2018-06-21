@@ -1,5 +1,4 @@
 <template>
-  <div class="container">
     <router-link :to="id" tag="button">
       <img :src="resource.img">
       <section class="text">
@@ -18,7 +17,6 @@
         </ul>
       </section>
     </router-link>
-  </div>
 </template>
 <script>
 export default {
@@ -36,16 +34,11 @@ export default {
 }
 </script>
 <style scoped>
-.container{
-  margin: 0;
-  padding: 0;
-}
 button{
-  margin: 15px auto;
-  width: 85%;
+  width: 33%;
   padding: 10px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -57,12 +50,11 @@ button{
 }
 button:hover{
   background-color: #dfe2e7;
-  -webkit-box-shadow: 14px 14px 30px -6px rgba(0,61,165,1);
-  -moz-box-shadow: 14px 14px 30px -6px rgba(0,61,165,1);
-  box-shadow: 14px 14px 30px -6px rgba(0,61,165,1);
+  border: 1px solid green;
+  border-radius: 20px;
 }
 .text{
-  width: 80%;
+  width: 100%;
   margin: 10px;
 }
 p{
@@ -75,8 +67,7 @@ h1,h4{
   justify-content: flex-start;
 }
 img{
-  max-height: 250px;
-  max-width: 250px;
+  width: 80%;
 }
 .category{
   display: flex;
