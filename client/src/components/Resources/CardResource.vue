@@ -50,8 +50,6 @@ button{
 }
 button:hover{
   background-color: #dfe2e7;
-  border: 1px solid green;
-  border-radius: 20px;
 }
 .text{
   width: 100%;
@@ -67,7 +65,7 @@ h1,h4{
   justify-content: flex-start;
 }
 img{
-  width: 80%;
+  width: 100%;
 }
 .category{
   display: flex;

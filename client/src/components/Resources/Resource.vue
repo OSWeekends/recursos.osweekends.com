@@ -1,59 +1,22 @@
 <template>
-    <v-flex xs12 md10 offset-md1>
-        <v-card class="info mb-3 grey lighten-3">
-          <v-container fluid wrap>
-            <v-layout row>
-              <v-flex xs5 md12>
-                <v-card-media
-                  height="100%"
-                  id="resourceImg"
-                >
-                  <img :src="resource.img">
-                </v-card-media>
-              </v-flex>
-              <v-flex xs7 md8>
-                <v-card-title class="pt-0">
-                  <div>
-                    <h3 block class="headline mb-0">{{ resource.title }}</h3>
-                    <p>{{resource.description}}</p>
-                    <p>Tipo: {{resource.type}}</p>
-                    <p>Añadido por: {{resource.creator}}</p>
-                    <p>Idioma: {{resource.lang}}</p>
-                    <div
-                      class="category"
-                    >
-                      <v-chip
-                        v-for="cate in resource.category"
-                        :key="cate.id"
-                        class="categoryItems"
-                        :style="{'background-color': cate.color}"
-                      >{{cate.name}}</v-chip>
-                    </div>
-                  </div>
-                </v-card-title>
-                <v-card-actions>
-                  <v-btn
-                    block
-                    color="light-blue accent-4"
-                    round
-                    class="white--text"
-                    :href="resource.url"
-                    target="_blank"
-                  >Link</v-btn>
-                  <v-btn
-                    to="/resources"
-                    block
-                    color="light-blue accent-4"
-                    round
-                    class="white--text"
-                    target="_blank"
-                  >Recursos</v-btn>
-                </v-card-actions>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-card>
-</v-flex>
+  <div class="container">
+    <img :src="resource.img">
+    <section class="text">
+      <h1>{{ resource.title }}</h1>
+      <h4>{{resource.description | snippet(100) }}</h4>
+      <p>Añadido por: {{resource.creator}}</p>
+      <ul class="category">
+        <li
+          v-for="cate in resource.category"
+          :key="cate.id"
+          class="categoryItems"
+          :style="{'background-color': cate.color}"
+        >
+          {{cate.name}}
+        </li>
+      </ul>
+    </section>
+  </div>
 </template>
 <script>
 import firebase from 'firebase'
@@ -79,6 +42,36 @@ export default {
   }
 }
 </script>
-<style>
-
+<style scoped>
+.container{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+img{
+  width: 40%;
+  margin: 0 auto;
+}
+.text{
+  width: 100%;
+  margin-left: 30px;
+}
+h1{
+  font-size: 30px;
+  font-family: 'Lato', sans-serif;
+}
+.category{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.categoryItems{
+  display: inline-block;
+  border-radius: 20px;
+  padding: 2px 5px;
+  margin: 3px;
+  color: white;
+}
 </style>

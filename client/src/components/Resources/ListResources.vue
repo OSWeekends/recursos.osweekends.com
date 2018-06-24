@@ -96,14 +96,13 @@ export default {
 .container {
   max-width: 100%;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-flow: row wrap;
+  justify-content: flex-start;
   align-items: flex-start;
 }
 
 .search{
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -119,10 +118,14 @@ input[type=search] {
 }
 
 .item {
-  width: 31%;
+  width: 25%;
   padding: 10px;
 }
-
+@media (max-width: 1000px) {
+  .item {
+    width: 33%;
+  }
+}
 @media (max-width: 850px) {
   .item {
     width: 48%;
