@@ -3,8 +3,8 @@
       <img :src="resource.img">
       <section class="text">
         <h1>{{ resource.title }}</h1>
-        <h4>{{resource.description | snippet(100) }}</h4>
-        <p>Añadido por: {{resource.creator}}</p>
+        <p>{{resource.description | snippet(100) }}</p>
+        <p><strong>Añadido por: </strong>{{resource.creator}}</p>
         <ul class="category">
           <li
             v-for="cate in resource.category"
@@ -55,19 +55,19 @@ button:hover{
   width: 100%;
   margin: 10px;
 }
-p{
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 5px;
+h1{
+  text-align: left;
+  margin-bottom: 20px;
 }
-h1,h4{
-  display: flex;
-  justify-content: flex-start;
+p{
+  text-align: right;
+  margin-top: 5px;
 }
 img{
   width: 100%;
 }
 .category{
+  margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;

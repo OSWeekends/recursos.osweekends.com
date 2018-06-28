@@ -36,9 +36,7 @@
         </li>
       </ul>
       <router-link to="/" class="logo">
-        <figure>
           <img src="../../assets/osw.svg">
-        </figure>
       </router-link>
       <app-login class="login"></app-login>
     </nav>
@@ -65,16 +63,16 @@ nav{
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   background-color: #003da5;
-  grid-gap: 10px;
   align-items: center;
-  padding: 10px;
 }
 .logo{
   display: flex;
   justify-content: center;
+  align-items: center;
 }
-figure img{
-  width: 112px;
+img{
+  height: 80px;
+  width: 30%;
 }
 .menu2{
   display: flex;
@@ -88,7 +86,7 @@ li{
 li a{
   color: white;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 18px;
 }
 .login{
   display: flex;

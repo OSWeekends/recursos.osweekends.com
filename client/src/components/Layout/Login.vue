@@ -49,8 +49,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.container{
+  margin: 0;
+  padding: 0;
+}
 section{
-  height: 58px;
   display: grid;
   grid-template-columns: 1fr 50px;
   grid-template-rows: 1fr;
@@ -58,10 +61,10 @@ section{
   align-items: center;
   justify-content: end;
   color: white;
-  font-size: 20px;
+  font-size: 16px;
 }
 .userImg{
-    width: 100%;
-    border-radius: 50%;
+  width: 100%;
+  border-radius: 50%;
 }
 </style>

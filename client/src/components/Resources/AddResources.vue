@@ -157,8 +157,10 @@ export default {
                       type: this.resource.type,
                       category: this.resource.category,
                       creator: this.currentUser.displayName,
+                      urlCreator: this.currentUser.gitHubData.html_url,
                       lang: response.data.data.lang
                     }
+                    console.log(resource)
                     this.setResource(resource)
                     this.setModal(2)
                   })
