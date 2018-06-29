@@ -25,9 +25,9 @@ export default {
   /* overflow: hidden; */
   box-shadow: unset;
 }
-.dialog .card{
+/* .dialog .card{
   background-color: inherit;
-}
+}*/
 .osw-loading > path{
   fill: #fff;
   animation: 2s changeColor ease-in-out infinite;
