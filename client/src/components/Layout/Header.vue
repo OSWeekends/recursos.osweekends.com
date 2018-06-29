@@ -1,33 +1,9 @@
 <template>
     <nav>
-      <v-menu bottom transition="slide-x-transition" class="hidden-sm-and-up" left>
-        <v-btn slot="activator" icon class="white--text">
-          <v-icon class="text--white">menu</v-icon>
-        </v-btn>
-        <v-list>
-          <v-list-tile>
-            <v-list-tile-title>
-              <h3>MENU</h3>
-            </v-list-tile-title>
-          </v-list-tile>
-          <hr>
-          <v-list-tile>
-            <v-list-tile-title>
-              <router-link to="/" exac  class="black--text">
-                Home
-              </router-link>
-            </v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile>
-              <v-list-tile-title>
-                <router-link to="/about" exac class="black--text">
-                  About
-                </router-link>
-              </v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-      </v-menu>
-      <ul class="menu2">
+      <button @click='toggle' class="button">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="menu">
         <li>
           <router-link to="/">Home</router-link>
         </li>
@@ -35,6 +11,16 @@
           <router-link to="/about">About</router-link>
         </li>
       </ul>
+      <div class="menuResponsive">
+        <ul v-if="showMenu">
+          <li>
+            <router-link to="/">Home</router-link>
+          </li>
+          <li>
+            <router-link to="/about">About</router-link>
+          </li>
+        </ul>
+      </div>
       <router-link to="/" class="logo">
           <img src="../../assets/osw.svg">
       </router-link>
@@ -51,6 +37,13 @@ export default {
   },
   data () {
     return {
+      showMenu: false
+    }
+  },
+  methods: {
+    toggle: function () {
+      this.showMenu = !this.showMenu
+      console.log(this.showMenu)
     }
   }
 }
@@ -62,22 +55,23 @@ nav{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
+  grid-template-areas:
+    "menu logo login";
   background-color: #003da5;
-  align-items: center;
+  padding: 10px;
 }
-.logo{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.button{
+  width: 100px;
+  grid-area: button;
+  display: none;
+  outline: none;
 }
-img{
-  height: 80px;
-  width: 30%;
+.fas{
+  color: white;
+  font-size: 28px;
 }
-.menu2{
-  display: flex;
-  justify-content: flex-start;
-  list-style: none;
+.menu{
+  grid-area: menu;
 }
 li{
   display: inline-block;
@@ -88,13 +82,48 @@ li a{
   text-decoration: none;
   font-size: 18px;
 }
+.menuResponsive{
+  grid-area: menuResponsive;
+}
+.logo{
+  grid-area: logo;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo img{
+  width: 30%;
+}
 .login{
+  grid-area: login;
   display: flex;
   justify-content: flex-end;
 }
+@media (max-width: 1000px) {
+  .logo img{
+    width: 40%;
+  }
+}
+@media (max-width: 800px) {
+  .logo img{
+    width: 50%;
+  }
+}
 @media (max-width: 600px) {
-  .menu2 {
+  nav{
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      "button logo login"
+      "menuResponsive . .";
+  }
+  .menu{
     display: none;
+  }
+  .button{
+    display: block;
+  }
+  .logo img{
+    width: 70%;
   }
 }
 </style>

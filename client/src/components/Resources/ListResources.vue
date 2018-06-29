@@ -100,12 +100,10 @@ export default {
   justify-content: flex-start;
   align-items: flex-start;
 }
-
 .search{
   width: 100%;
   margin: 0 auto;
 }
-
 input[type=search] {
   margin-bottom: 30px;
   width: 35%;
@@ -116,7 +114,6 @@ input[type=search] {
   outline: none;
   font-size: 18px;
 }
-
 .item {
   width: 25%;
   padding: 10px;
@@ -142,7 +139,6 @@ input[type=search] {
     width: 100%;
   }
 }
-
 .float{
   position:fixed;
   width:60px;
@@ -155,7 +151,6 @@ input[type=search] {
   text-align:center;
   box-shadow: 2px 2px 3px #999;
 }
-
 .my-float{
   font-size: 20px;
   margin-top: 20px;

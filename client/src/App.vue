@@ -21,11 +21,4 @@ export default {
 </script>
 
 <style scoped>
-nav{
-  position: fixed;
-  width: 100%;
-}
-.container{
-  margin-top: 90px;
-}
 </style>
