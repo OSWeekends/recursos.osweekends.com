@@ -135,37 +135,22 @@ export default {
         }))
         .then(() => {
           if (this.exist === 0) {
-            microlinkService.getScreenshot(this.$store.state.resource.url)
+            microlinkService.getUrl(this.$store.state.resource.url)
               .then((response) => {
-                if (response.data.data.screenshot.url === null || response.data.data.screenshot.url === '') {
-                  this.img = null
-                } else {
-                  this.img = response.data.data.screenshot.url
+                let resource = {
+                  title: response.data.data.title,
+                  description: response.data.data.description,
+                  url: this.resource.url,
+                  img: response.data.data.screenshot.url,
+                  type: this.resource.type,
+                  category: this.resource.category,
+                  creator: this.currentUser.displayName,
+                  urlCreator: this.currentUser.gitHubData.html_url
                 }
+                this.setResource(resource)
+                this.setModal(2)
               })
-              .catch(() => {
-                this.img = null
-              })
-              .then(() => {
-                microlinkService.getUrl(this.$store.state.resource.url)
-                  .then((response) => {
-                    let resource = {
-                      title: response.data.data.title,
-                      description: response.data.data.description,
-                      url: this.resource.url,
-                      img: this.img,
-                      type: this.resource.type,
-                      category: this.resource.category,
-                      creator: this.currentUser.displayName,
-                      urlCreator: this.currentUser.gitHubData.html_url,
-                      lang: response.data.data.lang
-                    }
-                    console.log(resource)
-                    this.setResource(resource)
-                    this.setModal(2)
-                  })
-                  .catch((error) => console.log(error))
-              })
+              .catch((error) => console.log(error))
           } else {
             this.$notify({
               group: 'foo',

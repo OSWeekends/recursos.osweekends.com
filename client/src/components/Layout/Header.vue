@@ -58,7 +58,7 @@ nav{
   grid-template-areas:
     "menu logo login";
   background-color: #003da5;
-  padding: 10px;
+  padding: 20px;
 }
 .button{
   width: 100px;
