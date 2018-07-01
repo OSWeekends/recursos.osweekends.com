@@ -77,11 +77,12 @@
 
 <script>
 import firebase from 'firebase'
+import {mapState, mapMutations, mapActions} from 'vuex'
+
 import authService from '../../Services/auth.service.js'
 import resourceService from '../../Services/resource.service.js'
 import microlinkService from '../../Services/microlink.service.js'
 import firebaseService from '../../Services/firebase.service.js'
-import {mapState, mapMutations, mapActions} from 'vuex'
 
 export default {
   name: 'resources',

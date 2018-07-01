@@ -47,13 +47,6 @@ export default {
     getResources (resources, id) {
       this.resource = resources
     }
-  },
-  filters: {
-    capitalize: function (value) {
-      console.log(value)
-      value = value.toString()
-      return value.charAt(0).toUpperCase()
-    }
   }
 }
 </script>
