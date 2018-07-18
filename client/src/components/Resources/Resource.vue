@@ -3,7 +3,6 @@
     <img :src="resource.img">
     <section class="text">
         <div class="md-chip">
-          <div class="md-chip-icon">{{ resource.type | capitalize }}</div>
             {{ resource.type }}
         </div>
       <h1>{{ resource.title }}</h1>

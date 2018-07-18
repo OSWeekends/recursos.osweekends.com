@@ -6,6 +6,7 @@ import About from '@/components/Layout/About'
 import Resource from '@/components/Resources/Resource'
 import ListResources from '@/components/Resources/ListResources'
 import PageNotFound from '@/components/Layout/404'
+import UserPage from '@/components/Layout/UserPage'
 
 Vue.use(Router)
 
@@ -31,6 +32,11 @@ let router = new Router({
       path: '/pageNotFound',
       name: 'PageNotFound',
       component: PageNotFound
+    },
+    {
+      path: '/:name',
+      name: 'UserPage',
+      component: UserPage
     }
   ]
 })

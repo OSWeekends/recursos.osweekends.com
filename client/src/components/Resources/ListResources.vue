@@ -21,7 +21,6 @@
 </template>
 
 <script>
-// 1 12 34 38 46 48 c36 r 5
 import firebase from 'firebase'
 import firebaseService from '../../Services/firebase.service.js'
 import AddResource from './AddResources.vue'
