@@ -5,6 +5,7 @@
         <div class="md-chip">
             {{ resource.type }}
         </div>
+        <button type="button" @click="fav">Favorito</button>
       <h1>{{ resource.title }}</h1>
       <p class="description">{{ resource.description }}</p>
       <section class="information">
@@ -27,6 +28,7 @@
 <script>
 import firebase from 'firebase'
 import firebaseService from '../../Services/firebase.service.js'
+import { mapGetters } from 'vuex'
 
 export default {
   props: ['id'],
@@ -45,7 +47,13 @@ export default {
   methods: {
     getResources (resources, id) {
       this.resource = resources
-    }
+    },
+    fav () {
+      firebase.firestore().collection('User').doc(this.getUser().uid).collection('fav').add({
+        resource: this.resource
+      })
+    },
+    ...mapGetters(['getUser'])
   }
 }
 </script>

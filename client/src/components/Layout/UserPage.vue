@@ -21,6 +21,15 @@
         </card-resources>
       </section>
       <h1>Recursos Favoritos</h1>
+      <section class="resources">
+        <card-resources
+          v-for="resource in resourcesFav"
+          :key="resource.id"
+          v-bind:resource="resource"
+          class="item"
+        >
+        </card-resources>
+      </section>
       <button type="button" @click="logout" class="logout">
         Cerrar sesion
       </button>
@@ -42,14 +51,20 @@ export default {
   },
   data () {
     return {
-      resources: []
+      resources: [],
+      resourcesFav: []
     }
   },
   created () {
     let user = this.getUser().displayName
+    let uid = this.getUser().uid
     firebaseService.resourcesCreate(firebase, user)
       .then((querySnapshot) => querySnapshot.forEach((doc) =>
         this.getResources(doc.data(), doc.id)
+      ))
+    firebaseService.resourcesFav(firebase, uid)
+      .then((querySnapshot) => querySnapshot.forEach((doc) =>
+        this.getResourcesFav(doc.data().resource, doc.id)
       ))
   },
   methods: {
@@ -60,6 +75,18 @@ export default {
     },
     getResources (resources, id) {
       this.resources.push({
+        id: id,
+        title: resources.title,
+        description: resources.description,
+        url: resources.url,
+        img: resources.img,
+        type: resources.type,
+        category: resources.category,
+        creator: resources.creator
+      })
+    },
+    getResourcesFav (resources, id) {
+      this.resourcesFav.push({
         id: id,
         title: resources.title,
         description: resources.description,

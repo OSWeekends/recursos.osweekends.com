@@ -13,5 +13,8 @@ export default {
   },
   resourcesCreate (firebase, user) {
     return firebase.firestore().collection('Recursos').where('creator', '==', user).get()
+  },
+  resourcesFav (firebase, uid) {
+    return firebase.firestore().collection('User').doc(uid).collection('fav').get()
   }
 }
