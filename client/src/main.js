@@ -12,15 +12,14 @@ import store from './store'
 import 'vuetify/dist/vuetify.min.css'
 import 'firebase/firestore'
 import config from '../firebase.config'
+import filters from './filters'
 
 Vue.use(Notifications)
 Vue.use(Vuetify)
 Vue.use(VueAxios, axios)
 
-// Filters
-
-Vue.filter('snippet', function (value, long) {
-  return value.slice(0, long) + '...'
+filters.forEach(f => {
+  Vue.filter(f.name, f.execute)
 })
 
 firebase.initializeApp(config)

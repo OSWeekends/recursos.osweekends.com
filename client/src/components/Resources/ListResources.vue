@@ -1,49 +1,22 @@
 <template>
-  <div>
-    <v-container class="pb-0 pt-0">
-      <v-layout row>
-        <v-flex md10 offset-md1>
-          <v-form>
-            <v-text-field
-              prepend-icon="search"
-              v-model="search"
-              label="Buscar"
-            ></v-text-field>
-          </v-form>
-        </v-flex>
-      </v-layout>
-    </v-container>
-    <v-container>
-      <v-layout row
-        wrap
-        v-for="resource in filteredList"
-        :key="resource.id"
-      >
-      <card-resources
-        v-bind:resource="resource"
-      >
-      </card-resources>
-    </v-layout>
-    </v-container>
-    <div
-      v-if="isLogged()"
-      class="text-xs-center"
-    >
-      <v-btn
-        @click="modals(1)"
-        fab
-        fixed
-        bottom
-        right
-        class="white--text red"
-      >
-        <v-icon>add</v-icon>
-      </v-btn>
-      <v-dialog v-model="modal" max-width="500px">
-        <add-resource v-if="modal==1"></add-resource>
-        <add-resource2 v-if="modal==2"></add-resource2>
-      </v-dialog>
+  <div class="container">
+    <div class="search">
+      <input type=search v-model="search" placeholder="Buscar recurso"/>
     </div>
+    <card-resources
+      v-for="resource in filteredList"
+      :key="resource.id"
+      v-bind:resource="resource"
+      class="item"
+    >
+    </card-resources>
+    <a href="#" class="float" @click="modals(1)">
+      <i class="fa fa-plus my-float"></i>
+    </a>
+    <v-dialog v-model="modal" max-width="500px">
+      <add-resource v-if="modal==1"></add-resource>
+      <add-resource2 v-if="modal==2"></add-resource2>
+    </v-dialog>
   </div>
 </template>
 
@@ -119,7 +92,66 @@ export default {
 </script>
 
 <style scoped>
-#resourceImg img{
-  max-height: 250px;
+.container {
+  max-width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.search{
+  width: 100%;
+  margin: 0 auto;
+}
+input[type=search] {
+  margin-bottom: 30px;
+  width: 35%;
+  border: 1px solid black;
+  padding: 5px;
+  height: 50px;
+  border-radius: 50px;
+  outline: none;
+  font-size: 18px;
+}
+.item {
+  width: 25%;
+  padding: 10px;
+}
+@media (max-width: 1000px) {
+  .item {
+    width: 33%;
+  }
+}
+@media (max-width: 850px) {
+  .item {
+    width: 48%;
+  }
+  input[type=search] {
+    width: 50%;
+  }
+}
+@media (max-width: 600px) {
+  .item {
+    width: 100%;
+  }
+  input[type=search] {
+    width: 100%;
+  }
+}
+.float{
+  position:fixed;
+  width:60px;
+  height:60px;
+  bottom:40px;
+  right:40px;
+  background-color: red;
+  color:#FFF;
+  border-radius:50px;
+  text-align:center;
+  box-shadow: 2px 2px 3px #999;
+}
+.my-float{
+  font-size: 20px;
+  margin-top: 20px;
 }
 </style>

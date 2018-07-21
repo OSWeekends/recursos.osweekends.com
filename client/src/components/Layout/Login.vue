@@ -1,19 +1,21 @@
 <template>
-    <v-toolbar-items class="hidden-xs-only">
-        <template v-if="!isLogged()">
-          <v-btn small flat v-on:click="login" class="white--text mr-2 login">
-          <v-icon left>fab fa-github</v-icon> Login
-          </v-btn>
-        </template>
-        <template v-else>
-          <v-btn small flat v-on:click="logout" class="white--text mr-2">
-            <v-icon left>fas fa-sign-out-alt</v-icon> Logout
-          </v-btn>
-          <v-avatar>
-            <img class="userImg" :src="getUser().photoURL">
-          </v-avatar>
-        </template>
-    </v-toolbar-items>
+  <div class="container">
+    <section v-if="!isLogged()">
+      <button type="button" v-on:click="login">
+        <v-icon left dark>fab fa-github</v-icon> Login
+      </button>
+    </section>
+    <section v-else class="logout">
+      <button type="button" v-on:click="logout">
+        <v-icon dark left>fas fa-sign-out-alt</v-icon> Logout
+      </button>
+    </section>
+    <figure v-if="isLogged()">
+      <router-link :to="name">
+        <img class="userImg" :src="getUser().photoURL">
+      </router-link>
+    </figure>
+  </div>
 </template>
 
 <script>
@@ -22,6 +24,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
+      name: '/' + this.getUser().displayName
     }
   },
   created () {
@@ -47,16 +50,51 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-.userImg{
-    width: 50px;
-    border-radius: 50%;
-    margin-top: 15px;
+.container{
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 150px 50px;
+  grid-template-rows: 1fr;
+  grid-gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
 }
-
-.colorOsw{
-  background-color: #003da5;
+section{
+  color: white;
+  font-size: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-gap: 10px;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+figure{
+  width: 100%;
+}
+.userImg{
+  width: 100%;
+  border-radius: 50%;
+}
+@media (max-width: 1000px) {
+  .container{
+    grid-template-columns: 50px;
+    grid-template-rows: 1fr;
+    grid-gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  section{
+    display: none
+  }
+  figure{
+    width: 100%;
+  }
+  .userImg{
+    width: 100%;
+    border-radius: 50%;
+  }
 }
 </style>

@@ -1,83 +1,139 @@
 <template>
-    <v-flex xs12 md10 offset-md1>
-        <v-card class="info mb-3 grey lighten-3">
-          <v-container fluid wrap>
-            <v-layout row>
-              <v-flex xs5 md12>
-                <v-card-media
-                  height="100%"
-                  id="resourceImg"
-                >
-                  <img :src="resource.img">
-                </v-card-media>
-              </v-flex>
-              <v-flex xs7 md8>
-                <v-card-title class="pt-0">
-                  <div>
-                    <h3 block class="headline mb-0">{{ resource.title }}</h3>
-                    <p>{{resource.description}}</p>
-                    <p>Tipo: {{resource.type}}</p>
-                    <p>Añadido por: {{resource.creator}}</p>
-                    <p>Idioma: {{resource.lang}}</p>
-                    <div
-                      class="category"
-                    >
-                      <v-chip
-                        disabled
-                        v-for="cate in resource.category"
-                        :key="cate.id"
-                      >{{cate}}</v-chip>
-                    </div>
-                  </div>
-                </v-card-title>
-                <v-card-actions>
-                  <v-btn
-                    block
-                    color="light-blue accent-4"
-                    round
-                    class="white--text"
-                    :href="resource.url"
-                    target="_blank"
-                  >Link</v-btn>
-                  <v-btn
-                    to="/resources"
-                    block
-                    color="light-blue accent-4"
-                    round
-                    class="white--text"
-                    target="_blank"
-                  >Recursos</v-btn>
-                </v-card-actions>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-card>
-</v-flex>
+  <div class="container">
+    <img :src="resource.img">
+    <section class="text">
+        <div class="md-chip">
+            {{ resource.type }}
+        </div>
+        <button type="button" @click="fav">Favorito</button>
+      <h1>{{ resource.title }}</h1>
+      <p class="description">{{ resource.description }}</p>
+      <section class="information">
+        <p>Añadido por: <a :href="resource.urlCreator" target="_blank"> {{resource.creator}} </a></p>
+        <ul class="category">
+          <li
+            v-for="cate in resource.category"
+            :key="cate.id"
+            class="categoryItems"
+            :style="{'background-color': cate.color}"
+          >
+            {{cate.name}}
+          </li>
+        </ul>
+        <a class="button" :href="resource.url" target="_blank">link</a>
+      </section>
+    </section>
+  </div>
 </template>
 <script>
 import firebase from 'firebase'
 import firebaseService from '../../Services/firebase.service.js'
+import { mapGetters } from 'vuex'
 
 export default {
   props: ['id'],
   data () {
     return {
-      resource: {}
+      resource: {},
+      urlUser: ''
     }
   },
   created () {
     // Get the list of resources
     firebaseService.resource(firebase, this.id)
-      .then((doc) =>
-        this.getResources(doc.data(), doc.id))
+      .then((doc) => {
+        this.getResources(doc.data(), doc.id)
+      })
   },
   methods: {
     getResources (resources, id) {
       this.resource = resources
-    }
+    },
+    fav () {
+      // falta revisar a la hora de ver el detalle del recurso, ya que el recurso se guarda en la coleccion de user pero con id diferente con lo que no se muestra la vista de detalle. Seguro que hay alguna opcion mejor para guardar y poder mostrar. Preguntar a Ulises o Bauman?
+      firebase.firestore().collection('User').doc(this.getUser().uid).collection('fav').add({
+        resource: this.resource
+      })
+    },
+    ...mapGetters(['getUser'])
   }
 }
 </script>
-<style>
-
+<style scoped>
+.container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+img{
+  width: 40%;
+}
+.text{
+  width: 70%;
+  margin-top: 30px;
+}
+h1{
+  font-size: 30px;
+  font-family: 'Lato', sans-serif;
+  text-align: center;
+}
+.description{
+  margin-top: 20px;
+}
+.information{
+  margin-top: 30px;
+}
+.category{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.categoryItems{
+  display: inline-block;
+  border-radius: 20px;
+  padding: 2px 5px;
+  margin: 3px;
+  color: white;
+}
+.button{
+  width: 30em;
+  margin: 20px auto;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid #003da5;
+  border-radius: 8px;
+  padding: 10px;
+  outline: none;
+  overflow: hidden;
+  color: #003da5;
+}
+.button:hover{
+  background-color: #003da5;
+  color: white;
+}
+.md-chip {
+  display: inline-block;
+  background: #EFF8FB;
+  padding: 0 12px;
+  border-radius: 32px;
+  font-size: 13px;
+}
+.md-chip, .md-chip-icon {
+  height: 32px;
+  line-height: 32px;
+}
+.md-chip-icon {
+  display: block;
+  float: left;
+  background: #009587;
+  width: 32px;
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+  margin: 0 8px 0 -12px;
+}
 </style>

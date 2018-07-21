@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/LAyout/Home'
-import ListResources from '@/components/Resources/ListResources'
 import firebase from 'firebase'
-import PageNotFound from '@/components/Layout/404'
+
+import About from '@/components/Layout/About'
 import Resource from '@/components/Resources/Resource'
+import ListResources from '@/components/Resources/ListResources'
+import PageNotFound from '@/components/Layout/404'
+import UserPage from '@/components/Layout/UserPage'
 
 Vue.use(Router)
 
@@ -12,13 +14,13 @@ let router = new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
-    },
-    {
-      path: '/resources',
       name: 'ListResources',
       component: ListResources
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: About
     },
     {
       path: '/resource/:id',
@@ -30,6 +32,11 @@ let router = new Router({
       path: '/pageNotFound',
       name: 'PageNotFound',
       component: PageNotFound
+    },
+    {
+      path: '/:name',
+      name: 'UserPage',
+      component: UserPage
     }
   ]
 })

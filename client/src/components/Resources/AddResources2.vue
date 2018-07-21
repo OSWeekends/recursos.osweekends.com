@@ -120,7 +120,7 @@ export default {
           type: this.resource.type,
           category: this.resource.category,
           creator: this.resource.creator,
-          lang: this.resource.lang
+          urlCreator: this.resource.urlCreator
         })
         .then(() => {
           this.$notify({

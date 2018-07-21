@@ -31,6 +31,7 @@
           <v-layout row>
             <v-select
               :items="categories"
+              item-text="name"
               v-model="resource.category"
               label="Categorías"
               single-line
@@ -76,11 +77,12 @@
 
 <script>
 import firebase from 'firebase'
+import {mapState, mapMutations, mapActions} from 'vuex'
+
 import authService from '../../Services/auth.service.js'
 import resourceService from '../../Services/resource.service.js'
 import microlinkService from '../../Services/microlink.service.js'
 import firebaseService from '../../Services/firebase.service.js'
-import {mapState, mapMutations, mapActions} from 'vuex'
 
 export default {
   name: 'resources',
@@ -107,7 +109,11 @@ export default {
     // Get Types, call to the Firebase bd, get the response object, iterate the keys, and push the result values into types array
     resourceService.getTypes(this.types)
     // Get Categories, call to the Firebase bd, get the response object, iterate the keys, and push the result values into categories array
-    resourceService.getCategory(this.categories)
+    // resourceService.getCategory(this.categories)
+    firebase.firestore().collection('Category').get()
+      .then((querySnapshot) => querySnapshot.forEach((doc) =>
+        this.categories.push({'name': doc.data().name, 'color': doc.data().color})
+      ))
     // Get UserInfo
     authService.getCurrentUser().then(data => {
       this.currentUser = data
@@ -129,37 +135,23 @@ export default {
           }
         }))
         .then(() => {
-          console.log(this.img)
           if (this.exist === 0) {
-            microlinkService.getScreenshot(this.$store.state.resource.url)
+            microlinkService.getUrl(this.$store.state.resource.url)
               .then((response) => {
-                if (response.data.data.screenshot.url === null || response.data.data.screenshot.url === '') {
-                  this.img = null
-                  console.log(this.img)
-                } else {
-                  this.img = response.data.data.screenshot.url
-                  console.log(this.img)
+                let resource = {
+                  title: response.data.data.title,
+                  description: response.data.data.description,
+                  url: this.resource.url,
+                  img: response.data.data.screenshot.url,
+                  type: this.resource.type,
+                  category: this.resource.category,
+                  creator: this.currentUser.displayName,
+                  urlCreator: this.currentUser.gitHubData.html_url
                 }
+                this.setResource(resource)
+                this.setModal(2)
               })
-              .then(() => {
-                microlinkService.getUrl(this.$store.state.resource.url)
-                  .then((response) => {
-                    console.log(this.img)
-                    let resource = {
-                      title: response.data.data.title,
-                      description: response.data.data.description,
-                      url: this.resource.url,
-                      img: this.img,
-                      type: this.resource.type,
-                      category: this.resource.category,
-                      creator: this.currentUser.displayName,
-                      lang: response.data.data.lang
-                    }
-                    this.setResource(resource)
-                    this.setModal(2)
-                  })
-                  .catch((error) => console.log(error))
-              })
+              .catch((error) => console.log(error))
           } else {
             this.$notify({
               group: 'foo',

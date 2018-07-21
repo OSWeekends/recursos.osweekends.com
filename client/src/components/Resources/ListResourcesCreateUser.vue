@@ -3,18 +3,6 @@
       <img :src="resource.img">
       <section class="text">
         <h1>{{ resource.title }}</h1>
-        <p>{{resource.description | snippet(100) }}</p>
-        <p><strong>Añadido por: </strong>{{resource.creator}}</p>
-        <ul class="category">
-          <li
-            v-for="cate in resource.category"
-            :key="cate.id"
-            class="categoryItems"
-            :style="{'background-color': cate.color}"
-          >
-          {{cate.name}}
-          </li>
-        </ul>
       </section>
     </router-link>
 </template>
@@ -59,24 +47,7 @@ h1{
   text-align: left;
   margin-bottom: 20px;
 }
-p{
-  text-align: right;
-  margin-top: 5px;
-}
 img{
   width: 100%;
-}
-.category{
-  margin-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-.categoryItems{
-  display: inline-block;
-  border-radius: 20px;
-  padding: 2px 5px;
-  margin: 3px;
-  color: white;
 }
 </style>
