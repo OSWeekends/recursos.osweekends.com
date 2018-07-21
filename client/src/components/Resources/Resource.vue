@@ -41,14 +41,16 @@ export default {
   created () {
     // Get the list of resources
     firebaseService.resource(firebase, this.id)
-      .then((doc) =>
-        this.getResources(doc.data(), doc.id))
+      .then((doc) => {
+        this.getResources(doc.data(), doc.id)
+      })
   },
   methods: {
     getResources (resources, id) {
       this.resource = resources
     },
     fav () {
+      // falta revisar a la hora de ver el detalle del recurso, ya que el recurso se guarda en la coleccion de user pero con id diferente con lo que no se muestra la vista de detalle. Seguro que hay alguna opcion mejor para guardar y poder mostrar. Preguntar a Ulises o Bauman?
       firebase.firestore().collection('User').doc(this.getUser().uid).collection('fav').add({
         resource: this.resource
       })

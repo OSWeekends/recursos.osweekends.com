@@ -11,7 +11,7 @@
       </button>
     </section>
     <figure v-if="isLogged()">
-      <router-link :to="getUser().displayName">
+      <router-link :to="name">
         <img class="userImg" :src="getUser().photoURL">
       </router-link>
     </figure>
@@ -23,7 +23,9 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data () {
-    return {}
+    return {
+      name: '/' + this.getUser().displayName
+    }
   },
   created () {
     this.checkLogged()
