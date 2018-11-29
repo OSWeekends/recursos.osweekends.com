@@ -34,12 +34,8 @@ Si con lo anterior no te he convencido, añádele el reto personal de crear algo
 
 ### Equipo
 
- - [Jorge Urosa Alonso @jorgeural](https://github.com/Jorgeural/) (Leader Backend/Frontend Developer)
- - [Santiago Trigo Porres @trigoporres ](https://github.com/trigoporres) (Co-leader  Backend/Frontend Developer)
- - [Jorge Baumann @baumannzone](https://github.com/baumannzone) (Co-leader  Backend/Frontend Developer)
- - [Jonathan Martin @jonasync ](https://github.com/jonasync) (Contributor  Backend/Frontend Developer)
- - [Pablo Carmona Gonzalez](https://github.com/PabloCarmona) (Contributor  Backend/Frontend Developer)
-
+ - [Jorge Baumann](https://github.com/baumannzone) [@baumannzone](https://twitter.com/baumannzone) (Leader Backend/Frontend Developer)
+ - [Robin Giles](https://github.com/robinparadise) [@robinsagan](https://twitter.com/robinsagan/) (Co-Leader Backend/Frontend Developer)
 
 
 ##### Agradecimientos
@@ -68,15 +64,10 @@ Próximamente
 ### Tecnología utilizada
 
 **Backend**
-- Firebase
+- Firebase + Cloud Functions
 
 **Frontend**
 - Vue
-
-#### Dependencias
-
-**Frontend**
-- **Vue**: Framework para front
 
 
 ### Cómo contribuir en el proyecto
