@@ -59,7 +59,7 @@ Próximamente
 
 ### Demo
 
-- [ ] TODO: No disponible aún.
+- https://recursosw.netlify.com/
 
 ### Tecnología utilizada
 
