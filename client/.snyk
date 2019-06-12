@@ -1,0 +1,11 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:extend:20180424':
+    - firebase > @firebase/firestore > grpc > node-pre-gyp > request > extend:
+        patched: '2019-06-12T08:17:36.870Z'
+  'npm:stringstream:20180511':
+    - firebase > @firebase/firestore > grpc > node-pre-gyp > request > stringstream:
+        patched: '2019-06-12T08:17:36.870Z'
