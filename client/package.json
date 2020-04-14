@@ -18,7 +18,7 @@
     "bootstrap": "^4.1.2",
     "bootstrap-vue": "^2.0.0-rc.9",
     "firebase": "^4.13.1",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "materialize-css": "^0.100.2",
     "vue": "^2.5.17",
     "vue-material": "^1.0.0",
